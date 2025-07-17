@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        cream: "#fefae0" // 크림은 배경색 추가 
+      }
+    },
   },
   plugins: [],
 }
