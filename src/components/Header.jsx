@@ -8,7 +8,7 @@ export default function Header() {
     const toggleLangMenu = () => setLangOpen(!langOpen); // 버튼 클릭 시 열림 토글 
 
     return (
-        <header className="bg-cream w-full text-center px-4 py-2 shadow-md">
+        <header className="bg-white w-full text-center px-4 py-2 shadow-md">
             {/* 상단 로고 + 언어 선택 아이콘 */}
             <div className="flex justify-between items-center max-w-8xl mx-auto ">
                 {/* 로고 이미지  */}
