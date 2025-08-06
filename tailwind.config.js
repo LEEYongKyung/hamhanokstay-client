@@ -8,7 +8,11 @@ export default {
     extend: {
       colors: {
         cream: "#fefae0" // 크림은 배경색 추가 
-      }
+      },
+      fontFamily: {
+        gowun: ['GowunDodum-Regular', 'sans-serif'],
+        // chosun: ['ChosunCentennial', 'sans-serif'],
+      },
     },
   },
   plugins: [],

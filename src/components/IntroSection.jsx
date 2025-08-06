@@ -4,8 +4,9 @@ import LocationSection from "../components/LocationSection";
 
 
 export default function IntroSection() {
-    return (
-        <section className="py-10 bg-white">
+    return (             
+        <section className="py-10 bg-white font-gowundodum-regula">
+
             <h2 className="text-center text-3xl font-bold mb-8">HAMHanokStay의 캐치 프라이즈 문구 </h2>
             <IntroImageSlider />
             <p className="text-center text-lg text-gray-600 max-w-2xl mx-auto mt-6 leading-relaxed">
