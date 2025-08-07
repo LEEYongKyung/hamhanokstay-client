@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import logowhite from "../assets/logo_white.png";
 import leessihamwhite from "../assets/leessiham_white.png";
 import emblemwhite from "../assets/emblem_white.png";
+import HeaderoverlayTest from "../components/HeaderOverlayTest";
 
 export default function Home() {
     return (
@@ -30,7 +31,8 @@ export default function Home() {
                 >
                 </img>
                  {/* 헤더(오버레이용) */}
-                <Header varient="overlay"/>
+                {/* <Header varient="overlay"/>  */}
+                <HeaderoverlayTest />
                 
             </section>
             {/* 페이지2: 다음 콘텐츠들 한화면 */}
