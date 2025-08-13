@@ -6,7 +6,9 @@ import logowhite from "../assets/logo_white.png";
 import leessihamwhite from "../assets/leessiham_white.png";
 import emblemwhite from "../assets/emblem_white.png";
 import HeaderoverlayTest from "../components/HeaderOverlayTest";
-
+import AmenitySection from "../components/AmenitySection";
+import LocationSection from "../components/LocationSection";
+import ArtisanSection from "../components/ArtisanSection";
 export default function Home() {
     return (
         <main className="h-screen overflow-y-scroll overflow-contain lg:snap-y lg:snap-mandatory lg:snap-always">
@@ -31,13 +33,24 @@ export default function Home() {
                 >
                 </img>
                  {/* 헤더(오버레이용) */}
-                {/* <Header varient="overlay"/>  */}
+                {/* <Header variant="overlay"/>  */}
                 <HeaderoverlayTest />
                 
             </section>
-            {/* 페이지2: 다음 콘텐츠들 한화면 */}
-            <section className="h-screen lg:snap-start">
+            {/* 페이지2: Artisan  */}
+            <section className="h-screen lg:snap-start overflow-y-auto">
+                <ArtisanSection />
+            </section>
+
+            {/* 페이지2: Intro + Amenity */}
+            <section className="h-screen lg:snap-start overflow-y-auto">
                 <IntroSection />
+                <AmenitySection />
+            </section>
+
+            {/* 페이지3: Location */}
+            <section className="h-screen lg:snap-start">
+                <LocationSection />
             </section>
             <Footer />
             

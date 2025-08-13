@@ -4,11 +4,11 @@ import { HiLanguage } from "react-icons/hi2"
 import { Link } from "react-router-dom";
 
 
-export default function Header({variant="default", varient}) {
+export default function Header(variant="default") {
     const [langOpen, setLangOpen] = useState(false);
     const toggleLangMenu = () => setLangOpen(!langOpen); // 버튼 클릭 시 열림 토글 
-    const mode = varient ?? variant; //오타 호환
-    const isOverlay = mode === "overlay"; // 오버레이 모드 여부 확인
+    // const mode = varient ?? variant; //오타 호환
+    const isOverlay = variant === "overlay"; // 오버레이 모드 여부 확인
     return (
         <header className={
             isOverlay
