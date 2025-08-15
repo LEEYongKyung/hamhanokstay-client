@@ -9,6 +9,7 @@ import HeaderoverlayTest from "../components/HeaderOverlayTest";
 import AmenitySection from "../components/AmenitySection";
 import LocationSection from "../components/LocationSection";
 import ArtisanSection from "../components/ArtisanSection";
+import HamStaySection from "../components/HamStaySection";
 export default function Home() {
     return (
         <main className="h-screen overflow-y-scroll overflow-contain lg:snap-y lg:snap-mandatory lg:snap-always">
@@ -40,6 +41,17 @@ export default function Home() {
             {/* 페이지2: Artisan  */}
             <section className="h-screen lg:snap-start overflow-y-auto">
                 <ArtisanSection />
+            </section>
+            {/* 페이지3: HAM숙소 소개  */}
+            <section className="h-screen lg:snap-start overflow-y-auto">
+                <HamStaySection
+                    // images={[ "/imgs/ham/1.jpg", "/imgs/ham/2.jpg", ... ]}
+                    // addressText="전북 전주시 완산구 ○○길 12"
+                    addressMapUrl="https://maps.app.goo.gl/aXTt5T1NUE9Ehfif8"
+                    // ratings={{ airbnb: 4.89, booking: 9.8, naver: 9.8 }}
+                    onReserve={(p)=>console.log("reserve payload:", p)}
+                
+                />
             </section>
 
             {/* 페이지2: Intro + Amenity */}
