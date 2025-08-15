@@ -7,19 +7,19 @@ const clamp = (v, min, max) => Math.min(Math.max(v,min), max);
 
 const ARTIST = {
     name: "이성구",
-    portrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop&crop=face",
+    portrait: "/images/artisan_section_bg.png",
     eyebrow:"GALLERY HANOK STAY",
     title: "전통 가구의 장인이신 이성구 작가님의 작품과 생활할 수 있는 Gallery Hanok",
     description: "이성구 작가님은 전통 가구의 현대적 재해석을 통해, 전통과 현대가 조화를 이루는 공간을 창조하고 있습니다."
 };
 
 const FURNITURE = [
-    { src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&h=600&fit=crop", title: "사방탁자", material: "오동나무 · 옻칠", desc: "사방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다." },
-  { src: "https://images.unsplash.com/photo-1549497538-303791108f95?w=500&h=600&fit=crop", title: "문갑", material: "소나무 · 옻칠", desc: "문서와 귀중품을 보관하던 전통 가구로, 소나무의 직선적인 결이 아름다운 문양을 연출합니다. 정교한 장부 맞춤으로 제작되어 오랜 시간이 지나도 견고함을 유지합니다." },
-  { src: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=500&h=600&fit=crop", title: "반닫이", material: "밤나무 · 철물", desc: "상부를 들어 올려 여닫는 수납 가구로, 밤나무의 단단함과 아름다운 결을 활용하여 제작되었습니다. 전통 철물 장식이 기능성과 미적 아름다움을 동시에 제공합니다." },
-  { src: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=500&h=600&fit=crop", title: "책장", material: "소나무 · 전통장부", desc: "장부맞춤으로 제작된 견고한 책장으로, 못 하나 사용하지 않고도 완벽한 결합을 이루어냅니다. 소나무의 자연스러운 향과 결이 책을 보관하기에 최적의 환경을 제공합니다." },
-  { src: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&h=600&fit=crop", title: "경상", material: "느티나무", desc: "다과와 차 도구를 올려두는 낮은 상으로, 느티나무의 우아한 결과 따뜻한 색감이 차를 마시는 시간을 더욱 특별하게 만들어줍니다. 안정적인 구조로 일상 사용에 적합합니다." },
-  { src: "https://images.unsplash.com/photo-1549497538-303791108f95?w=500&h=600&fit=crop", title: "장", material: "소나무 · 옻칠", desc: "생활용품을 보관하던 전통 장으로, 소나무의 견고함과 옻칠의 아름다운 마감이 조화를 이룹니다. 넉넉한 수납공간과 실용적인 구조로 현대 생활에서도 유용하게 사용할 수 있습니다." },
+    { src: "/images/Furniture/furniture_1.jpg", title: "사방탁자", material: "오동나무 · 옻칠", desc: "사방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다." },
+  { src: "/images/Furniture/furniture_2.jpg", title: "문갑", material: "소나무 · 옻칠", desc: "문서와 귀중품을 보관하던 전통 가구로, 소나무의 직선적인 결이 아름다운 문양을 연출합니다. 정교한 장부 맞춤으로 제작되어 오랜 시간이 지나도 견고함을 유지합니다." },
+  { src: "/images/Furniture/furniture_3.jpg", title: "반닫이", material: "밤나무 · 철물", desc: "상부를 들어 올려 여닫는 수납 가구로, 밤나무의 단단함과 아름다운 결을 활용하여 제작되었습니다. 전통 철물 장식이 기능성과 미적 아름다움을 동시에 제공합니다." },
+  { src: "/images/Furniture/furniture_4.jpg", title: "책장", material: "소나무 · 전통장부", desc: "장부맞춤으로 제작된 견고한 책장으로, 못 하나 사용하지 않고도 완벽한 결합을 이루어냅니다. 소나무의 자연스러운 향과 결이 책을 보관하기에 최적의 환경을 제공합니다." },
+  { src: "/images/Furniture/furniture_5.jpg", title: "경상", material: "느티나무", desc: "다과와 차 도구를 올려두는 낮은 상으로, 느티나무의 우아한 결과 따뜻한 색감이 차를 마시는 시간을 더욱 특별하게 만들어줍니다. 안정적인 구조로 일상 사용에 적합합니다." },
+  { src: "/images/Furniture/furniture_6.jpg", title: "장", material: "소나무 · 옻칠", desc: "생활용품을 보관하던 전통 장으로, 소나무의 견고함과 옻칠의 아름다운 마감이 조화를 이룹니다. 넉넉한 수납공간과 실용적인 구조로 현대 생활에서도 유용하게 사용할 수 있습니다." },
 ];
 
 export default function ArtisanSection() {

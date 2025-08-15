@@ -4,7 +4,12 @@ import { useEffect, useRef, useState } from "react";
 const VIDEOS = [
         "/video/hero_1.mp4",
         "/video/hero_2.mp4",
-        "/video/hero_3.mp4"
+        // "/video/hero_3.mp4",
+        "/video/hero_4.mp4",    
+        "/video/hero_5.mp4",
+        "/video/hero_6.mp4",
+        "/video/hero_7.mp4",
+        "/video/hero_8.mp4",
     ];
 
 export default function MainVideo() {
