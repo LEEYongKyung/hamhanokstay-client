@@ -1,6 +1,9 @@
 
 import React, {useState, useMemo} from "react";
-import { FaChevronCircleLeft, FaChevronCircleRight , FaStar, FaMapPin, FaUser, FaCalendar, FaImage} from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight , FaStar, FaMapPin, FaUser, FaCalendar, FaImage, FaLandmark, FaMedal } from "react-icons/fa";
+import {FaX} from "react-icons/fa6";
+import {BsTrainFront, BsDoorOpen} from "react-icons/bs"
+import { CiRollingSuitcase } from "react-icons/ci";
 
 
 /**
@@ -31,7 +34,8 @@ export default function HamStaySection({
     addressText = "서울특별시 종로구 계동6길 4-1",
     ratings = {airbnb: 4.89, booking: 9.8, naver: 9.8},
     onReserve,
-    addressMapUrl="https://maps.app.goo.gl/aXTt5T1NUE9Ehfif8"
+    addressMapUrl="https://maps.app.goo.gl/aXTt5T1NUE9Ehfif8",
+    description = "백 년 목재와 전통가구가 어우러진 프라이빗 독채 한옥. 안국역 근처의 조용한 골목에서, 작품과 함께 머무는 특별한 숙박을 제안합니다."
 
 }){
     //예시 이미지 (없으면 Unplash 프리뷰 사용)
@@ -49,7 +53,7 @@ export default function HamStaySection({
         );
 
         const [galleryOpen, setGalleryOpen] = useState(false); // 이미지 슬라이드 모달 
-        const [gallerIndex, setGalleryIndex] = useState(0);
+        const [galleryIndex, setGalleryIndex] = useState(0);
 
         const [checkIn, setCheckIn] = useState("");
         const [checkOut, setCheckOut] = useState("");
@@ -66,115 +70,69 @@ export default function HamStaySection({
             else alert(`예약 확인: ${JSON.stringify(payload, null, 2)}`);
         };
 
+        const features = [
+            {icon: FaLandmark, label:"상징적 도시"},
+            {icon: BsTrainFront, label:"안국역 근처"},
+            {icon: FaMedal, label:"슈퍼 호스트"},
+            {icon: BsDoorOpen, label:"셀프 체크인"},
+            {icon: CiRollingSuitcase, label:"짐 맡기기"},
+        ]
+
     return (
-        <section id="ham-hanok-stay" className="bg-blue-100 relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 ">
+        <section id="ham-hanok-stay" className=" relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 ">
             {/* 헤더 */}
-            <header className="bg-yellow-100 mb-6">
+            <header className=" mb-6 text-center">
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{title}</h2>
                 <span className="text-neutral-500 font-semibold">{subtitle}</span>
             </header>
-
-            {/* 상단 그리드 : 사진들 + 예약카드 */}
-            <div className="bg-green-100 grid grid-cols-1 lg:grid-cols-12 gap-6">
-                {/* 사진 그리드 */}
-                <div className="relative lg:col-span-8">
-                    <div className="bg-red-100 grid grid-cols-3 grid-rows-2 gap-2 rounded-2xl overflow-hidden">
-                        {/* 메인 (좌측 큰 이미지) */}
-                        <button 
-                            className="col-span-2 row-span-2 group relative" 
-                            onClick={()=> openGallery(0)}
-                            aria-label="대표사진 크게 보기"
-                            >
-                            <img
-                                src={fallback[0]}
-                                alt="HAM Hanok 대표사진"
-                                className="h-full w-full object-cover transition group-hover:scale-[1.02]"
-                            />
-                        </button>
-                        {/* 우측 4개 */}
-                        {fallback.slice(1,5).map((src, i) => (
-                            <button
-                                key={i}
-                                className="relative"
-                                onClick={() => openGallery(i+1)}
-                                aria-label = {`사진 ${i+2} 크게 보기`}
-                            >
-                                <img src={src} alt= {`사진 ${i+2}`} className="h-full w-full object-cover" />
-                            </button>
-                        ))}
-
-                    </div>
-                    {/* 사진 모두 보기 버튼 */}
+            {/* 사진 grid: 헤더 바로 아래 전체 폭 */}
+            <div className=" relative rounded-2xl overflow-hidden">
+                <div className=" grid grid-cols-4 grid-rows-2 gap-2">
+                    {/* 메인 좌측 큰 대표 이미지 */}
                     <button
-                        onClick={() => openGallery(0)}
-                        className="flex items-center gap-2 absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1.5 text-sm font-semibold hover:bg-white"
-                    >
-                        <FaImage className="h-4 w-4" />
-                        사진 모두 보기 
+                        onClick={()=>openGallery(0) } 
+                        className="col-span-2 row-span-2 group relative">
+                            <div className="relative aspect-square">
+                                <img 
+                                    src={fallback[0]} 
+                                    alt="대표사진 " 
+                                    className="h-full w-full object-cover transition group-hover:scale-[1.02]" />
+                            </div>
+                        
                     </button>
-                </div>
-                {/*  예약 코드  */}
-                <aside className="lg:col-span-4 bg-purple-300">
-                    <div className="rounded-2xl border border-neutral-200 bg-white/90 shadow-sm p-5 sticky">
-                        <h3 className="text-lg font-semibold mb-4">날짜를 선택해 요금확인  </h3>
-                        <div className="space-y-3 bg-yellow-300">
-                            {/* 체크인/아웃 */}
-                            <div className="grid grid-cols-2 gap-2">
-                                <label className="flex flex-col" >
-                                    <span className="text-xs font-semibold text-neutral-600 mb-1">체크인</span>
-                                    <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
-                                        <FaCalendar className="h-4 w-4"/>
-                                        <input 
-                                            type="date"
-                                            value={checkIn}
-                                            onChange={(e) => setCheckIn(e.target.value)}
-                                            className="w-full outline-none"
-                                            />
-                                    </div>
-                                </label>
-                                <label className="flex flex-col" >
-                                    <span className="text-xs font-semibold text-neutral-600 mb-1">체크아웃</span>
-                                    <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
-                                        <FaCalendar className="h-4 w-4"/>
-                                        <input 
-                                            type="date"
-                                            value={checkOut}
-                                            onChange={(e) => setCheckOut(e.target.value)}
-                                            className="w-full outline-none"
-                                            />
-                                    </div>
-                                </label>
-                            
-                             </div>
-                             {/* 인원 */}
-                             <label className="flex flex-col ">
-                                <span className="text-xs font-semibold text-neutral-600 mb-1">인원</span>
-                                <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
-                                    <FaUser className="h-4 w-4"/>
-                                    <select 
-                                        value={guests} 
-                                        onChange={(e)=> setGuests(Number(e.target.value))}
-                                        className="w-full outline-none bg-transparent"
-                                        >
-                                            {[1,2,3,4].map(n => <option key={n} value={n}> 게스트 {n}명</option>)}
-                                    </select>
+                    {/* 오른쪽 4개  */}
+                    {fallback.slice(1,5).map((src, i)=> (
+                        <button
+                            key = {i}
+                            onClick={() => openGallery(i+1)}
+                            className="relative group"    
+                            >
+                                <div className="relative aspect-square">
+                                    <img 
+                                        src={src}
+                                        alt={`사진 ${i+2}`}
+                                        className="w-full h-full object-cover transition group-hover:scale-[1.02]"
+                                    />
+
                                 </div>
-                             </label>
-                             {/* 예약하기 */}
-                             <button
-                                onClick={reserve}
-                                className="mt-2 w-full rounded-xl bg-rose-600 py-3 text-white font-semibold hover:bg-rose-700 active:scale-[.98]"
-                             >
-                                예약 가능 여부 보기 
-                             </button>
-                        </div>
-                    </div>
-                </aside>
+                            
+                        </button>
+                    ))}
+                </div>
+                <button 
+                    onClick={()=>openGallery(0)}
+                    className="flex items-center gap-2 absolute bottom-3 right-3 round-full bg-white/90 px-3 py-1.5 font-semibold shadow hover:bg-white"
+                >
+                    <FaImage className="h-4 w-4" />사진 모두 보기
+                </button>
+
             </div>
-            {/* 하단 정보 (주소/ 특징 리뷰) */}
-            <div className="mt-6 flex flex-col gap-3">
-                <div className="flex flex-wrap  items-center gap-x-6 gap-y-2 text-sm">
-                    <button
+            {/* 하단: [좌] 주소/평점/특징/설명 + [우] 예약 카드 */}
+            <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {/* 좌측 정보 */}
+                <div className="lg:col-span-8">
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+                        <button
                         onClick={() => window.open(addressMapUrl, "_blank")}
                         className="inline-flex  items-center gap-1.5 rounded-full bg-white px-3 py-1.5 shadow border hover:bg-neutral-50" aria-label="지도에서 보기"
                     >
@@ -182,29 +140,117 @@ export default function HamStaySection({
                         <span>{addressText}</span>
                     </button>
                     <span> 최대 인원 4명 · 침실 2개 · 욕실 2개 </span>
+
+                    </div>
+                    {/* 평점 */}
+                    <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+                        {ratings?.airbnb && (
+                            <div className="flex items-center gap-1.5"> 
+                                <FaStar className="h-4 w-4 fill-red-400 text-red-400" />
+                                <b>Airbnb</b> &nbsp;{ratings.airbnb.toFixed(2)}
+                            </div>
+                        )}
+                        {ratings?.booking && (
+                            <div className="flex items-center gap-1.5"> 
+                                <FaStar className="h-4 w-4 fill-blue-400 text-blue-400" />
+                                <b>Booking.com</b> &nbsp;{ratings.booking.toFixed(1)}
+                            </div>
+                        )}
+                        {ratings?.naver && (
+                            <div className="flex items-center gap-1.5"> 
+                                <FaStar className="h-4 w-4 fill-green-400 text-green-400" />
+                                <b>Naver</b> &nbsp;{ratings.naver.toFixed(2)}
+                            </div>
+                        )}
+                    </div>
+                    {/* 실선 */}
+                    <hr className="my-6 border-neutral-200"></hr>
+
+                    {/* 숙소의 특징 icon grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6">
+                        {features.map(({icon:Icon, label},i)=> (
+                            <div key={i} className="flex items-center gap-4">
+                                <Icon className="h-5 w-5"/>
+                                <span className="text-sm">{label}</span>
+                            </div>
+                        ))}
+                    </div>
+                    {/* 실선 */}
+                    <hr className="my-6 border-neutral-200"></hr>
+                    {/* 숙소 설명  */}
+                    <p className="text-neutral-700 leading-relaxed">{description}</p>
                 </div>
-                {/* 외부 평점 */}
-                <div className="flex flex-wrap items-center gap-4 tex-sm">
-                    {ratings?.airbnb && (
-                        <div className="flex items-center gap-1.5"> 
-                            <FaStar className="h-4 w-4 fill-red-400 text-red-400" />
-                            <b>Airbnb</b> &nbsp;{ratings.airbnb.toFixed(2)}
+
+                {/* 우측 예약 카드 : 하단 정보 옆으로 배치  */}
+                <aside className="lg:col-span-4">
+                    <div className="rounded-2xl border border-neutral-200 bg-white/90 shadow-sm p-5 lg:sticky lg:top-4">
+                        <h3 className="text-lg font-semibold mb-4">날짜를 선택해 요금확인</h3>
+                        <div className="space-y-3 bg-purple-300">
+                            <div className="grid grid-cols-2 gap-2" >
+                                <label className="flex flex-col"></label>
+                                    <span className="text-xs font-semibold text-neutral-600 mb-1">체크인</span>
+                                    <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
+                                        <FaCalendar />
+                                        <input />
+                                    </div>
+                            </div>
                         </div>
-                    )}
-                    {ratings?.booking && (
-                        <div className="flex items-center gap-1.5"> 
-                            <FaStar className="h-4 w-4 fill-blue-400 text-blue-400" />
-                            <b>Booking.com</b> &nbsp;{ratings.booking.toFixed(1)}
-                        </div>
-                    )}
-                    {ratings?.naver && (
-                        <div className="flex items-center gap-1.5"> 
-                            <FaStar className="h-4 w-4 fill-green-400 text-green-400" />
-                            <b>Naver</b> &nbsp;{ratings.naver.toFixed(2)}
-                        </div>
-                    )}
-                </div>
+                    </div>
+                </aside>
             </div>
+
+           
+            {/* 사진 모달 */}
+            {galleryOpen && (
+                // 반투명 배경 
+                <div className="fixed inset-0 z-[100] bg-black/70 flex items-center justify-center p-4"> 
+                    <div className="relative w-full max-w-5xl">
+                        <button
+                            onClick={closeGallery}
+                            className="absolute -top-10 right-0  text-white/90 p-2 shadow hover:text-white"
+                            aria-label = "닫기"
+                        >
+
+                            <FaX className="h-6 w-6"/>
+                        </button>
+
+                        <div className="relative rounded-2xl overflow-hidden bg-black" >
+                            {/* 이미지확대 크기 설정 */}
+                            <img 
+                                src={fallback[galleryIndex]}
+                                alt={`gallery ${galleryIndex+1}`}
+                                className="w-full max-h-[75vh] object-contain bg-black"
+                            />
+                            {/* 좌우 네비게이션 */}
+                            <button
+                                onClick={prev}
+                                className="absolute left-2 top-1/2  text-white/90 p-2 shadow hover:text-white"
+                            >
+                                <FaChevronLeft className="h-6 w-6" />
+                            </button>
+                            <button
+                                onClick={next}
+                                className="absolute right-2 top-1/2 text-white/90 p-2 shadow hover:text-white"
+                            >
+                                <FaChevronRight className="h-6 w-6"/>
+                            </button>
+                        </div>
+                        {/* 썸네일 바 */}
+                        <div className="mt-3 grid grid-cols-6 gap-2">
+                            {fallback.map((src, i)=> (
+                                <button 
+                                    key={i}
+                                    onClick={() => setGalleryIndex(i) }
+                                    className={`rounded-lg overflow-hidden ring-2 ${i===galleryIndex? "ring-white": "ring-transparent"}`}
+                                >
+                                    <img src={src} alt={`thumb - ${i+1}`} className="h-20 w-full object-cover"/>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+            )}
         
         </section>
         
