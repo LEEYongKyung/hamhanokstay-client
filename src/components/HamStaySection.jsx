@@ -1,5 +1,5 @@
 
-import React, {useState, useMemo} from "react";
+import React, {useState, useMemo, useRef, useEffect} from "react";
 import { FaChevronLeft, FaChevronRight , FaStar, FaMapPin, FaUser, FaCalendar, FaImage, FaLandmark, FaMedal } from "react-icons/fa";
 import {FaX} from "react-icons/fa6";
 import {BsTrainFront, BsDoorOpen} from "react-icons/bs"
@@ -86,8 +86,46 @@ export default function HamStaySection({
             {icon: CiRollingSuitcase, label:"짐 맡기기 가능"},
         ]
 
+        //  애니메이션 추가 
+        const sectionRef = useRef(null); // useRef를 통해 sectionRef라는 이름의 이름표를 만듬. 나중에 <section>에 이름표를 붙여 감시
+        const [inView, setInView] = useState(false); // inView라는 상태를 만듬. 나중에 sectionRef라는 이름표가 보이는지 확인하는 값. 원하는 섹션에 진입했는지 확인
+        const [spark, setSpark] = useState(false); // 평점 반짝 트리거 
+        const [shake, setShake] = useState(false); // 예약카드 쉐이크 트리거 
+
+        //  섹션 가시성 감지 (화면에 들어오면 애니메이션 시작 )
+        useEffect(() => {
+            // 1. 섹션 가시성 감지( 화면에 들어오면 애니메니션 시작) 
+            const io = new IntersectionObserver( // sectionRef 이름표가 붙은 실제 DOM요소를 관찰하라고 명령. "이제부터 이 요소를 지켜봐 의미"
+                ([entry]) => setInView(entry.isIntersecting), // 3. 관찰자인 io가 감시하던 요소의 상태변화를 감지했을 때 콜백함수 . entry는 감시하던 객체의 정보 , entry.isIntersection 은 요소가 보이면 true
+                {threshold: 0.35}// 4. 대상 요소가 얼마나 보여야 콜백함수를 실행하는지 결정 
+            );
+            // 2.관찰 시작 
+            if (sectionRef.current) io.observe(sectionRef.current);
+            // 5. 뒷 정리
+            return () => io.disconnect();
+        }, []);// 의존성 배열
+
+        // 5초 마다 반짝 + 쉐이크 (가시 상태일 때만)
+        useEffect(()=> {
+            if (!inView) return;
+            const runSpark = () => {
+                setSpark(true) ;// 평점 부분 반짝 ( 지연은 각 아이템 delay로 처리)
+                setTimeout(() => setSpark(false), 1200); //반짝이 종료
+            };
+            const runShake = () => {
+                setShake(true) ; // 예약 카드 좌우로 흔들
+                setTimeout(()=> setShake(false), 600) ; // 쉐이크 종료
+            };
+
+            runSpark(); // 직입 직후 한 번 실행 
+            runShake(); // 직입 직후 한 번 실행 
+            const idSpark = setInterval(runSpark, 3000); // 5초 마다 반복
+            const idShake = setInterval(runShake, 6000); // 5초 마다 반복
+            return () => clearInterval(idSpark,idShake);
+        }, [inView])
+
     return (
-        <section id="ham-hanok-stay" className=" relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 ">
+        <section id="ham-hanok-stay" ref={sectionRef} className=" relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 ">
             {/* 헤더 */}
             <header className=" mb-6 text-center">
                 <h2 className="text-2xl text-main sm:text-3xl font-bold tracking-tight mb-2">{title}</h2>
@@ -153,13 +191,23 @@ export default function HamStaySection({
                     {/* 평점 */}
                     <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
                         {ratings?.airbnb && (
-                            <a href={reservationUrls.airbnb} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[#FF385C] hover:opacity-80 transition-opacity">
+                            <a 
+                                href={reservationUrls.airbnb} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                style={spark ? {animation: "hamFlash 900ms ease-out both",  animationDelay: "0ms",willChange:"filter, transform"}:{}}
+                                className="flex items-center gap-1.5 text-[#FF385C] hover:opacity-80 transition-opacity">
                                 <FaAirbnb className="h-5 w-5 text-[#FF385C]" />
                                 <b>Airbnb</b> &nbsp;{ratings.airbnb.toFixed(2)}
                             </a>
                         )}
                         {ratings?.booking && (
-                            <a href={reservationUrls.booking} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[#013B94] hover:opacity-80 transition-opacity">
+                            <a 
+                                href={reservationUrls.booking} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                style={spark ? {animation: "hamFlash 900ms ease-out both",  animationDelay: "180ms",willChange:"filter, transform"}:{}}
+                                className="flex items-center gap-1.5 text-[#013B94] hover:opacity-80 transition-opacity">
                                 <TbBrandBooking className="h-6 w-6 fill-[#013B94] text-white" />
                                 <div className="text-[#013B94]">
                                     <b>Booking.com</b> &nbsp;{ratings.booking.toFixed(1)}
@@ -167,7 +215,12 @@ export default function HamStaySection({
                             </a>
                         )}
                         {ratings?.naver && (
-                            <a href={reservationUrls.naver} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-green-400 hover:opacity-80 transition-opacity">
+                            <a 
+                                href={reservationUrls.naver} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                style={spark ? {animation: "hamFlash 900ms ease-out both",  animationDelay: "360ms",willChange:"filter, transform"}:{}}
+                                className="flex items-center gap-1.5 text-green-400 hover:opacity-80 transition-opacity">
                                 <SiNaver className="h-4 w-4 fill-green-400" />
                                 <b>Naver</b> &nbsp;{ratings.naver.toFixed(2)}
                             </a>
@@ -193,7 +246,9 @@ export default function HamStaySection({
 
                 {/* 우측 예약 카드 : 하단 정보 옆으로 배치  */}
                 <aside className="lg:col-span-4">
-                    <div className="rounded-2xl border border-neutral-200 bg-white/90 shadow-2xl p-5 lg:sticky lg:top-4">
+                    <div 
+                        className="rounded-2xl border border-neutral-200 bg-white/90 shadow-2xl p-5 lg:sticky lg:top-4"
+                        style={shake? {animation:"hamShake 550ms ease-in-out both"}:{}}>
                         <h3 className="w-full text-center text-lg font-semibold mb-4">날짜를 선택해 요금확인</h3>
                         <div className="space-y-3 ">
                             <div className="grid grid-cols-2 gap-2" >
@@ -286,8 +341,45 @@ export default function HamStaySection({
                 </div>
 
             )}
-        
+        {/* animations */}
+        <style>{`
+            @keyframes hamFlash {
+                0% {
+                    transform: translateY(-5px);
+                    filter: none;
+                    text-shadow: 0 0 0 rgba(255,255,255,0);
+                }
+                35% {
+                    transform: translateY(0);
+                    filter: brightness(1.85) saturate(1.35);
+                    text-shadow: 0 0 10px rgba(255,255,255,.75);
+                }
+                70% {
+                    filter: brightness(1.2) saturate(1.1);
+                    text-shadow: 0 0 4px rgba(255,255,255,.35);
+                }
+                100% {
+                    transform: translateY(0);
+                    filter: none;
+                    text-shadow: none;
+                }
+                }   
+            
+            @keyframes hamShake {
+                0% 100% {transform: translateX(0);}
+                15% {transform: translateX(-4px);}
+                30% {transform: translateX(4px);}
+                45% {transform: translateX(-3px);}
+                60% {transform: translateX(3px);}
+                75% {transform: translateX(-2px);}
+                90% {transform: translateX(2px);}
+                
+            }    
+            `}
+            
+        </style>
         </section>
+       
         
     );
 };
