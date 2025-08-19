@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: "#fefae0" // 크림은 배경색 추가 
+        cream: "#fefae0", // 크림은 배경색 추가 
+        main: "#402a1c",
+        hanji: "#f5f5f2"
+
       },
       fontFamily: {
         gowun: ['GowunDodum-Regular', 'sans-serif'],
