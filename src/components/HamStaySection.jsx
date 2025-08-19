@@ -36,6 +36,11 @@ export default function HamStaySection({
     subtitle = "HAMHanokStay",
     addressText = "서울특별시 종로구 계동6길 4-1",
     ratings = {airbnb: 4.89, booking: 9.8, naver: 9.8},
+    reservationUrls = {
+        airbnb: "https://www.airbnb.co.kr/rooms/1141509028517381236?guests=1&adults=1&s=67&unique_share_id=c7c78e2f-3f97-4418-a061-b63fcc6909be",
+        booking: "https://www.booking.com/Share-ofy5NuJ",
+        naver: "https://naver.me/55rXUyZA"
+    },
     onReserve,
     addressMapUrl="https://maps.app.goo.gl/aXTt5T1NUE9Ehfif8",
     description = "백 년 목재와 전통가구가 어우러진 프라이빗 독채 한옥. 안국역 근처의 조용한 골목에서, 작품과 함께 머무는 특별한 숙박을 제안합니다."
@@ -78,7 +83,7 @@ export default function HamStaySection({
             {icon: BsTrainFront, label:"안국역 근처"},
             {icon: FaMedal, label:"슈퍼 호스트"},
             {icon: BsDoorOpen, label:"셀프 체크인"},
-            {icon: CiRollingSuitcase, label:"짐 맡기기"},
+            {icon: CiRollingSuitcase, label:"짐 맡기기 가능"},
         ]
 
     return (
@@ -148,25 +153,24 @@ export default function HamStaySection({
                     {/* 평점 */}
                     <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
                         {ratings?.airbnb && (
-                            <div className="flex items-center gap-1.5  text-[#FF385C]"> 
-                                <FaAirbnb className="h-5 w-5  text-[#FF385C]" />
-                                <b >Airbnb</b> &nbsp;{ratings.airbnb.toFixed(2)}
-                            </div>
+                            <a href={reservationUrls.airbnb} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[#FF385C] hover:opacity-80 transition-opacity">
+                                <FaAirbnb className="h-5 w-5 text-[#FF385C]" />
+                                <b>Airbnb</b> &nbsp;{ratings.airbnb.toFixed(2)}
+                            </a>
                         )}
                         {ratings?.booking && (
-                            <div className="flex items-center gap-1.5"> 
-                                <TbBrandBooking className="h-6 w-6  fill-[#013B94] text-white" />
+                            <a href={reservationUrls.booking} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[#013B94] hover:opacity-80 transition-opacity">
+                                <TbBrandBooking className="h-6 w-6 fill-[#013B94] text-white" />
                                 <div className="text-[#013B94]">
-                                    <b >Booking.com</b> &nbsp;{ratings.booking.toFixed(1)}
+                                    <b>Booking.com</b> &nbsp;{ratings.booking.toFixed(1)}
                                 </div>
-                                
-                            </div>
+                            </a>
                         )}
                         {ratings?.naver && (
-                            <div className="flex items-center gap-1.5"> 
-                                <SiNaver className="h-4 w-4  fill-green-400  "  />
+                            <a href={reservationUrls.naver} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-green-400 hover:opacity-80 transition-opacity">
+                                <SiNaver className="h-4 w-4 fill-green-400" />
                                 <b>Naver</b> &nbsp;{ratings.naver.toFixed(2)}
-                            </div>
+                            </a>
                         )}
                     </div>
                     {/* 실선 */}
@@ -176,8 +180,8 @@ export default function HamStaySection({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6">
                         {features.map(({icon:Icon, label},i)=> (
                             <div key={i} className="flex items-center gap-4">
-                                <Icon className="h-5 w-5"/>
-                                <span className="text-sm">{label}</span>
+                                <Icon className="h-5 w-5 fill-main"/>
+                                <span className="text-sm fill-main">{label}</span>
                             </div>
                         ))}
                     </div>
@@ -189,7 +193,7 @@ export default function HamStaySection({
 
                 {/* 우측 예약 카드 : 하단 정보 옆으로 배치  */}
                 <aside className="lg:col-span-4">
-                    <div className="rounded-2xl border border-neutral-200 bg-hanji/90 shadow-sm p-5 lg:sticky lg:top-4">
+                    <div className="rounded-2xl border border-neutral-200 bg-white/90 shadow-2xl p-5 lg:sticky lg:top-4">
                         <h3 className="w-full text-center text-lg font-semibold mb-4">날짜를 선택해 요금확인</h3>
                         <div className="space-y-3 ">
                             <div className="grid grid-cols-2 gap-2" >
@@ -204,7 +208,7 @@ export default function HamStaySection({
                                     <span className="text-xs font-semibold text-neutral-600 mb-1">체크아웃</span>
                                     <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
                                         <FaCalendar className="h-4 w-4"/>
-                                        <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} className="w-full outline-non" />
+                                        <input type="date" value={checkIn} onChange={(e) => setCheckOut(e.target.value)} className="w-full outline-non" />
                                     </div>
                                 </label>
                             </div>
