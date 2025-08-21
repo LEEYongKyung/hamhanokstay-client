@@ -1,0 +1,86 @@
+{
+  "highlights": [
+    "kitchen",
+    "wifi",
+    "tv",
+    "air_conditioning",
+    "washer",
+    "free_parking"
+  ],
+  "categories": [
+    {
+      "title": "욕실",
+      "items": [
+        { "id": "hair_dryer", "label": "헤어드라이어" },
+        { "id": "shampoo", "label": "샴푸" },
+        { "id": "conditioner", "label": "컨디셔너" },
+        { "id": "body_wash", "label": "바디워시" },
+        { "id": "hot_water", "label": "온수" },
+        { "id": "shower_gel", "label": "샤워젤" },
+        { "id": "bidet", "label": "비데" }
+        
+        
+      ]
+    },
+    {
+      "title": "침실 및 세탁 시설",
+      "items": [
+        { "id": "towel", "label": "수건" },
+        { "id": "clothes_storage", "label": "옷걸이" },
+        { "id": "closet", "label": "옷장" }
+
+      ]
+    },
+    {
+      "title": "난방/냉방",
+      "items": [
+        { "id": "air_conditioning", "label": "에어컨" }
+      ]
+    },
+    {
+      "title": "엔터테인먼트",
+      "items": [
+        { "id": "bluetooth_speaker", "label": "블루투스 스피커" }
+      ]
+    },
+    {
+      "title": "가족",
+      "items": [
+        { "id": "bluetooth_speaker", "label": "창문 안전장치 설치" }
+      ]
+    },
+    {
+      "title": "인터넷/업무공간",
+      "items": [
+        { "id": "wifi", "label": "와이파이" },
+        { "id": "workspace", "label": "업무 전용 공간" }
+      ]
+    },
+    {
+      "title": "주방",
+      "items": [
+        { "id": "kitchen", "label": "주방" }
+      ]
+    },
+    {
+      "title": "주차 및 이동",
+      "items": [
+        { "id": "free_parking", "label": "노상 무료 주차" }
+      ]
+    },
+    {
+      "title": "안전",
+      "items": [
+        { "id": "smoke_alarm", "label": "화재경보기" },
+        { "id": "carbon_monoxide_alarm", "label": "일산화탄소 경보기" }
+      ]
+    },
+    {
+      "title": "기타",
+      "items": [
+        { "id": "tv", "label": "TV" },
+        { "id": "luggage_storage", "label": "여행 가방 보관 가능" }
+      ]
+    }
+  ]
+}
