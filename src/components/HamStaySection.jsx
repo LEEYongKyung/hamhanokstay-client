@@ -1,14 +1,15 @@
 
 import React, {useState, useMemo, useRef, useEffect} from "react";
 import { FaChevronLeft, FaChevronRight , FaStar, FaMapPin, FaUser, FaCalendar, FaImage, FaLandmark, FaMedal } from "react-icons/fa";
-import { FaWifi, FaTv ,FaCar,FaBriefcase, } from "react-icons/fa";
+import { FaWifi, FaTv ,FaCar,FaBriefcase,FaShower,FaAirbnb } from "react-icons/fa";
 import {FaX, FaRegSnowflake } from "react-icons/fa6";
 import {BsTrainFront, BsDoorOpen} from "react-icons/bs"
 import { CiRollingSuitcase } from "react-icons/ci";
 import { SiNaver } from "react-icons/si";
 import { TbBrandBooking } from "react-icons/tb";
-import { FaAirbnb } from "react-icons/fa";
-import { LuToilet } from "react-icons/lu";
+import { LuToilet,LuCctv, LuMicrowave,LuRefrigerator } from "react-icons/lu";
+import { PiHairDryerLight, PiHandSoapThin, PiTowel, PiCoatHangerThin } from "react-icons/pi";
+import { CiSpeaker } from "react-icons/ci";
 
 
 /**
@@ -214,17 +215,6 @@ export default function HamStaySection({
             const idShake = setInterval(runShake, 6000); // 5초 마다 반복
             return () => clearInterval(idSpark,idShake);
         }, [inView])
-
-        //  ==================== Google Map 적용을 위한 변수 =====================
-        const LAT = 37.582613;
-const LNG = 126.987098;
-const MAP_EMBED = `https://www.google.com/maps?q=${LAT},${LNG}&z=16&hl=ko&output=embed`;
-const MAP_OPEN  = `https://www.google.com/maps?ll=${LAT},${LNG}&z=18&hl=ko`;
-const DIRECTIONS = `https://www.google.com/maps/dir/?api=1&destination=${LAT},${LNG}&origin=Current+Location&hl=ko`;
-
-
-
-        
 
 
     return (

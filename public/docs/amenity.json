@@ -2,10 +2,13 @@
   "highlights": [
     "kitchen",
     "wifi",
-    "tv",
     "air_conditioning",
-    "washer",
-    "free_parking"
+    "microwave_oven",
+    "hair_dryer",
+    "cctv",
+    "refrigerator",
+    "bluetooth_speaker"
+    
   ],
   "categories": [
     {
@@ -23,7 +26,7 @@
       ]
     },
     {
-      "title": "침실 및 세탁 시설",
+      "title": "침실",
       "items": [
         { "id": "towel", "label": "수건" },
         { "id": "clothes_storage", "label": "옷걸이" },
@@ -34,7 +37,8 @@
     {
       "title": "난방/냉방",
       "items": [
-        { "id": "air_conditioning", "label": "에어컨" }
+        { "id": "air_conditioning", "label": "에어컨" },
+        { "id": "boiler", "label": "난방 보일러" }
       ]
     },
     {
@@ -46,41 +50,68 @@
     {
       "title": "가족",
       "items": [
-        { "id": "bluetooth_speaker", "label": "창문 안전장치 설치" }
+        { "id": "windows_lock", "label": "창문 안전장치 설치" },
+        { "id": "table_protector", "label": "테이블 모서리 보호 장치" }
       ]
     },
     {
-      "title": "인터넷/업무공간",
+      "title": "인터넷 및 업무공간",
       "items": [
-        { "id": "wifi", "label": "와이파이" },
-        { "id": "workspace", "label": "업무 전용 공간" }
+        { "id": "wifi", "label": "와이파이" }
+      ]
+    },
+    {
+      "title": "숙소 안전",
+      "items": [
+        { "id": "cctv", "label": "숙소 실외 보안 카메라" },
+        { "id": "smoke_detector", "label": "화재경보기" },
+        { "id": "fire_extinguisher", "label": "소화기" },
+        { "id": "first_aid_kit", "label": "구급상자" }
       ]
     },
     {
       "title": "주방",
       "items": [
-        { "id": "kitchen", "label": "주방" }
+        { "id": "kitchen", "label": "주방" },
+        { "id": "refrigerator", "label": "냉장고" },
+        { "id": "cooking_utensils", "label": "기본 조리도구" },
+        { "id": "tableware", "label": "식기류" },
+        { "id": "microwave_oven", "label": "전자 레인지" },
+        { "id": "coffee_maker", "label": "커피 메이커" },
+        { "id": "wine_glass", "label": "와인잔" },
+        { "id": "coffee", "label": "커피" }
       ]
     },
     {
-      "title": "주차 및 이동",
+      "title": "위치특성",
       "items": [
-        { "id": "free_parking", "label": "노상 무료 주차" }
+        { "id": "door", "label": "게스트 전용출입문" }
       ]
     },
     {
-      "title": "안전",
+      "title": "야외",
       "items": [
-        { "id": "smoke_alarm", "label": "화재경보기" },
-        { "id": "carbon_monoxide_alarm", "label": "일산화탄소 경보기" }
+        { "id": "yard", "label": "앞 마당" },
+        { "id": "landscape", "label": "조경" }
       ]
     },
     {
-      "title": "기타",
+      "title": "서비스",
+      "items": [
+        { "id": "suitcase", "label": "여행 가방 보관 가능" },
+        { "id": "calendar", "label": "장기 숙박 가능" },
+        { "id": "key", "label": "셀프 체크인 가능" },
+        { "id": "smart_door_lock", "label": "스마트 도어록" }
+      ]
+    },
+    {
+      "title": "숙소에 없는 시설",
       "items": [
         { "id": "tv", "label": "TV" },
-        { "id": "luggage_storage", "label": "여행 가방 보관 가능" }
+        { "id": "washing_machine", "label": "세탁기" },
+        { "id": "dryer", "label": "건조기" }
       ]
     }
+
   ]
 }
