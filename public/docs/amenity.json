@@ -2,27 +2,26 @@
   "highlights": [
     "kitchen",
     "wifi",
-    "air_conditioning",
-    "microwave_oven",
-    "hair_dryer",
+    "airConditioning",
+    "microwaveMachine",
+    "hairDryer",
     "cctv",
     "refrigerator",
-    "bluetooth_speaker"
+    "speaker"
+
     
   ],
   "categories": [
     {
       "title": "욕실",
       "items": [
-        { "id": "hair_dryer", "label": "헤어드라이어" },
+        { "id": "hairDryer", "label": "헤어드라이어" },
         { "id": "shampoo", "label": "샴푸" },
         { "id": "conditioner", "label": "컨디셔너" },
-        { "id": "body_wash", "label": "바디워시" },
-        { "id": "hot_water", "label": "온수" },
+        { "id": "showerGel", "label": "바디워시" },
+        { "id": "hotWater", "label": "온수" },
         { "id": "shower_gel", "label": "샤워젤" },
         { "id": "bidet", "label": "비데" }
-        
-        
       ]
     },
     {
@@ -47,13 +46,7 @@
         { "id": "bluetooth_speaker", "label": "블루투스 스피커" }
       ]
     },
-    {
-      "title": "가족",
-      "items": [
-        { "id": "windows_lock", "label": "창문 안전장치 설치" },
-        { "id": "table_protector", "label": "테이블 모서리 보호 장치" }
-      ]
-    },
+    
     {
       "title": "인터넷 및 업무공간",
       "items": [

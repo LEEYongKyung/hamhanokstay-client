@@ -1,17 +1,22 @@
 
 import React, {useState, useMemo, useRef, useEffect} from "react";
 import { FaChevronLeft, FaChevronRight , FaStar, FaMapPin, FaUser, FaCalendar, FaImage, FaLandmark, FaMedal } from "react-icons/fa";
-import { FaWifi, FaTv ,FaCar,FaBriefcase,FaShower,FaAirbnb } from "react-icons/fa";
-import {FaX, FaRegSnowflake } from "react-icons/fa6";
+import { FaAirbnb } from "react-icons/fa";
+import {FaX } from "react-icons/fa6";
 import {BsTrainFront, BsDoorOpen} from "react-icons/bs"
-import { CiRollingSuitcase } from "react-icons/ci";
+import { CiCircleAlert, CiRollingSuitcase } from "react-icons/ci";
 import { SiNaver } from "react-icons/si";
 import { TbBrandBooking } from "react-icons/tb";
-import { LuToilet,LuCctv, LuMicrowave,LuRefrigerator } from "react-icons/lu";
-import { PiHairDryerLight, PiHandSoapThin, PiTowel, PiCoatHangerThin } from "react-icons/pi";
-import { CiSpeaker } from "react-icons/ci";
 
-
+// Amenity 아이콘 리스트
+import { FaWifi as WifiIcon, FaTv as TvIcon ,FaCar as CarIcon,FaBriefcase as CarrierIcon ,FaShower as ShowerIcon } from "react-icons/fa";
+import { FaRegSnowflake as AirconIcon } from "react-icons/fa6";
+import { LuToilet as ToiletIcon ,LuCctv as CctvIcon, LuMicrowave as MicrowaveIcon,LuRefrigerator as RefrigeratorIcon, LuAlarmSmoke as SmokeAlarmIcon ,LuCoffee as CoffeeIcon, LuDoorOpen as CheckInIcon, LuTreePine as TreeIcon, LuCalendarFold as CalendarIcon, LuKeyRound as KeyIcon, LuCookingPot as Cooking} from "react-icons/lu";
+import { PiHairDryerLight as HairDryerIcon, PiHandSoapThin as SoapIcon, PiTowel as TowelIcon, PiCoatHangerThin as HangerIcon, PiForkKnife as ForkKnifeIcon, PiThermometerHotLight as HotWaterIcon ,PiFireExtinguisher as FireExtinguisherIcon, PiFirstAidKit as FirstAidKitIcon} from "react-icons/pi";
+import { CiSpeaker as SpeakerIcon } from "react-icons/ci";
+import { MdOutlineCoffeeMaker as CoffeeMakerIcon, MdOutlineYard as YardIcon } from "react-icons/md";
+import { GiWineGlass as WineGlassIcon, GiDoorHandle as DoorlockIcon } from "react-icons/gi";
+import { TbDeviceTvOff as TvOffIcon } from "react-icons/tb";
 /**
  * HAM HanokStay - Airbnb 스타일 섹션
  * 
@@ -24,6 +29,7 @@ import { CiSpeaker } from "react-icons/ci";
  * onReserve?: (payload) => void
  * 
  */
+import amenity from '../../public/docs/amenity.json';
 
 export default function HamStaySection({
     // props 섹션
@@ -217,6 +223,105 @@ export default function HamStaySection({
         }, [inView])
 
 
+        //  ===================== 어메니티 상태  ========================================
+        // 편의시설 데이터 상태
+        const [amenity, setAmenity] = useState(null);
+        const [amenityOpen, setAmenityOpen] = useState(false);
+
+        // 아이콘 매핑(없으면 CircleAlert로 대체
+        const AmenityIcon = ({ id, className="h-6 w-6"}) => {
+
+            const map ={
+            kitchen: ForkKnifeIcon,
+            wifi: WifiIcon,
+            airConditioning:AirconIcon,
+            carrier: CiRollingSuitcase,
+            refrigerator: RefrigeratorIcon,
+            speaker: SpeakerIcon,
+            yard: YardIcon,
+            hairDryer: HairDryerIcon,
+            microwaveMachine: MicrowaveIcon,
+            cctv: CctvIcon,
+            shampoo: SoapIcon,
+            conditioner: SoapIcon,
+            showerGel: SoapIcon,
+            towel: TowelIcon,
+            hanger:HangerIcon,
+            boiler: HotWaterIcon,
+            smokeAlarm: SmokeAlarmIcon,
+            fireExtinguisher: FireExtinguisherIcon,
+            firstAidKit: FirstAidKitIcon,
+            coffeeMaker: CoffeeMakerIcon,
+            wineGlass: WineGlassIcon,
+            coffee: CoffeeIcon,
+            calendar: CalendarIcon,
+            selfCheckIn: KeyIcon,
+            smartDoorLock: DoorlockIcon
+        };
+        const Icon = map[id] || CiCircleAlert;
+        return <Icon className={className} />
+        };
+
+        // JSON 불러오기
+        useEffect(() => {
+            let alive = true;
+            fetch("/docs/amenity.json")
+                .then(r => r.json())
+                .then(data => {if (alive) setAmenity(data);})
+                .catch(() => {
+                    // 실패 시 간단한 디폴트 
+                    if(alive) setAmenity({
+                        highlights: ["kitchen", "wifi", "airConditioning","yard", "carrier", "hairDryer", "refrigerator","microwaveMachine", "speaker", "cctv"],
+                        categories: [{title:"기본", items: [
+                            {id:"kitchen", label: "주방" },
+                            {id:"wifi", label: "와이파이" },
+                            {id:"airConditioning", label: "에어컨" },
+                            {id:"중정(앞마당)", label: "yard" },
+                            {id:"carrier", label: "여행 가방 보관 가능" },
+                            {id:"hairDryer", label: "헤어드라이어" },
+                            {id:"refrigerator", label: "냉장고" },
+                            {id:"microwaveMachine", label: "전자레인지" },
+                            {id:"speaker", label: "블루투스 스피커" },
+                            {id:"cctv", label: "숙소 내 실외 보안 카메라" }
+                        ]}]
+                    });
+                });
+                return () => {alive = false;};
+        }, []);
+
+        // id -> 라벨 찾기 유틸 
+        const findLabel = (id) => {
+            if (!amenity) return id; 
+            for (const cat of amenity.categories) {
+                const f = cat.items.find(it => it.id === id);
+                if (f) return f.label;
+            }
+            return id;
+        };
+
+        // 총 아이템 수 
+        const amenityCount = useMemo(() => {
+            if (!amenity) return 0;
+            return amenity.categories.reduce((sum,c) => sum + c.items.length, 0);
+
+        }, [amenity]);
+
+        // 그리드용 하이라이트 10개 
+        const highlight10 = useMemo(() => {
+            if(!amenity) return [];
+            const list = amenity.highlights || [];
+            // 10개 미만이면 카테고리에서 채워 넣기 
+            const pool = new Set(list);
+            for (const c of amenity.categories) {
+                for (const it of c.items){
+                    if (pool.size>=10) break;
+                    pool.add(it.id);
+                }
+                if (pool.size >=10) break;
+            }
+            return Array.from(pool).slice(0,6);
+        }, [amenity]);
+        
     return (
         <section id="ham-hanok-stay" ref={sectionRef} className=" relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 ">
             {/* 헤더 */}
@@ -380,22 +485,7 @@ export default function HamStaySection({
                         style={shake? {animation:"hamShake 550ms ease-in-out both"}:{}}>
                         <h3 className="w-full text-center text-lg font-semibold mb-4 text-main">날짜를 선택해 요금확인</h3>
                         <div className="space-y-3 ">
-                            {/* <div className="grid grid-cols-2 gap-2" >
-                                <label className="flex flex-col">
-                                    <span className="text-xs font-semibold text-neutral-600 mb-1">체크인</span>
-                                    <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
-                                        <FaCalendar className="h-4 w-4"/>
-                                        <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} className="w-full outline-none" />
-                                    </div>
-                                </label>
-                                <label className="flex flex-col">
-                                    <span className="text-xs font-semibold text-neutral-600 mb-1">체크아웃</span>
-                                    <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
-                                        <FaCalendar className="h-4 w-4"/>
-                                        <input type="date" value={checkIn} onChange={(e) => setCheckOut(e.target.value)} className="w-full outline-none" />
-                                    </div>
-                                </label>
-                            </div> */}
+                            
                             {/*  달력 모듈 변경 */}
                             <div className="relative">
                                 <span className="text-xs font-semibold text-main mb-1 block">날짜</span>
@@ -460,7 +550,23 @@ export default function HamStaySection({
             </div>
             {/* 실선 */}
             <hr className="my-6 border-neutral-200"></hr>
+            {/* 어메니티 부분 */}
+            <div >
+                <h4 className="mb-3 text-base font-semibold">숙소 편의시설</h4>
+                {/* 5행 x 2열 하이라이트 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
+                    {highlight10.map((id) => (
+                        <div key={id} className="flex items-center gap-3">
+                            <AmenityIcon id={id} className="h-6 w-6"/>
+                            <span>{findLabel(id)}</span>
+                        </div>
+                    ))}
+                </div>
+                
+            </div>
 
+            {/* 실선 */}
+            <hr className="my-6 border-neutral-200"></hr>
             {/* Google Map 부분 */}
             <div>
                 <h4 className="mb-3 text-base font-semibold">
