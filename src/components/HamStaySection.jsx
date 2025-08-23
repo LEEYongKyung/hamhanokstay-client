@@ -11,7 +11,7 @@ import { TbBrandBooking } from "react-icons/tb";
 // Amenity 아이콘 리스트
 import { FaWifi as WifiIcon, FaTv as TvIcon ,FaCar as CarIcon,FaBriefcase as CarrierIcon ,FaShower as ShowerIcon } from "react-icons/fa";
 import { FaRegSnowflake as AirconIcon } from "react-icons/fa6";
-import { LuToilet as ToiletIcon ,LuCctv as CctvIcon, LuMicrowave as MicrowaveIcon,LuRefrigerator as RefrigeratorIcon, LuAlarmSmoke as SmokeAlarmIcon ,LuCoffee as CoffeeIcon, LuDoorOpen as CheckInIcon, LuTreePine as TreeIcon, LuCalendarFold as CalendarIcon, LuKeyRound as KeyIcon, LuCookingPot as Cooking} from "react-icons/lu";
+import { LuToilet as ToiletIcon ,LuCctv as CctvIcon, LuMicrowave as MicrowaveIcon,LuRefrigerator as RefrigeratorIcon, LuAlarmSmoke as SmokeAlarmIcon ,LuCoffee as CoffeeIcon, LuDoorOpen as CheckInIcon, LuTreePine as TreeIcon, LuCalendarFold as CalendarIcon, LuKeyRound as KeyIcon, LuCookingPot as CookingIcon} from "react-icons/lu";
 import { PiHairDryerLight as HairDryerIcon, PiHandSoapThin as SoapIcon, PiTowel as TowelIcon, PiCoatHangerThin as HangerIcon, PiForkKnife as ForkKnifeIcon, PiThermometerHotLight as HotWaterIcon ,PiFireExtinguisher as FireExtinguisherIcon, PiFirstAidKit as FirstAidKitIcon} from "react-icons/pi";
 import { CiSpeaker as SpeakerIcon } from "react-icons/ci";
 import { MdOutlineCoffeeMaker as CoffeeMakerIcon, MdOutlineYard as YardIcon } from "react-icons/md";
@@ -256,7 +256,8 @@ export default function HamStaySection({
             coffee: CoffeeIcon,
             calendar: CalendarIcon,
             selfCheckIn: KeyIcon,
-            smartDoorLock: DoorlockIcon
+            smartDoorLock: DoorlockIcon,
+            cooking:CookingIcon
         };
         const Icon = map[id] || CiCircleAlert;
         return <Icon className={className} />
@@ -319,7 +320,7 @@ export default function HamStaySection({
                 }
                 if (pool.size >=10) break;
             }
-            return Array.from(pool).slice(0,6);
+            return Array.from(pool).slice(0,10);
         }, [amenity]);
         
     return (
@@ -552,16 +553,24 @@ export default function HamStaySection({
             <hr className="my-6 border-neutral-200"></hr>
             {/* 어메니티 부분 */}
             <div >
-                <h4 className="mb-3 text-base font-semibold">숙소 편의시설</h4>
+                <h4 className="mb-3 text-base font-semibold text-main">숙소 편의시설</h4>
                 {/* 5행 x 2열 하이라이트 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
                     {highlight10.map((id) => (
                         <div key={id} className="flex items-center gap-3">
-                            <AmenityIcon id={id} className="h-6 w-6"/>
-                            <span>{findLabel(id)}</span>
+                            <AmenityIcon id={id} className="h-6 w-6 text-main"/>
+                            <span className="text-[15px] text-main">{findLabel(id)}</span>
                         </div>
                     ))}
                 </div>
+                {/*  모두 보기 버튼 */}
+                <button 
+                    onClick={() => setAmenityOpen(true)}
+                    className="mt-3 inline-flex items-center gap-1 rounded-lg border px-5 py-3 text-sm font-bold bg-neutral-100 hover:bg-white text-main"
+                    disabled={!amenity}
+                >
+                    편의시설 {amenityCount}개 모두 보기
+                </button>
                 
             </div>
 
@@ -673,6 +682,54 @@ export default function HamStaySection({
 
                 </div>
                 )}
+
+            {/* 편의시설 전체 보기 모달 */}
+            {amenityOpen && amenity &&(
+                <div className="fixed inset-0 z-[120] bg-black/40 flex items-start justify-center justify-center p-4">
+                    <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        {/* 헤더 */}
+                        <div className="flex items-center justify-between px-5 py-4 border-b">
+                            <h4 className="text-lg font-semibold text-main">숙소 편의시설</h4>
+                            {/* <button
+                                onClick={() => setAmenityOpen(false)}
+                                className="rounded-full border h-8 w-8 flex items-center justify-center hover:bg-neutral-50"
+                                aria-label="닫기"
+                            >
+                                <FaX />
+                            </button> */}
+                            
+                        </div>
+                        {/* 컨텐츠 */}
+                        <div className="max-h-[70vh] overflow-auto">
+                            {amenity.categories.map((cat, idx) => (
+                                <div key={cat.title} className={idx ? "border-t px-5 py-4": "px-5 py-4 "}>
+                                    <div className="text-[15px] font-semibold mb-3 text-main">{cat.title} </div>
+                                        <ul className="divide-y">
+                                            {cat.items.map((it) => (
+                                                <li key={it.id} className="flex items-center gap-3 py-2">
+                                                    <AmenityIcon id={it.id} className="h-5 w-5 text-main" />
+                                                    <span className="text-[15px] text-main">{it.label}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* 푸터 */}
+                        <div className="px-5 py-4 border-t flex justify-end">
+                            <button
+                                onClick={() => setAmenityOpen(false)}
+                                className="rounded-mc bg-neutral-900 text-white px-4 py-2 text-sm"
+                            >
+                                닫기                                
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         {/* animations */}
         <style>{`
             @keyframes hamFlash {
