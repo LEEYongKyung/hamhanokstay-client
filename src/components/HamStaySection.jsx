@@ -31,6 +31,13 @@ import { TbDeviceTvOff as TvOffIcon } from "react-icons/tb";
  */
 import amenity from '../../public/docs/amenity.json';
 
+const HEADER = {
+    eyebrow : "STAY HANOK",
+    title: "조선시대 전통가구가 살아 숨 쉬는 한옥공간 함한옥스테이",
+    description: "HAMHanokStay"
+
+}
+
 export default function HamStaySection({
     // props 섹션
     images =[
@@ -326,12 +333,19 @@ export default function HamStaySection({
     return (
         <section id="ham-hanok-stay" ref={sectionRef} className=" relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 ">
             {/* 헤더 */}
-            <header className=" mb-6 text-center">
-                <h2 className="text-2xl text-main sm:text-3xl font-bold tracking-tight mb-2">{title}</h2>
-                <span className="text-main font-semibold ">{subtitle}</span>
-            </header>
+            <div className="absolute top-8 left-0 right-0 text-center text-main z-20">
+                <span className="inline-block text-xs tracking-[0.3em] uppercase text-main/70">
+                    {HEADER.eyebrow}
+                </span>
+                <h2 className="mt-2 text-3xl md:text-4xl font-bold drop-shadow-lg">
+                    {HEADER.title}
+                </h2>
+                <p className="mt-2 text-main/85 drop-shadow">
+                    {HEADER.description}
+                </p>
+            </div>
             {/* 사진 grid: 헤더 바로 아래 전체 폭 */}
-            <div className=" relative rounded-2xl overflow-hidden">
+            <div className="relative mt-24 rounded-2xl overflow-hidden">
                 <div className=" grid grid-cols-4 grid-rows-2 gap-2">
                     {/* 메인 좌측 큰 대표 이미지 */}
                     <button
@@ -578,7 +592,7 @@ export default function HamStaySection({
             <hr className="my-6 border-neutral-200"></hr>
             {/* Google Map 부분 */}
             <div>
-                <h4 className="mb-3 text-base font-semibold">
+                <h4 className="mb-3 text-main font-semibold">
                     위치
                 </h4>
                 <div className="rounded-2xl overflow-hidden border">

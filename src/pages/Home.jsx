@@ -10,7 +10,9 @@ import AmenitySection from "../components/AmenitySection";
 import LocationSection from "../components/LocationSection";
 import ArtisanSection from "../components/ArtisanSection";
 import HamStaySection from "../components/HamStaySection";
+import ReviewSection from "../components/ReviewsSection";
 export default function Home() {
+    const totalReservations = 123;
     return (
         <main className="h-screen overflow-y-scroll overflow-contain lg:snap-y lg:snap-mandatory lg:snap-always">
             {/* 페이지1: Header + MainVideo 한화면  */}
@@ -52,6 +54,10 @@ export default function Home() {
                     onReserve={(p)=>console.log("reserve payload:", p)}
                 
                 />
+            </section>
+            {/* 페이지4: ReviewSection  */}
+            <section className="h-screen lg:snap-start overflow-y-auto">
+                <ReviewSection totalCount = {totalReservations} />
             </section>
 
             {/* 페이지2: Intro + Amenity */}

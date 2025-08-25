@@ -8,7 +8,7 @@ const clamp = (v, min, max) => Math.min(Math.max(v,min), max);
 const ARTIST = {
     name: "이성구",
     portrait: "/images/artisan_section_bg.png",
-    eyebrow:"GALLERY HANOK STAY",
+    eyebrow:"GALLERY HANOK",
     title: "전통 가구의 장인이신 이성구 작가님의 작품과 생활할 수 있는 Gallery Hanok",
     description: "이성구 작가님은 전통 가구의 현대적 재해석을 통해, 전통과 현대가 조화를 이루는 공간을 창조하고 있습니다."
 };
