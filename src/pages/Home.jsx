@@ -6,8 +6,13 @@ import logowhite from "../assets/logo_white.png";
 import leessihamwhite from "../assets/leessiham_white.png";
 import emblemwhite from "../assets/emblem_white.png";
 import HeaderoverlayTest from "../components/HeaderOverlayTest";
-
+import AmenitySection from "../components/AmenitySection";
+import LocationSection from "../components/LocationSection";
+import ArtisanSection from "../components/ArtisanSection";
+import HamStaySection from "../components/HamStaySection";
+import ReviewSection from "../components/ReviewsSection";
 export default function Home() {
+    const totalReservations = 123;
     return (
         <main className="h-screen overflow-y-scroll overflow-contain lg:snap-y lg:snap-mandatory lg:snap-always">
             {/* 페이지1: Header + MainVideo 한화면  */}
@@ -31,13 +36,39 @@ export default function Home() {
                 >
                 </img>
                  {/* 헤더(오버레이용) */}
-                {/* <Header varient="overlay"/>  */}
+                {/* <Header variant="overlay"/>  */}
                 <HeaderoverlayTest />
                 
             </section>
-            {/* 페이지2: 다음 콘텐츠들 한화면 */}
-            <section className="h-screen lg:snap-start">
+            {/* 페이지2: Artisan  */}
+            <section className="h-screen lg:snap-start overflow-y-auto">
+                <ArtisanSection />
+            </section>
+            {/* 페이지3: HAM숙소 소개  */}
+            <section className="h-screen lg:snap-start overflow-y-auto">
+                <HamStaySection
+                    // images={[ "/imgs/ham/1.jpg", "/imgs/ham/2.jpg", ... ]}
+                    // addressText="전북 전주시 완산구 ○○길 12"
+                    addressMapUrl="https://maps.app.goo.gl/aXTt5T1NUE9Ehfif8"
+                    // ratings={{ airbnb: 4.89, booking: 9.8, naver: 9.8 }}
+                    onReserve={(p)=>console.log("reserve payload:", p)}
+                
+                />
+            </section>
+            {/* 페이지4: ReviewSection  */}
+            <section className="h-screen lg:snap-start overflow-y-auto">
+                <ReviewSection totalCount = {totalReservations} />
+            </section>
+
+            {/* 페이지2: Intro + Amenity */}
+            <section className="h-screen lg:snap-start overflow-y-auto">
                 <IntroSection />
+                <AmenitySection />
+            </section>
+
+            {/* 페이지3: Location */}
+            <section className="h-screen lg:snap-start">
+                <LocationSection />
             </section>
             <Footer />
             

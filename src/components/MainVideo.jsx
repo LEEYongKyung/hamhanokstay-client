@@ -4,7 +4,12 @@ import { useEffect, useRef, useState } from "react";
 const VIDEOS = [
         "/video/hero_1.mp4",
         "/video/hero_2.mp4",
-        "/video/hero_3.mp4"
+        // "/video/hero_3.mp4",
+        "/video/hero_4.mp4",    
+        "/video/hero_5.mp4",
+        "/video/hero_6.mp4",
+        "/video/hero_7.mp4",
+        "/video/hero_8.mp4",
     ];
 
 export default function MainVideo() {
@@ -53,6 +58,30 @@ export default function MainVideo() {
                 <source key= {idx} src={VIDEOS[idx]} type="video/mp4"/>
 
             </video>
+
+                {/* 가독성을 위한 그라데이션 오버레이 (살짝 어둡게) */}
+            <div className="absolute inset-0 z-[1] pointer-events-non bg-gradient-to-b from-black/60 via-black/15 to-transparent">
+                
+            </div>
+            {/* 중앙 문구 */}
+            <div className="absolute inset-0 z-[2] pointer-events-none flex items-center justify-center">
+                {/* 중앙 기준으로 아래로 10~14vh 정도 내리기  */}
+                <div className="translate-y-[12vh] text-center px-6">
+                    <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-[0_3px_14px_rgba(0,0,0,0.55)]">
+                    조선의 작품과 만나다. 
+                    </h1>
+                    <div className="mt-4 text-white/90 text-base sm:text-lg md:text-xl tracking-[0.2em] font-medium">
+                        HAMHanokStay
+                    </div> 
+
+
+                </div>
+                    
+                
+
+            </div>
+
+            
         </div>
     );
 }

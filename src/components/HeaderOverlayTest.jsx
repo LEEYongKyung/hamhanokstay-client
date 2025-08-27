@@ -12,7 +12,7 @@ export default function HeaderOverlayTest() {
                 <div className="peer relative z-10 flex items-center justify-between px-6 lg:px-10 py-5">
                     {/* 로고: 좌측 , 투명 배경  */}
                     <Link to="/" className="shrink-0">
-                        <img src={logoWhite} alt="HAMHanokStay" className="h-[130px] w-auto" />
+                        <img src={logoWhite} alt="HAMHanokStay" className="h-[100px] w-auto" />
                     </Link>
                 
                     {/* 메뉴: 우측 , hover시 배경 어둡게 만들기 위해 peer 사용  */}
