@@ -7,4 +7,23 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['fsevents'],
   },
+  server: {
+    proxy: {
+      '/agoda': {
+        target: 'https://ycs.agoda.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/agoda/, ''),
+      },
+      '/airbnb': {
+        target: 'https://www.airbnb.co.kr',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/airbnb/, ''),
+      },
+      '/booking': {
+        target: 'https://ical.booking.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/booking/, ''),
+      },
+    },
+  },
 })

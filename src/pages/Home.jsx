@@ -11,6 +11,7 @@ import LocationSection from "../components/LocationSection";
 import ArtisanSection from "../components/ArtisanSection";
 import HamStaySection from "../components/HamStaySection";
 import ReviewSection from "../components/ReviewsSection";
+import ReserveSection from "../components/ReserveSection";
 export default function Home() {
     const totalReservations = 123;
     return (
@@ -60,16 +61,21 @@ export default function Home() {
                 <ReviewSection totalCount = {totalReservations} />
             </section>
 
-            {/* 페이지2: Intro + Amenity */}
+            {/* 페이지5: ReserveSection */}
             <section className="h-screen lg:snap-start overflow-y-auto">
-                <IntroSection />
-                <AmenitySection />
+                <ReserveSection />
             </section>
 
+            {/* 페이지2: Intro + Amenity */}
+            {/* <section className="h-screen lg:snap-start overflow-y-auto">
+                <IntroSection />
+                <AmenitySection />
+            </section> */}
+
             {/* 페이지3: Location */}
-            <section className="h-screen lg:snap-start">
+            {/* <section className="h-screen lg:snap-start">
                 <LocationSection />
-            </section>
+            </section> */}
             <Footer />
             
            
