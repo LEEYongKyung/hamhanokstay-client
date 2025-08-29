@@ -1,8 +1,10 @@
-import {
-    FaInstagram,
-    FaWhatsapp,
-    FaCommentDots
-} from "react-icons/fa";
+// import {
+//     FaInstagram,
+//     FaWhatsapp,
+//     FaCommentDots
+// } from "react-icons/fa";
+import { SiKakaotalk, SiWhatsapp, SiInstagram } from "react-icons/si";
+import {MdEmail} from "react-icons/md";
 import {Link} from "react-router-dom";
 import logo from "../assets/logo.svg";
 
@@ -21,11 +23,35 @@ export default function Footer() {
             <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
                 {/* 1. 왼쪽 : 로고  */}
                 <div className="flex flex-col items-start gap-4">
-                    <img src={logo} alt="HAMHanokStay Logo" className="h-10" />
+                    <img src={logo} alt="HAMHanokStay Logo" className="h-12 w-auto" />
                     <div className="flex gap-3 text-lg">
-                        <FaInstagram className="hover:text-gray-500 cursor-pointer" />
-                        <FaWhatsapp className="hover:text-gray-500 cursor-pointer" />
-                        <FaCommentDots className="hover:text-gray-500 cursor-pointer" />
+                        <a 
+                            href="http://pf.kakao.com/_SYKxan/chat" 
+                            target="_blank" 
+                            rel="noreferrer"
+                        >
+                            <SiKakaotalk className="hover:text-gray-500 cursor-pointer" />
+                        </a>
+
+                        <a 
+                            href="https://wa.me/821090441306" 
+                            target="_blank" 
+                            rel="noreferrer"
+                        >
+                            <SiWhatsapp className="hover:text-gray-500 cursor-pointer" />
+                        </a>
+                        <a 
+                            href="https://www.instagram.com/hamhanokstay?igsh=MWwyaTljcmhrOTl1eQ%3D%3D&utm_source=qr" 
+                            target="_blank" 
+                            rel="noreferrer"
+                        >
+                            <SiInstagram className="hover:text-gray-500 cursor-pointer" />
+                        </a>
+                        <a 
+                            href="mailto:hamhanokstay@gmail.com"
+                        >
+                             <MdEmail className="hover:text-gray-500 cursor-pointer" />
+                        </a>
                     </div>
                 </div>
                 {/* 2. 중앙 : 사이트맵 */} 
@@ -41,12 +67,30 @@ export default function Footer() {
                 {/* 3. 오른쪽 : 연락처 + 이메일 */}
                 <div>
                     <h4 className="font-semibold mb-3">Contact</h4>
-                    <p className="mb-1"><strong>카카오ID: </strong> hamhanok</p>
-                    <p className="mb-1"><strong>WhatsApp: </strong> +82 10-9044-1306</p>
+                    <a 
+                            href="http://pf.kakao.com/_SYKxan/chat" 
+                            target="_blank" 
+                            rel="noreferrer"
+                        >
+                            <p className="mb-1"><strong>카카오ID: </strong> hamhanok</p>
+                    </a>
+                    <a 
+                            href="https://wa.me/821090441306" 
+                            target="_blank" 
+                            rel="noreferrer"
+                        >
+                            <p className="mb-1"><strong>WhatsApp: </strong> +82 10-9044-1306</p>
+                    </a>
+                   
                     <p className="mb-3"><strong>Email: </strong> hamhanokstay@gmail.com</p>
-                    <button className="border border-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition">
-                        CONTACT EMAIL
-                    </button>
+                    <a 
+                            href="mailto:hamhanokstay@gmail.com"
+                        >
+                             <button className="border border-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition">
+                                 CONTACT EMAIL
+                             </button>
+                        </a>
+                    
                 </div>
             </div>
             {/* 하단 바  */}

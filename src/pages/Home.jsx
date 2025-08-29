@@ -12,6 +12,7 @@ import ArtisanSection from "../components/ArtisanSection";
 import HamStaySection from "../components/HamStaySection";
 import ReviewSection from "../components/ReviewsSection";
 import ReserveSection from "../components/ReserveSection";
+import ContactFab from "../components/ContactFab";
 export default function Home() {
     const totalReservations = 123;
     return (
@@ -64,19 +65,11 @@ export default function Home() {
             {/* 페이지5: ReserveSection */}
             <section className="h-screen lg:snap-start overflow-y-auto">
                 <ReserveSection />
+            
+                <Footer />
             </section>
 
-            {/* 페이지2: Intro + Amenity */}
-            {/* <section className="h-screen lg:snap-start overflow-y-auto">
-                <IntroSection />
-                <AmenitySection />
-            </section> */}
-
-            {/* 페이지3: Location */}
-            {/* <section className="h-screen lg:snap-start">
-                <LocationSection />
-            </section> */}
-            <Footer />
+            <ContactFab />
             
            
         </main>
