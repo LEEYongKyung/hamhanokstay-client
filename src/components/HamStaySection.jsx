@@ -17,6 +17,7 @@ import { CiSpeaker as SpeakerIcon } from "react-icons/ci";
 import { MdOutlineCoffeeMaker as CoffeeMakerIcon, MdOutlineYard as YardIcon } from "react-icons/md";
 import { GiWineGlass as WineGlassIcon, GiDoorHandle as DoorlockIcon } from "react-icons/gi";
 import { TbDeviceTvOff as TvOffIcon } from "react-icons/tb";
+import RangeCalendarPopover from "./RangeCalendarPopover";
 /**
  * HAM HanokStay - Airbnb 스타일 섹션
  * 
@@ -130,7 +131,13 @@ export default function HamStaySection({
         등록 세부 정보
         발급 지역: 부산광역시, 해운대구
         허가 유형: 일반숙박업
-        허가번호: 제 2022-00005 호`
+        허가번호: 제 2022-00005 호`,
+        shareCalendars = [
+            "/booking/v1/export?t=2b9c85f1-2ce8-4686-b829-2ecfde2044cb",
+            "/airbnb/calendar/ical/1141509028517381236.ics?s=4ff6139029b739ac857b7faa0e522542",
+            "/agoda/en-us/api/ari/icalendar?key=Mq%2f3dKl3aQT1CaFASpd7juPktu8s1wp%2f",
+        ],
+
 
 }){
     //예시 이미지 (없으면 Unplash 프리뷰 사용)
@@ -165,6 +172,22 @@ export default function HamStaySection({
             const payload = {checkIn, checkOut, guests};
             if (onReserve) onReserve(payload);
             else alert(`예약 확인: ${JSON.stringify(payload, null, 2)}`);
+        };
+        const checkinBtnRef = useRef(null);
+        const checkoutBtnRef = useRef(null);
+
+        const [openWhich, setOpenWhich] = useState(null);
+        // const [checkIn, setCheckIn] = useState(null);
+        // const [checkOut, setCheckOut] = useState(null);
+
+        // ReserveSection에서 만든 Set<number> 그대로 재사용 (UTC 지정 ) 
+        const disabledSet = React.useMemo(() => new Set(), []); /* 예약불가 날짜 Set<number> */
+
+        const handleChange = (s, e) => {
+            setCheckIn(s);
+            setCheckOut(e);
+            // 둘 다 선택되면 자동 닫기
+            if (s && e) setOpenWhich(null);
         };
 
         //  ===================== 하단 정보 영역 변수 및 함수  ========================================
@@ -213,20 +236,19 @@ export default function HamStaySection({
         // 5초 마다 반짝 + 쉐이크 (가시 상태일 때만)
         useEffect(()=> {
             if (!inView) return;
-            const runSpark = () => {
-                setSpark(true) ;// 평점 부분 반짝 ( 지연은 각 아이템 delay로 처리)
-                setTimeout(() => setSpark(false), 1200); //반짝이 종료
-            };
-            const runShake = () => {
-                setShake(true) ; // 예약 카드 좌우로 흔들
-                setTimeout(()=> setShake(false), 600) ; // 쉐이크 종료
-            };
+            const runSpark = () => { setSpark(true); setTimeout(() => setSpark(false), 1200); };
+            const runShake = () => { setShake(true); setTimeout(() => setShake(false), 600); };
 
-            runSpark(); // 직입 직후 한 번 실행 
-            runShake(); // 직입 직후 한 번 실행 
-            const idSpark = setInterval(runSpark, 3000); // 5초 마다 반복
-            const idShake = setInterval(runShake, 6000); // 5초 마다 반복
-            return () => clearInterval(idSpark,idShake);
+            // const runShake = () => {
+            //     setShake(true) ; // 예약 카드 좌우로 흔들
+            //     setTimeout(()=> setShake(false), 600) ; // 쉐이크 종료
+            // };
+
+            runSpark();
+            runShake();
+            const idSpark = setInterval(runSpark, 3000);
+            const idShake = setInterval(runShake, 6000);
+            return () => { clearInterval(idSpark); clearInterval(idShake); }; // ← 이렇게
         }, [inView])
 
 
@@ -506,6 +528,14 @@ export default function HamStaySection({
                                 <span className="text-xs font-semibold text-main mb-1 block">날짜</span>
                                 <div className="grid grid-cols-2 gap-2">
                                     <button
+                                        ref={checkinBtnRef}
+                                        onClick={() => setOpenWhich((v) => (v === "in" ? null : "in"))}
+                                        className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50"
+                                    >
+                                        {checkIn ? checkIn.replaceAll("-", ". ") : "연도. 월. 일."}
+
+                                    </button>
+                                    {/* <button
                                     type="button"
                                     onClick={()=>setCalOpen(true)}
                                     className="flex items-center gap-2 rounded-lg border px-3 py-2 text-left hover:bg-neutral-50"
@@ -515,9 +545,9 @@ export default function HamStaySection({
                                         <div className="text-[11px] text-main">체크인</div>
                                         <div className="text-sm font-medium text-main">{checkIn ? fmtK(checkIn) : "연도. 월. 일."}</div>
                                     </div>
-                                    </button>
+                                    </button> */}
 
-                                    <button
+                                    {/* <button
                                     type="button"
                                     onClick={()=>setCalOpen(true)}
                                     className="flex items-center gap-2 rounded-lg border px-3 py-2 text-left hover:bg-neutral-50"
@@ -527,17 +557,41 @@ export default function HamStaySection({
                                         <div className="text-[11px] text-main">체크아웃</div>
                                         <div className="text-sm font-medium text-main">{checkOut ? fmtK(checkOut) : "연도. 월. 일."}</div>
                                     </div>
+                                    </button> */}
+                                     {/* 체크아웃 버튼 */}
+                                    <button
+                                        ref={checkoutBtnRef}
+                                        onClick={() => setOpenWhich((v) => (v === "out" ? null : "out"))}
+                                        className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50 mt-2"
+                                    >
+                                        {checkOut ? checkOut.replaceAll("-", ". ") : "연도. 월. 일."}
                                     </button>
                                 </div>
 
                                 {/* 2개월 달력 팝오버 */}
-                                <RangeCalendar
-                                    open={calOpen}
-                                    onClose={()=>setCalOpen(false)}
+                                {/* 2개월 달력 팝오버 */}
+                                    {/* <RangeCalendar
+                                        open={calOpen}
+                                        onClose={() => setCalOpen(false)}
+                                        startISO={checkIn}
+                                        endISO={checkOut}
+                                        onChange={(s, e) => { setCheckIn(s); setCheckOut(e); }}
+                                        shareCalendars={shareCalendars}
+                                    /> */}
+                                    {/* 2개월 달력 팝오버 (좌측으로 펼침) */}
+                                    <RangeCalendarPopover
+                                    open={openWhich === "in" || openWhich === "out"}
+                                    anchorRef={openWhich === "in" ? checkinBtnRef : checkoutBtnRef}
+                                    onClose={() => setOpenWhich(null)}
                                     startISO={checkIn}
                                     endISO={checkOut}
-                                    onChange={(s,e)=>{ setCheckIn(s); setCheckOut(e); }}
-                                />
+                                    onChange={handleChange}
+                                    disabledSet={undefined}          // 외부 세트 없으면 생략 가능
+                                    shareCalendars={shareCalendars}  // ← ReserveSection과 동일 ics 적용
+                                    theme="#402a1c"
+                                    />
+
+
                                 </div>
 
                             
@@ -793,9 +847,9 @@ const pad = (n) => String(n).padStart(2, "0");
 const toISO = (d) => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const fromISO = (s) => (s ? new Date(`${s}T00:00:00`) : null);
 const isSameDay = (a,b) => a && b && a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
-const isBefore = (a,b) => a && b && a.getTime() < b.getTime();
+const isBefore  = (a,b) => a && b && a.getTime() < b.getTime();
 const addMonths = (d, m) => new Date(d.getFullYear(), d.getMonth()+m, 1);
-const diffDays = (a,b) => Math.round((b - a) / 86400000);
+const diffDays  = (a,b) => Math.round((b - a) / 86400000);
 const fmtK = (iso) => {
   if (!iso) return "";
   const d = fromISO(iso);
@@ -804,7 +858,7 @@ const fmtK = (iso) => {
 
 const makeCells = (y,m) => {
   const first = new Date(y,m,1);
-  const offset = first.getDay(); // Sun=0
+  const offset = first.getDay();
   const days = new Date(y, m+1, 0).getDate();
   const cells = [];
   for (let i=0;i<42;i++){
@@ -814,18 +868,213 @@ const makeCells = (y,m) => {
   return cells;
 };
 
+// 오늘 00:00:00 (이전 날짜 차단용)
+const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+const todayISO   = toISO(todayStart);
+
+// 모바일 분기(hook)
+function useSmDown() {
+  const [sm, setSm] = React.useState(false);
+  React.useEffect(() => {
+    const m = window.matchMedia("(max-width: 639.98px)");
+    const on = () => setSm(m.matches);
+    on();
+    if (m.addEventListener) m.addEventListener("change", on);
+    else m.addListener(on);
+    return () => {
+      if (m.removeEventListener) m.removeEventListener("change", on);
+      else m.removeListener(on);
+    };
+  }, []);
+  return sm;
+}
+
+// 간단 ICS 파서 (DTSTART/DTEND YYYYMMDD)
+function parseIcsDates(text) {
+  const disabled = new Set();
+  if (!text) return disabled;
+  const lines = text.split(/\r?\n/);
+  let s=null, e=null;
+  for (const ln of lines) {
+    const mS = ln.match(/DTSTART[^:]*:(\d{8})/);
+    const mE = ln.match(/DTEND[^:]*:(\d{8})/);
+    if (mS) s = mS[1];
+    if (mE) e = mE[1];
+    if (ln.startsWith("END:VEVENT") && s) {
+      const yy = (v)=>+v.slice(0,4), mm=(v)=>+v.slice(4,6)-1, dd=(v)=>+v.slice(6,8);
+      const ds = new Date(yy(s),mm(s),dd(s));
+      const de = e? new Date(yy(e),mm(e),dd(e)) : new Date(yy(s),mm(s),dd(s));
+      for (let d=new Date(ds); d<de; d.setDate(d.getDate()+1)) disabled.add(toISO(d));
+      s=e=null;
+    }
+  }
+  return disabled;
+}
+
+// 브랜딩 컬러
+const BRAND = "#402a1c";
+const BRAND_DARK = "#2f1e14";
+const RANGE_BG = "rgba(64,42,28,.08)";
+const RING = "rgba(64,42,28,.35)";
 // ===== Range Calendar (2 months, Airbnb 스타일) =====
+// function RangeCalendar({
+//   open, onClose,
+//   startISO, endISO,
+//   onChange, // (startISO, endISO) => void
+// }) {
+//   const boxRef = React.useRef(null);
+//   const start = fromISO(startISO);
+//   const end   = fromISO(endISO);
+//   const [view, setView] = React.useState(() => new Date((start||new Date()).getFullYear(), (start||new Date()).getMonth(), 1));
+//   const [s, setS] = React.useState(start);
+//   const [e, setE] = React.useState(end);
+
+//   React.useEffect(()=>{ setS(start); setE(end); }, [startISO, endISO]);
+
+//   // 외부 클릭 닫기
+//   React.useEffect(()=>{
+//     if (!open) return;
+//     const fn = (ev) => { if (boxRef.current && !boxRef.current.contains(ev.target)) onClose?.(); };
+//     document.addEventListener("mousedown", fn);
+//     return () => document.removeEventListener("mousedown", fn);
+//   }, [open, onClose]);
+
+//   const pick = (d) => {
+//     if (!s || (s && e)) {
+//       setS(d); setE(null);
+//     } else {
+//       if (!d || isBefore(d, s) || isSameDay(d, s)) { setS(d); setE(null); return; }
+//       setE(d);
+//       onChange?.(toISO(s), toISO(d)); // 자동 적용
+//       onClose?.();                    // 자동 닫기
+//     }
+//   };
+
+//   const Month = ({ base }) => {
+//     const cells = makeCells(base.getFullYear(), base.getMonth());
+//     return (
+//       <div className="w-[320px]">
+//         <div className="text-center font-semibold mb-3">
+//           {base.getFullYear()}년 {base.getMonth()+1}월
+//         </div>
+//         <div className="grid grid-cols-7 text-center text-xs text-neutral-500 mb-1">
+//           {["일","월","화","수","목","금","토"].map(w=><div key={w} className="py-1">{w}</div>)}
+//         </div>
+//         <div className="grid grid-cols-7 gap-1">
+//           {cells.map((d,i)=>{
+//             const empty = !d;
+//             const isStart = d && s && isSameDay(d,s);
+//             const isEnd   = d && e && isSameDay(d,e);
+//             const inRange = d && s && e && (isBefore(s,d) || isSameDay(s,d)) && (isBefore(d,e) || isSameDay(e,d));
+//             return (
+//               <button
+//                 key={i}
+//                 disabled={empty}
+//                 onClick={()=>d && pick(d)}
+//                 className={[
+//                   "relative h-10 rounded-md text-sm",
+//                   empty ? "opacity-0 pointer-events-none" : "hover:bg-neutral-100",
+//                   inRange ? "bg-rose-350" : "",
+//                   (isStart || isEnd) ? "bg-rose-600 text-white hover:bg-rose-600" : "",
+//                 ].join(" ")}
+//               >
+//                 {!empty && d.getDate()}
+//                 {(isStart || isEnd) && <span className="absolute inset-0 ring-2 ring-rose-300  rounded-md pointer-events-none" />}
+//               </button>
+//             );
+//           })}
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   if (!open) return null;
+
+//   const nights = s && e ? diffDays(s,e) : 0;
+
+//   return (
+//     <div ref={boxRef} className="absolute z-50 mt-2 rounded-2xl border bg-white shadow-2xl p-4 w-[680px]">
+//       {/* 상단 바 */}
+//       <div className="flex items-center justify-between mb-3">
+//         <div className="text-lg font-bold">{nights>0 ? `${nights}박` : ""}</div>
+//         <div className="flex items-center gap-2">
+//           <div className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm">
+//             <span className="text-neutral-500">체크인</span>
+//             <strong>{s ? fmtK(toISO(s)) : "-"}</strong>
+//             {s && <button onClick={()=>{ setS(null); setE(null); onChange?.("",""); }} className="ml-1 text-neutral-400 hover:text-neutral-600">×</button>}
+//           </div>
+//           <div className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm">
+//             <span className="text-neutral-500">체크아웃</span>
+//             <strong>{e ? fmtK(toISO(e)) : "-"}</strong>
+//             {e && <button onClick={()=>{ setE(null); onChange?.(toISO(s), ""); }} className="ml-1 text-neutral-400 hover:text-neutral-600">×</button>}
+//           </div>
+//         </div>
+//         <div className="flex items-center gap-1">
+//           <button onClick={()=>setView(addMonths(view,-1))} className="rounded-md border px-2 py-1 hover:bg-neutral-50">◀</button>
+//           <button onClick={()=>setView(addMonths(view, 1))} className="rounded-md border px-2 py-1 hover:bg-neutral-50">▶</button>
+//         </div>
+//       </div>
+
+//       {/* 2개월 */}
+//       <div className="flex gap-6">
+//         <Month base={view}/>
+//         <Month base={addMonths(view,1)}/>
+//       </div>
+
+//       {/* 하단 */}
+//       <div className="mt-4 flex items-center justify-between text-sm">
+//         <button
+//           onClick={()=>{ setS(null); setE(null); onChange?.("",""); }}
+//           className="rounded-md border px-3 py-1.5 hover:bg-neutral-50"
+//         >날짜 지우기</button>
+//         <button onClick={onClose} className="rounded-md bg-neutral-900 text-white px-3 py-1.5">닫기</button>
+//       </div>
+//     </div>
+//   );
+// }
+// ===== Range Calendar (데스크탑 2개월 / 모바일 1개월) =====
 function RangeCalendar({
   open, onClose,
   startISO, endISO,
-  onChange, // (startISO, endISO) => void
+  onChange,            // (startISO, endISO)
+  shareCalendars = [], // 예약 불가일 소스
 }) {
+  const smDown = useSmDown();
+  const months = smDown ? 1 : 2;
+
   const boxRef = React.useRef(null);
   const start = fromISO(startISO);
   const end   = fromISO(endISO);
-  const [view, setView] = React.useState(() => new Date((start||new Date()).getFullYear(), (start||new Date()).getMonth(), 1));
+
+  const [view, setView] = React.useState(
+    () => new Date((start||todayStart).getFullYear(), (start||todayStart).getMonth(), 1)
+  );
   const [s, setS] = React.useState(start);
   const [e, setE] = React.useState(end);
+
+  // 공유 캘린더 비활성일
+  const [disabledDates, setDisabledDates] = React.useState(new Set());
+  React.useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const sets = await Promise.all(
+          (shareCalendars||[]).map(async (url) => {
+            try {
+              const r = await fetch(url, {mode:"cors"});
+              const t = await r.text();
+              return parseIcsDates(t);
+            } catch { return new Set(); }
+          })
+        );
+        if (!alive) return;
+        const merged = new Set();
+        sets.forEach(s => s.forEach(d => merged.add(d)));
+        setDisabledDates(merged);
+      } catch {/* noop */}
+    })();
+    return () => { alive = false; };
+  }, [shareCalendars]);
 
   React.useEffect(()=>{ setS(start); setE(end); }, [startISO, endISO]);
 
@@ -838,13 +1087,16 @@ function RangeCalendar({
   }, [open, onClose]);
 
   const pick = (d) => {
+    const iso = toISO(d);
+    // 과거/불가일 차단
+    if (iso < todayISO || disabledDates.has(iso)) return;
     if (!s || (s && e)) {
       setS(d); setE(null);
     } else {
       if (!d || isBefore(d, s) || isSameDay(d, s)) { setS(d); setE(null); return; }
       setE(d);
-      onChange?.(toISO(s), toISO(d)); // 자동 적용
-      onClose?.();                    // 자동 닫기
+      onChange?.(toISO(s), toISO(d));
+      onClose?.();
     }
   };
 
@@ -852,32 +1104,49 @@ function RangeCalendar({
     const cells = makeCells(base.getFullYear(), base.getMonth());
     return (
       <div className="w-[320px]">
-        <div className="text-center font-semibold mb-3">
+        <div className="text-center font-semibold mb-3" style={{color: BRAND}}>
           {base.getFullYear()}년 {base.getMonth()+1}월
         </div>
-        <div className="grid grid-cols-7 text-center text-xs text-neutral-500 mb-1">
+
+        <div className="grid grid-cols-7 text-center text-xs mb-1" style={{color: BRAND, opacity:.65}}>
           {["일","월","화","수","목","금","토"].map(w=><div key={w} className="py-1">{w}</div>)}
         </div>
+
         <div className="grid grid-cols-7 gap-1">
           {cells.map((d,i)=>{
             const empty = !d;
+            const iso   = d ? toISO(d) : "";
+            const blocked = d && (iso < todayISO || disabledDates.has(iso));
             const isStart = d && s && isSameDay(d,s);
             const isEnd   = d && e && isSameDay(d,e);
-            const inRange = d && s && e && (isBefore(s,d) || isSameDay(s,d)) && (isBefore(d,e) || isSameDay(e,d));
+            const inRange = d && s && e &&
+              (isBefore(s,d) || isSameDay(s,d)) &&
+              (isBefore(d,e) || isSameDay(e,d));
+
+            const style = {};
+            let cls =
+              "relative h-10 rounded-md text-sm transition " +
+              (empty ? "opacity-0 pointer-events-none " : "hover:bg-neutral-50 ");
+
+            if (blocked) { cls += "text-neutral-400 cursor-not-allowed "; }
+            else { cls += "text-[color:var(--ham-date,#111)] "; }
+
+            if (inRange) style.background = RANGE_BG;
+            if (isStart || isEnd) { style.background = BRAND; style.color = "#fff"; }
+
             return (
               <button
                 key={i}
-                disabled={empty}
-                onClick={()=>d && pick(d)}
-                className={[
-                  "relative h-10 rounded-md text-sm",
-                  empty ? "opacity-0 pointer-events-none" : "hover:bg-neutral-100",
-                  inRange ? "bg-rose-350" : "",
-                  (isStart || isEnd) ? "bg-rose-600 text-white hover:bg-rose-600" : "",
-                ].join(" ")}
+                disabled={empty || blocked}
+                onClick={()=> d && pick(d)}
+                className={cls}
+                style={style}
               >
                 {!empty && d.getDate()}
-                {(isStart || isEnd) && <span className="absolute inset-0 ring-2 ring-rose-300  rounded-md pointer-events-none" />}
+                {(isStart || isEnd) && (
+                  <span className="absolute inset-0 rounded-md pointer-events-none"
+                        style={{boxShadow:`0 0 0 2px ${RING} inset`}}/>
+                )}
               </button>
             );
           })}
@@ -887,36 +1156,46 @@ function RangeCalendar({
   };
 
   if (!open) return null;
-
+  const bases = Array.from({length: months}, (_,i)=> addMonths(view,i));
+  const w = months===1 ? 340 : 680;
   const nights = s && e ? diffDays(s,e) : 0;
 
   return (
-    <div ref={boxRef} className="absolute z-50 mt-2 rounded-2xl border bg-white shadow-2xl p-4 w-[680px]">
+    <div ref={boxRef}
+         className="absolute z-50 mt-2 rounded-2xl border bg-white shadow-2xl p-4"
+         style={{width: w}}>
       {/* 상단 바 */}
       <div className="flex items-center justify-between mb-3">
-        <div className="text-lg font-bold">{nights>0 ? `${nights}박` : ""}</div>
+        <div className="text-lg font-bold" style={{color: BRAND}}>
+          {nights>0 ? `${nights}박` : ""}
+        </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm">
-            <span className="text-neutral-500">체크인</span>
+          <div className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm" style={{color: BRAND}}>
+            <span className="opacity-70">체크인</span>
             <strong>{s ? fmtK(toISO(s)) : "-"}</strong>
-            {s && <button onClick={()=>{ setS(null); setE(null); onChange?.("",""); }} className="ml-1 text-neutral-400 hover:text-neutral-600">×</button>}
+            {s && <button onClick={()=>{ setS(null); setE(null); onChange?.("",""); }}
+                          className="ml-1 opacity-60 hover:opacity-100">×</button>}
           </div>
-          <div className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm">
-            <span className="text-neutral-500">체크아웃</span>
+          <div className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm" style={{color: BRAND}}>
+            <span className="opacity-70">체크아웃</span>
             <strong>{e ? fmtK(toISO(e)) : "-"}</strong>
-            {e && <button onClick={()=>{ setE(null); onChange?.(toISO(s), ""); }} className="ml-1 text-neutral-400 hover:text-neutral-600">×</button>}
+            {e && <button onClick={()=>{ setE(null); onChange?.(toISO(s)||"", ""); }}
+                          className="ml-1 opacity-60 hover:opacity-100">×</button>}
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={()=>setView(addMonths(view,-1))} className="rounded-md border px-2 py-1 hover:bg-neutral-50">◀</button>
-          <button onClick={()=>setView(addMonths(view, 1))} className="rounded-md border px-2 py-1 hover:bg-neutral-50">▶</button>
+          <button onClick={()=>setView(addMonths(view,-1))}
+                  className="rounded-md border px-2 py-1 hover:bg-neutral-50"
+                  style={{color: BRAND}}>◀</button>
+          <button onClick={()=>setView(addMonths(view, 1))}
+                  className="rounded-md border px-2 py-1 hover:bg-neutral-50"
+                  style={{color: BRAND}}>▶</button>
         </div>
       </div>
 
-      {/* 2개월 */}
-      <div className="flex gap-6">
-        <Month base={view}/>
-        <Month base={addMonths(view,1)}/>
+      {/* 달력들 */}
+      <div className="flex gap-6 justify-center">
+        {bases.map((b,i)=> <Month key={i} base={b}/>)}
       </div>
 
       {/* 하단 */}
@@ -924,10 +1203,15 @@ function RangeCalendar({
         <button
           onClick={()=>{ setS(null); setE(null); onChange?.("",""); }}
           className="rounded-md border px-3 py-1.5 hover:bg-neutral-50"
+          style={{color: BRAND}}
         >날짜 지우기</button>
-        <button onClick={onClose} className="rounded-md bg-neutral-900 text-white px-3 py-1.5">닫기</button>
+        <button onClick={onClose}
+                className="rounded-md px-3 py-1.5 text-white"
+                style={{background: BRAND}}
+                onMouseEnter={(e)=> e.currentTarget.style.background = BRAND_DARK}
+                onMouseLeave={(e)=> e.currentTarget.style.background = BRAND}
+        >닫기</button>
       </div>
     </div>
   );
 }
-

@@ -8,6 +8,27 @@ import {MdEmail} from "react-icons/md";
 import {Link} from "react-router-dom";
 import logo from "../assets/logo.svg";
 
+const scrollTo = (id) => {
+  const el = document.getElementById(id);
+  const container = document.getElementById("app-scroll");
+  if (!el || !container) return;
+
+  const headerOffset = 80; // 고정 헤더 높이에 맞게 조절
+  const targetY =
+    el.getBoundingClientRect().top -
+    container.getBoundingClientRect().top +
+    container.scrollTop -
+    headerOffset;
+
+  container.scrollTo({ top: targetY, behavior: "smooth" });
+};
+
+const NAV = [
+    { label: "HAM",   target: "artisan" },
+    { label: "ABOUT",   target: "hamstay" },
+    { label: "REVIEWS", target: "reviews" },
+    { label: "RESERVE", target: "reserve" },
+];
 
 // +----------------------------+------------------------+--------------------------+
 // | [로고]                    | 사이트맵               | 연락처 + 이메일 버튼    |
@@ -23,7 +44,7 @@ export default function Footer() {
             <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
                 {/* 1. 왼쪽 : 로고  */}
                 <div className="flex flex-col items-start gap-4">
-                    <img src={logo} alt="HAMHanokStay Logo" className="h-12 w-auto" />
+                    <img src={logo} alt="HAMHanokStay Logo" className="h-24 w-auto" />
                     <div className="flex gap-3 text-lg">
                         <a 
                             href="http://pf.kakao.com/_SYKxan/chat" 
@@ -57,12 +78,18 @@ export default function Footer() {
                 {/* 2. 중앙 : 사이트맵 */} 
                 <div>
                     <h4 className="font-semibold mb-3">HAMHanokStay</h4>
-                    <ul className="space-y-1">
-                        <li><Link to="/about" className="hover:underline">About </Link></li>
-                        <li><Link to="/review" className="hover:underline">Reviews </Link></li>
-                        <li><Link to="/reserve" className="hover:underline">Reserve </Link></li>
-                        <li><Link to="/contact" className="hover:underline">Contact </Link></li>
-                    </ul>
+                    <div className="flex flex-col space-y-1">
+                    {NAV.map((item) => (
+                        <button
+                            key={Array.isArray(item.target) ? item.target[0] : item.target}
+                            onClick={() => scrollTo(item.target)}
+                            className="text-sm font-medium hover:opacity-80 transition text-left"
+                            type="button"
+                        >
+                            {item.label}
+                        </button>
+                    ))}
+                    </div>
                 </div>
                 {/* 3. 오른쪽 : 연락처 + 이메일 */}
                 <div>

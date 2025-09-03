@@ -1,72 +1,75 @@
-import { useState } from "react";
-// import {HiLanguage } from "react-icons/fa"; // 지구본 아이콘(언어 설정)
-import { HiLanguage } from "react-icons/hi2"
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import logoWhite from "../assets/logo_white.png";
+import { RxHamburgerMenu } from "react-icons/rx";
+
+const scrollTo = (id) => {
+  const el = document.getElementById(id);
+  const container = document.getElementById("app-scroll");
+  if (!el || !container) return;
+
+  const headerOffset = 80; // 고정 헤더 높이에 맞게 조절
+  const targetY =
+    el.getBoundingClientRect().top -
+    container.getBoundingClientRect().top +
+    container.scrollTop -
+    headerOffset;
+
+  container.scrollTo({ top: targetY, behavior: "smooth" });
+};
+const NAV = [
+    { label: "HAM",   target: "artisan" },
+    { label: "ABOUT",   target: "hamstay" },
+    { label: "REVIEWS", target: "reviews" },
+    { label: "RESERVE", target: "reserve" },
+];
 
 
-export default function Header(variant="default") {
-    const [langOpen, setLangOpen] = useState(false);
-    const toggleLangMenu = () => setLangOpen(!langOpen); // 버튼 클릭 시 열림 토글 
-    // const mode = varient ?? variant; //오타 호환
-    const isOverlay = variant === "overlay"; // 오버레이 모드 여부 확인
+export default function Header() {
     return (
-        <header className={
-            isOverlay
-            // 오버레이 모드일 때: 배경 비디오 위에 텍스트가 오도록 설정
-            ? "absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white "
-            : // 일반 모드일 때: 상단 고정 헤더
-            "bg-white w-full text-center px-4 py-2 shadow-md"
-            }
-        >
-            {/* 상단로고 + 언어 선택 아이콘 중앙에 배치  */}
-            <div
-                className={
-                    isOverlay
-                    ? "flex flex-col items-center"
-                    : "flex justify-between items-center max-w-8xl mx-auto"
-                }
-            >
-                {/* 로고 이미지  */}
-                <Link to="/" className={isOverlay ?"block":"mx-auto"}>
-                    <img 
-                        src="../assets/logo.svg" 
-                        alt="HAMHanokStay Logo"
-                        style={{height: "130px"}} 
-                    />
-                </Link>
-                {!isOverlay && (
-                 
-                    <div className="relative ">
-                        <button onClick={toggleLangMenu}>
-                            <HiLanguage  className="text-2xl text-gray-500" />
+        // 비디오 위에 얹는 투명 헤더 
+        <header className="absolute inset-x-0 top-0 z-20">
+            {/* group 컨테이너 하나로 묶되 , 'peer'를 nav에 주고 아래 배경 레이어가 peer-hover로 반응하게 구성 */}
+            <div className="relative">
+                {/* 실제 헤더 컨텐츠 (로고 좌측 / 메뉴 우측) */}
+                <div className="peer relative z-10 flex items-center justify-between px-6 lg:px-10 py-5">
+                    {/* 로고: 좌측 , 투명 배경  */}
+                    <Link to="/" className="shrink-0">
+                        <img src={logoWhite} alt="HAMHanokStay" className="h-[100px] w-auto" />
+                    </Link>
+                
+                    {/* 메뉴: 우측 , hover시 배경 어둡게 만들기 위해 peer 사용  */}
+                    {/* <nav className="hidden md:flex items-center gap-8 text-white/90 font-medium tracking-wide">
+                        <Link to="/about" className="hover:underline">ABOUT</Link>
+                        <Link to="/review" className="hover:underline">REVIEWS</Link>
+                        <Link to="/reserve" className="hover:underline">RESERVE</Link>
+                        <Link to="/contact" className="hover:underline">Contact</Link>
+                    </nav> */}
+                    <nav className="hidden md:flex items-center gap-8 text-white/90 font-medium tracking-wide">
+                        {NAV.map((item) => (
+                        <button
+                            key={Array.isArray(item.target) ? item.target[0] : item.target}
+                            onClick={() => scrollTo(item.target)}
+                            className="text-sm font-medium hover:opacity-80 transition"
+                            type="button"
+                        >
+                            {item.label}
                         </button>
-                        {langOpen && (
-                            <ul className="absolute right-0 mt-2 bg-white border rounded text-sm shadow-md z-10">
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">한국어</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">English</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">日本語</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Deutsch</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">中文</li>
-                            </ul>
-                        )}
-                    </div>
-                )}
-            </div>
-            {/* 네비게이션 메뉴 */}
-            <nav className={
-                isOverlay
-                ? "mt-8 space-x-6 font-medium"
-                : "space-x-6 font-medium"
-            }
-            >
-                <Link to="/about" className={isOverlay ? "hover:underline" : "hover:underline"}>About</Link>
-                <Link to="/review" className={isOverlay ? "hover:underline" : "hover:underline"}>Review</Link>
-                <Link to="/reserve"className={isOverlay ? "hover:underline" : "hover:underline"}>Reserve</Link>
-                <Link to="/contact"className={isOverlay ? "hover:underline" : "hover:underline"}>Contact</Link>
-            </nav>
+                        ))}
+                    </nav>
+                    {/* (옵션) 모바일 메뉴 버튼 자리 */}
+                    <button className="md:hidden text-white/90" aria-label="Open menu">
+                        <RxHamburgerMenu className="w-6 h-6" />
+                    </button>
+                </div>
 
+                {/* 배경 레이어 : 기본은 투명, 메뉴(nav) hover 시 어두워짐  */}
+                <div 
+                    className="pointer-events-none absolute inset-0 z-0 bg-transparent transition-colors duration-300 peer-hover:bg-black/60"
+                />
+
+            </div>
+            
 
         </header>
     )
-    
 }

@@ -15,6 +15,22 @@
 @tailwind utilities;
 
 /* 전체 폰트 지정 */
+html, body {
+  /* 브라우저 스크롤을 잠그고, app 스크롤만 사용 */
+  height: 100%;
+}
 body {
-  @apply font-gowun text-gray-800;
+  @apply font-gowun text-gray-800; 
+  overflow: hidden;  /* 바디 스크롤 막음 */
+}
+#root {
+  height: 100%;
+}
+/*  메인 스크롤러를 안정적으로  */
+#app-scroll {
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: stable;
+  scrollbar-gutter: stable; /*스크롤바 폭 변동 레이아웃 흔들림 방지 */
 }

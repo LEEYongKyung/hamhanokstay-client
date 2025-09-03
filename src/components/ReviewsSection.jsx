@@ -197,15 +197,9 @@ export default function ReviewsSection({
   }, [modal]);
 
   return (
-    <section style={section} onMouseLeave={resumeNow}>
+    <section id="reviews" style={section} onMouseLeave={resumeNow}>
       {/* 헤더 */}
-      {/* <header className="mb-6 text-center">
-        <h2 className="text-2xl text-white sm:text-3xl font-bold tracking-tight">
-          <span className="text-4xl text-bold">{totalCount}</span>
-          명의 게스트분들이 <br className="sm:hidden" />
-          HAMHanokStay와 함께 하였습니다.
-        </h2>
-      </header> */}
+      
       <div className="absolute top-8 left-0 right-0 text-center text-white z-20">
         
         <span className="inline-block text-xs tracking-[0.3em] uppercase text-white/70">

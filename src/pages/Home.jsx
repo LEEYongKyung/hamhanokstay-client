@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import logowhite from "../assets/logo_white.png";
 import leessihamwhite from "../assets/leessiham_white.png";
 import emblemwhite from "../assets/emblem_white.png";
-import HeaderoverlayTest from "../components/HeaderOverlayTest";
 import AmenitySection from "../components/AmenitySection";
 import LocationSection from "../components/LocationSection";
 import ArtisanSection from "../components/ArtisanSection";
@@ -13,12 +12,21 @@ import HamStaySection from "../components/HamStaySection";
 import ReviewSection from "../components/ReviewsSection";
 import ReserveSection from "../components/ReserveSection";
 import ContactFab from "../components/ContactFab";
+
+const Calendars = [
+    "/booking/v1/export?t=2b9c85f1-2ce8-4686-b829-2ecfde2044cb",
+    "/airbnb/calendar/ical/1141509028517381236.ics?s=4ff6139029b739ac857b7faa0e522542",
+    "/agoda/en-us/api/ari/icalendar?key=Mq%2f3dKl3aQT1CaFASpd7juPktu8s1wp%2f",
+  ];
 export default function Home() {
     const totalReservations = 123;
     return (
-        <main className="h-screen overflow-y-scroll overflow-contain lg:snap-y lg:snap-mandatory lg:snap-always">
+        <main id="app-scroll" className="h-screen overflow-y-auto lg:snap-y lg:snap-mandatory lg:snap-always">
             {/* 페이지1: Header + MainVideo 한화면  */}
-            <section className="relative h-screen snap-start">
+            <section className="relative min-h-screen snap-start overflow-visible">
+                {/* 헤더(오버레이용) */}
+                {/* <Header variant="overlay"/>  */}
+                <Header />
                 {/* 비디오를 배경처럼 깔기 */}
                 <div className="absolute inset-0 -z-10 ">
                     <MainVideo />
@@ -37,17 +45,14 @@ export default function Home() {
                     className="absolute bottom-8 right-8 w-32 md:w-40 lg:w-48 drop-shadow pointer-events-none z-10"
                 >
                 </img>
-                 {/* 헤더(오버레이용) */}
-                {/* <Header variant="overlay"/>  */}
-                <HeaderoverlayTest />
-                
+                 
             </section>
             {/* 페이지2: Artisan  */}
-            <section className="h-screen lg:snap-start overflow-y-auto">
+            <section id="artisan" className="min-h-screen lg:snap-start overflow-visible">
                 <ArtisanSection />
             </section>
             {/* 페이지3: HAM숙소 소개  */}
-            <section className="h-screen lg:snap-start overflow-y-auto">
+            <section id="hamstay" className="min-h-screen lg:snap-start overflow-visible">
                 <HamStaySection
                     // images={[ "/imgs/ham/1.jpg", "/imgs/ham/2.jpg", ... ]}
                     // addressText="전북 전주시 완산구 ○○길 12"
@@ -58,13 +63,15 @@ export default function Home() {
                 />
             </section>
             {/* 페이지4: ReviewSection  */}
-            <section className="h-screen lg:snap-start overflow-y-auto">
+            <section id="reviews" className="min-h-screen lg:snap-start overflow-visible">
                 <ReviewSection totalCount = {totalReservations} />
             </section>
 
             {/* 페이지5: ReserveSection */}
-            <section className="h-screen lg:snap-start overflow-y-auto">
-                <ReserveSection />
+            <section id="reserve" className="min-h-screen lg:snap-start overflow-visible">
+                <ReserveSection
+                    shareCalendars = {Calendars}
+                />
             
                 <Footer />
             </section>
@@ -73,6 +80,7 @@ export default function Home() {
             
            
         </main>
+                
 
     )
 }

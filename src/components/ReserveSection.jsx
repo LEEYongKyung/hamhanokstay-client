@@ -273,7 +273,7 @@ export default function ReserveSection({
     );
 
     return (
-        <section className="relative min-h-screen">
+        <section id="reserve" className="relative min-h-screen">
             <video 
                 autoPlay 
                 loop 
