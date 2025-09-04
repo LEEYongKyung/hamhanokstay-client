@@ -285,20 +285,20 @@ export default function ReserveSection({
             </video>
             <div className="absolute inset-0 bg-black/60 -z-10" />
 
-            <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14">
+            <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-14 md:py-20">
                 <header className="text-center">
-                    <span className="inline-block text-xs tracking-[0.3em] uppercase text-white">
+                    <span className="inline-block text-[11px] sm:text-xs tracking-[0.3em] uppercase text-white/90">
                         {HEADER.eyebrow}
                     </span>
-                    <h2 className="mt-2 text-3xl md:text-4xl font-bold text-white">
+                    <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-semibold leading-tight text-white">
                         {HEADER.title}
                     </h2>
-                    <p className="mt-2 text-neutral-200">
+                    <p className="mt-3 text-sm sm:text-base text-neutral-200/90 max-w-2xl mx-auto">
                         {HEADER.description}
                     </p>
                 </header>
 
-                <hr className="my-6 border-white/20" />
+                <hr className="my-8 border-white/20" />
 
                 <div className="mb-6">
                     <div className="text-lg font-semibold text-white">{subtitle}</div>

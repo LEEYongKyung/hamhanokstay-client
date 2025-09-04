@@ -58,6 +58,7 @@ export default function RangeCalendarPopover({
   disabledSet,        // 외부에서 받은 불가일 Set<string> (옵션)
   shareCalendars = [],// ics URL 배열(옵션: 주면 여기서 병합 fetch)
   theme = "#402a1c",  // 메인 컬러
+  placement = "left", // left | over
 }) {
   const panelRef = React.useRef(null);
   const arrowRef = React.useRef(null);
@@ -83,12 +84,37 @@ export default function RangeCalendarPopover({
     if (!open || !anchorRef?.current) return;
     const gap = 12;
     const rect = anchorRef.current.getBoundingClientRect();
-    const guessW = months === 1 ? 360 : 720;
-    const maxW = Math.min(guessW, window.innerWidth - 24);
+    // const guessW = months === 1 ? 360 : 720;
+    const panelW = months === 1 ? 360 : 720;
+    const maxW = Math.min(panelW, window.innerWidth - 24);
     const top = clamp(rect.top - 8, 12, window.innerHeight - 300);
-    let left = rect.left - maxW - gap; // 트리거의 왼쪽으로
-    if (left < 12) left = 12;         // 좌측 오버플로 방지
-    const arrowX = clamp(rect.left - left, 24, maxW - 24);
+    let left ;
+    let arrowX = 0;
+
+     if (placement === "left") {
+      // 기존: 트리거의 왼쪽으로 펼침
+      left = rect.left - maxW - gap;
+      if (left < 12) left = 12;
+      arrowX = clamp(rect.left - left, 24, maxW - 24);
+    } else {
+      // 새로 추가: 트리거 위를 "덮도록" 펼침
+      // left = rect.left;
+      // // 화면 우측 넘치지 않도록 보정
+      // if (left + maxW > window.innerWidth - 12) left = window.innerWidth - 12 - maxW;
+      // if (left < 12) left = 12;
+      // arrowX = 0; // over 배치에서는 화살표 숨김
+
+      // 덮기 모드 : 패널의 오른쪽을 트리거의 오른쪽에 맞춘다. -> 왼쪽으로 펼침 
+      left = rect.left -maxW ;
+      // 화면 좌/우 범위 보정
+      if(left + maxW > window.innerWidth - 12) left = window.innerWidth - 12 - maxW;
+      if (left < 12) left = 12;
+      arrowX = 0;
+    }
+
+    // left = rect.left - maxW - gap; // 트리거의 왼쪽으로
+    // if (left < 12) left = 12;         // 좌측 오버플로 방지
+    // arrowX = clamp(rect.left - left, 24, maxW - 24);
     setPos({ top, left, maxH: window.innerHeight - 24, arrowX });
   }, [open, anchorRef, months]);
 
@@ -250,11 +276,11 @@ export default function RangeCalendarPopover({
         onClick={(e) => e.stopPropagation()}
       >
         {/* 상단: 액션바 */}
-        <div className="flex items-center justify-between gap-2 p-4 border-b">
+        <div className="flex items-center justify-between gap-3 p-6 border-b">
           <div className="text-sm font-medium" style={{ color: BRAND }}>
             {nights > 0 ? `${nights}박` : "여행 날짜를 입력하여 정확한 요금을 확인하세요."}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={() => { setS(null); setE(null); onChange?.("", ""); }}
               className="rounded-md px-3 py-1.5 text-sm font-medium hover:bg-neutral-100"
@@ -295,7 +321,7 @@ export default function RangeCalendarPopover({
       </div>
 
       {/* 트리거 방향을 가리키는 화살표 */}
-      <div
+      {/* <div
         ref={arrowRef}
         className="fixed z-[9999]"
         style={{
@@ -308,7 +334,23 @@ export default function RangeCalendarPopover({
           borderBottom: "10px solid transparent",
           filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))",
         }}
-      />
+      /> */}
+      {/* 화살표: over 배치에서는 숨김 */}
+      {placement === "left" && (
+        <div
+          className="fixed z-[9999]"
+          style={{
+            top: pos.top + 24,
+            left: pos.left + pos.arrowX - 10,
+            width: 0,
+            height: 0,
+            borderLeft: "10px solid white",
+            borderTop: "10px solid transparent",
+            borderBottom: "10px solid transparent",
+            filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))",
+          }}
+        />
+        )}
     </>,
     document.body
   );

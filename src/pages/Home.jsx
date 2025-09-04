@@ -42,7 +42,7 @@ export default function Home() {
                 <img
                     src={leessihamwhite}
                     alt="HAM HanokStay Logo"
-                    className="absolute bottom-8 right-8 w-32 md:w-40 lg:w-48 drop-shadow pointer-events-none z-10"
+                    className="absolute bottom-8 left-8 w-32 md:w-40 lg:w-48 drop-shadow pointer-events-none z-10"
                 >
                 </img>
                  

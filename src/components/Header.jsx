@@ -1,6 +1,11 @@
 import {Link} from "react-router-dom";
 import logoWhite from "../assets/logo_white.png";
+import logo from "/images/logo.svg"
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useEffect, useState } from "react";
+import {FiMenu, FiX} from "react-icons/fi";
+import { header } from "framer-motion/client";
+
 
 const scrollTo = (id) => {
   const el = document.getElementById(id);
@@ -25,6 +30,21 @@ const NAV = [
 
 
 export default function Header() {
+
+    const [open , setOpen] = useState(false);
+    useEffect(() => {
+        document.body.style.overflow = open ? "hidden":"";
+        return () => (document.body.style.overflow = ""); 
+    }, [open])
+
+    // id를 인자로 받아 현재 열려있는 메뉴나 모달을 닫을 뒤 (SetOpen(false)), 해당 id를 가진 요소가 있는 위치로 화면을 부드럽게 이동 
+    const go = (id) => {
+        setOpen(false);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({behavior: "smooth", block:"start"});
+    }
+    
+
     return (
         // 비디오 위에 얹는 투명 헤더 
         <header className="absolute inset-x-0 top-0 z-20">
@@ -37,13 +57,7 @@ export default function Header() {
                         <img src={logoWhite} alt="HAMHanokStay" className="h-[100px] w-auto" />
                     </Link>
                 
-                    {/* 메뉴: 우측 , hover시 배경 어둡게 만들기 위해 peer 사용  */}
-                    {/* <nav className="hidden md:flex items-center gap-8 text-white/90 font-medium tracking-wide">
-                        <Link to="/about" className="hover:underline">ABOUT</Link>
-                        <Link to="/review" className="hover:underline">REVIEWS</Link>
-                        <Link to="/reserve" className="hover:underline">RESERVE</Link>
-                        <Link to="/contact" className="hover:underline">Contact</Link>
-                    </nav> */}
+                   {/* 데스크톱 메뉴 */}
                     <nav className="hidden md:flex items-center gap-8 text-white/90 font-medium tracking-wide">
                         {NAV.map((item) => (
                         <button
@@ -57,8 +71,13 @@ export default function Header() {
                         ))}
                     </nav>
                     {/* (옵션) 모바일 메뉴 버튼 자리 */}
-                    <button className="md:hidden text-white/90" aria-label="Open menu">
-                        <RxHamburgerMenu className="w-6 h-6" />
+                    <button 
+                        className="md:hidden text-white/90" 
+                        aria-label="Open menu" 
+                        aria-expanded={open}
+                        onClick={()=> setOpen(true)}
+                        type="button">
+                        <RxHamburgerMenu className="w-7 h-7" />
                     </button>
                 </div>
 
@@ -68,8 +87,69 @@ export default function Header() {
                 />
 
             </div>
+            {/*  모바일 오버레이 & 슬라이드 페널 */}
+            {open && (
+                <>
+                    {/* 배경 오버레이 클릭 시 닫기  */}
+                    <button
+                        className="fixed inset-0 z-40 bg-black/40"
+                        aria-label= "close menu backdrop"
+                        onClick={() => setOpen(false)}
+                        type="button"
+                    />
+                    {/* 우측 그라이드 메뉴 */}
+                    <nav
+                        className="fixed right-0 top-0 bottom-0 z-50 w-72 max-w-[80vw] bg-white shadow-2xl flex flex-col"
+                        role="dialog"
+                        aria-modal="true"
+                    >
+                        {/* 패널 헤더 */}
+                        <div className="flex items-center justify-between px-5 py-4 border-b">
+                            <img src={logo} alt="HAMHanokStay" className="h-9 w-auto" />
+                            <button
+                                className="p-2 rounded-md hover:bg-neutral-100"
+                                aria-label="Close menu"
+                                onClick={() => setOpen(false)}
+                                type="button"
+                            >
+                                <FiX className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        {/* 패널 링크 */}
+                        <ul className="flex-1 px-5 py-4 space-y-2 text-neutral-800">
+                            {NAV.map((item) => (
+                            <li key={item.target}>
+                                <button
+                                    onClick={() => go(item.target)}
+                                    className="w-full text-left px-3 py-3 rounded-md hover:bg-neutral-100 font-medium"
+                                    type="button"
+                                >
+                                    {item.label}
+                                </button>
+                            </li>
+                            ))}
+                        </ul>
+
+                        {/*  하단 여백 (안전영역) */}
+                        <div className="h-6" />
+
+                    </nav>
+                    
+                </>
+            )}
             
 
         </header>
     )
+
+    // return (
+    //     <header className="sticky top-0 z-50 backdrop-blur bg-white/70 border-b border-neutral-200"> 
+    //         <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
+    //             <button onClick={() => go("home")} className="font-semibold ">
+
+    //             </button>
+    //         </div>
+    //     </header>
+    // )
 }

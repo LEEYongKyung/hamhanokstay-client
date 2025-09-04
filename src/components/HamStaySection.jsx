@@ -258,7 +258,7 @@ export default function HamStaySection({
         const [amenityOpen, setAmenityOpen] = useState(false);
 
         // 아이콘 매핑(없으면 CircleAlert로 대체
-        const AmenityIcon = ({ id, className="h-6 w-6"}) => {
+        const AmenityIcon = ({ id, className="h-5 w-5 "}) => {
 
             const map ={
             kitchen: ForkKnifeIcon,
@@ -291,6 +291,7 @@ export default function HamStaySection({
         const Icon = map[id] || CiCircleAlert;
         return <Icon className={className} />
         };
+
 
         // JSON 불러오기
         useEffect(() => {
@@ -351,23 +352,31 @@ export default function HamStaySection({
             }
             return Array.from(pool).slice(0,10);
         }, [amenity]);
+
+
+        const smDown = useSmDown();
+
+        const highlightsToShow = useMemo(() => {
+            return smDown ? highlight10.slice(0, 6) : highlight10;
+        }, [highlight10, smDown]);
+
         
     return (
-        <section id="ham-hanok-stay" ref={sectionRef} className=" relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 ">
-            {/* 헤더 */}
-            <div className="absolute top-8 left-0 right-0 text-center text-main z-20">
-                <span className="inline-block text-xs tracking-[0.3em] uppercase text-main/70">
+        <section id="ham-hanok-stay" ref={sectionRef} className=" relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-6 pb-12 md:pt-8 md:pb-16 lg:pb-24 ">
+            {/* 헤더 모바일에서는 흐름 위에 표시 md 부터 절대배치 */}
+            <div className="md:absolute  sm:top-6 md:top-8 left-0 right-0 text-center text-main z-20 px-2">
+                <span className="inline-block text-[10px] sm:text-xs tracking-[0.3em] uppercase text-main/70">
                     {HEADER.eyebrow}
                 </span>
-                <h2 className="mt-2 text-3xl md:text-4xl font-bold drop-shadow-lg">
+                <h2 className="mt-1 text-2xl sm:text-3xl md:text-4xl leading-tight font-bold drop-shadow-lg">
                     {HEADER.title}
                 </h2>
-                <p className="mt-2 text-main/85 drop-shadow">
+                <p className="mt-1 text-xs sm:text-sm  text-main/85 drop-shadow">
                     {HEADER.description}
                 </p>
             </div>
-            {/* 사진 grid: 헤더 바로 아래 전체 폭 */}
-            <div className="relative mt-24 rounded-2xl overflow-hidden">
+            {/* 사진 grid: 헤더 바로 아래 전체 폭  모바일에선 헤더 높이만큼 간격을 줄이고, md는 기존 여백 유지 */}
+            <div className="relative mt-3 md:mt-20 rounded-2xl overflow-hidden">
                 <div className=" grid grid-cols-4 grid-rows-2 gap-2">
                     {/* 메인 좌측 큰 대표 이미지 */}
                     <button
@@ -424,14 +433,14 @@ export default function HamStaySection({
 
                     </div>
                     {/* 평점 */}
-                    <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+                    <div className="mt-4 flex items-center gap-3 text-xs sm:text-sm flex-nowrap overflow-x-auto no-scrollbar">
                         {ratings?.airbnb && (
                             <a 
                                 href={reservationUrls.airbnb} 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 style={spark ? {animation: "hamFlash 900ms ease-out both",  animationDelay: "0ms",willChange:"filter, transform"}:{}}
-                                className="flex items-center gap-1.5 text-[#FF385C] hover:opacity-80 transition-opacity">
+                                className="flex items-center gap-1.5 text-[#FF385C] hover:opacity-80 transition-opacity whitespace-nowrap shrink-0">
                                 <FaAirbnb className="h-5 w-5 text-[#FF385C]" />
                                 <b>Airbnb</b> &nbsp;{ratings.airbnb.toFixed(2)}
                             </a>
@@ -442,7 +451,7 @@ export default function HamStaySection({
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 style={spark ? {animation: "hamFlash 900ms ease-out both",  animationDelay: "180ms",willChange:"filter, transform"}:{}}
-                                className="flex items-center gap-1.5 text-[#013B94] hover:opacity-80 transition-opacity">
+                                className="flex items-center gap-1.5 text-[#013B94] hover:opacity-80 transition-opacity whitespace-nowrap shrink-0">
                                 <TbBrandBooking className="h-6 w-6 fill-[#013B94] text-white" />
                                 <div className="text-[#013B94]">
                                     <b>Booking.com</b> &nbsp;{ratings.booking.toFixed(1)}
@@ -455,7 +464,7 @@ export default function HamStaySection({
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 style={spark ? {animation: "hamFlash 900ms ease-out both",  animationDelay: "360ms",willChange:"filter, transform"}:{}}
-                                className="flex items-center gap-1.5 text-green-400 hover:opacity-80 transition-opacity">
+                                className="flex items-center gap-1.5 text-green-400 hover:opacity-80 transition-opacity whitespace-nowrap shrink-0">
                                 <SiNaver className="h-4 w-4 fill-green-400" />
                                 <b>Naver</b> &nbsp;{ratings.naver.toFixed(2)}
                             </a>
@@ -465,11 +474,11 @@ export default function HamStaySection({
                     <hr className="my-6 border-neutral-200"></hr>
 
                     {/* 숙소의 특징 icon grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-4 sm:gap-y-6">
                         {features.map(({icon:Icon, label},i)=> (
                             <div key={i} className="flex items-center gap-4">
-                                <Icon className="h-5 w-5 fill-main"/>
-                                <span className="text-sm fill-main">{label}</span>
+                                <Icon className="h-4 w-4 sm:h-5 sm:w-5 fill-main"/>
+                                <span className="text-[13px] sm:text-sm text-main">{label}</span>
                             </div>
                         ))}
                     </div>
@@ -479,7 +488,7 @@ export default function HamStaySection({
                     {/* <p className="text-neutral-700 leading-relaxed">{description}</p> */}
                     <div className="relative">
                         <p 
-                            className="text-neutral-700 leading-relaxed pr-8" 
+                            className="text-neutral-700 leading-relaxed pr-8 text-[13px] sm:text-sm" 
                             ref={descRef}
                             style={{
                                 display: "-webkit-box",
@@ -502,7 +511,7 @@ export default function HamStaySection({
                             
                             <button
                                 onClick={() => setShowAll(true)}
-                                className=" mt-3 inline-flex items-center gap-1 rounded-lg border px-5 py-3 text-sm font-bold bg-neutral-100 hover:bg-white"
+                                className=" mt-2 inline-flex items-center gap-1 rounded-lg border px-5 py-3 text-[13px] sm:text-sm font-bold bg-neutral-100 hover:bg-white"
                                 aria-haspopup= "dialog"
                             >
                                 더보기
@@ -520,7 +529,7 @@ export default function HamStaySection({
                     <div 
                         className="rounded-2xl border border-neutral-200 bg-white/90 shadow-2xl p-5 lg:sticky lg:top-4"
                         style={shake? {animation:"hamShake 550ms ease-in-out both"}:{}}>
-                        <h3 className="w-full text-center text-lg font-semibold mb-4 text-main">날짜를 선택해 요금확인</h3>
+                        <h3 className="w-full text-center text-base sm:text-lg font-semibold mb-4 text-main">날짜를 선택해 요금확인</h3>
                         <div className="space-y-3 ">
                             
                             {/*  달력 모듈 변경 */}
@@ -530,54 +539,24 @@ export default function HamStaySection({
                                     <button
                                         ref={checkinBtnRef}
                                         onClick={() => setOpenWhich((v) => (v === "in" ? null : "in"))}
-                                        className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50"
+                                        className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50 text-[13px] sm:text-sm"
                                     >
                                         {checkIn ? checkIn.replaceAll("-", ". ") : "연도. 월. 일."}
 
                                     </button>
-                                    {/* <button
-                                    type="button"
-                                    onClick={()=>setCalOpen(true)}
-                                    className="flex items-center gap-2 rounded-lg border px-3 py-2 text-left hover:bg-neutral-50"
-                                    >
-                                    <FaCalendar className="h-4 w-4 fill-main" />
-                                    <div className="flex-1">
-                                        <div className="text-[11px] text-main">체크인</div>
-                                        <div className="text-sm font-medium text-main">{checkIn ? fmtK(checkIn) : "연도. 월. 일."}</div>
-                                    </div>
-                                    </button> */}
-
-                                    {/* <button
-                                    type="button"
-                                    onClick={()=>setCalOpen(true)}
-                                    className="flex items-center gap-2 rounded-lg border px-3 py-2 text-left hover:bg-neutral-50"
-                                    >
-                                    <FaCalendar className="h-4 w-4 fill-main" />
-                                    <div className="flex-1">
-                                        <div className="text-[11px] text-main">체크아웃</div>
-                                        <div className="text-sm font-medium text-main">{checkOut ? fmtK(checkOut) : "연도. 월. 일."}</div>
-                                    </div>
-                                    </button> */}
+                                    
                                      {/* 체크아웃 버튼 */}
                                     <button
                                         ref={checkoutBtnRef}
                                         onClick={() => setOpenWhich((v) => (v === "out" ? null : "out"))}
-                                        className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50 mt-2"
+                                        className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50 text-[13px] sm:text-sm"
                                     >
                                         {checkOut ? checkOut.replaceAll("-", ". ") : "연도. 월. 일."}
                                     </button>
                                 </div>
 
-                                {/* 2개월 달력 팝오버 */}
-                                {/* 2개월 달력 팝오버 */}
-                                    {/* <RangeCalendar
-                                        open={calOpen}
-                                        onClose={() => setCalOpen(false)}
-                                        startISO={checkIn}
-                                        endISO={checkOut}
-                                        onChange={(s, e) => { setCheckIn(s); setCheckOut(e); }}
-                                        shareCalendars={shareCalendars}
-                                    /> */}
+                               
+                                
                                     {/* 2개월 달력 팝오버 (좌측으로 펼침) */}
                                     <RangeCalendarPopover
                                     open={openWhich === "in" || openWhich === "out"}
@@ -589,6 +568,7 @@ export default function HamStaySection({
                                     disabledSet={undefined}          // 외부 세트 없으면 생략 가능
                                     shareCalendars={shareCalendars}  // ← ReserveSection과 동일 ics 적용
                                     theme="#402a1c"
+                                    placement="over"
                                     />
 
 
@@ -599,7 +579,7 @@ export default function HamStaySection({
                                 <span className="text-xs font-semibold text-main mb-1">인원</span>
                                 <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
                                     <FaUser className="h-4 w-4 fill-main" />
-                                    <select value={guests} onChange={(e) => setGuests(e.target.value)} className="w-full outline-none bg-transparent text-main">
+                                    <select value={guests} onChange={(e) => setGuests(e.target.value)} className="w-full outline-none bg-transparent text-main text-[13px] sm:text-sm">
                                         {[1,2,3,4].map(n=><option key={n} value={n}> 게스트 {n}명 </option>)}
                                     </select>
                                 </div>
@@ -623,18 +603,18 @@ export default function HamStaySection({
             <div >
                 <h4 className="mb-3 text-base font-semibold text-main">숙소 편의시설</h4>
                 {/* 5행 x 2열 하이라이트 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-8">
-                    {highlight10.map((id) => (
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2 sm:gap-y-5 sm:gap-x-8">
+                    {highlightsToShow.map((id) => (
                         <div key={id} className="flex items-center gap-3">
-                            <AmenityIcon id={id} className="h-6 w-6 text-main"/>
-                            <span className="text-[15px] text-main">{findLabel(id)}</span>
+                            <AmenityIcon id={id} className="h-4 w-4 text-main"/>
+                            <span className="text-[13px] sm:text-sm text-main">{findLabel(id)}</span>
                         </div>
                     ))}
                 </div>
                 {/*  모두 보기 버튼 */}
                 <button 
                     onClick={() => setAmenityOpen(true)}
-                    className="mt-3 inline-flex items-center gap-1 rounded-lg border px-5 py-3 text-sm font-bold bg-neutral-100 hover:bg-white text-main"
+                    className="mt-3 inline-flex items-center gap-1 text-[13px] sm:text-sm rounded-lg border px-5 py-3 text-sm font-bold bg-neutral-100 hover:bg-white text-main"
                     disabled={!amenity}
                 >
                     편의시설 {amenityCount}개 모두 보기
@@ -789,7 +769,7 @@ export default function HamStaySection({
                         <div className="px-5 py-4 border-t flex justify-end">
                             <button
                                 onClick={() => setAmenityOpen(false)}
-                                className="rounded-mc bg-neutral-900 text-white px-4 py-2 text-sm"
+                                className="rounded-mb bg-neutral-900 text-white px-4 py-2 text-sm"
                             >
                                 닫기                                
                             </button>
@@ -917,121 +897,7 @@ const BRAND_DARK = "#2f1e14";
 const RANGE_BG = "rgba(64,42,28,.08)";
 const RING = "rgba(64,42,28,.35)";
 // ===== Range Calendar (2 months, Airbnb 스타일) =====
-// function RangeCalendar({
-//   open, onClose,
-//   startISO, endISO,
-//   onChange, // (startISO, endISO) => void
-// }) {
-//   const boxRef = React.useRef(null);
-//   const start = fromISO(startISO);
-//   const end   = fromISO(endISO);
-//   const [view, setView] = React.useState(() => new Date((start||new Date()).getFullYear(), (start||new Date()).getMonth(), 1));
-//   const [s, setS] = React.useState(start);
-//   const [e, setE] = React.useState(end);
 
-//   React.useEffect(()=>{ setS(start); setE(end); }, [startISO, endISO]);
-
-//   // 외부 클릭 닫기
-//   React.useEffect(()=>{
-//     if (!open) return;
-//     const fn = (ev) => { if (boxRef.current && !boxRef.current.contains(ev.target)) onClose?.(); };
-//     document.addEventListener("mousedown", fn);
-//     return () => document.removeEventListener("mousedown", fn);
-//   }, [open, onClose]);
-
-//   const pick = (d) => {
-//     if (!s || (s && e)) {
-//       setS(d); setE(null);
-//     } else {
-//       if (!d || isBefore(d, s) || isSameDay(d, s)) { setS(d); setE(null); return; }
-//       setE(d);
-//       onChange?.(toISO(s), toISO(d)); // 자동 적용
-//       onClose?.();                    // 자동 닫기
-//     }
-//   };
-
-//   const Month = ({ base }) => {
-//     const cells = makeCells(base.getFullYear(), base.getMonth());
-//     return (
-//       <div className="w-[320px]">
-//         <div className="text-center font-semibold mb-3">
-//           {base.getFullYear()}년 {base.getMonth()+1}월
-//         </div>
-//         <div className="grid grid-cols-7 text-center text-xs text-neutral-500 mb-1">
-//           {["일","월","화","수","목","금","토"].map(w=><div key={w} className="py-1">{w}</div>)}
-//         </div>
-//         <div className="grid grid-cols-7 gap-1">
-//           {cells.map((d,i)=>{
-//             const empty = !d;
-//             const isStart = d && s && isSameDay(d,s);
-//             const isEnd   = d && e && isSameDay(d,e);
-//             const inRange = d && s && e && (isBefore(s,d) || isSameDay(s,d)) && (isBefore(d,e) || isSameDay(e,d));
-//             return (
-//               <button
-//                 key={i}
-//                 disabled={empty}
-//                 onClick={()=>d && pick(d)}
-//                 className={[
-//                   "relative h-10 rounded-md text-sm",
-//                   empty ? "opacity-0 pointer-events-none" : "hover:bg-neutral-100",
-//                   inRange ? "bg-rose-350" : "",
-//                   (isStart || isEnd) ? "bg-rose-600 text-white hover:bg-rose-600" : "",
-//                 ].join(" ")}
-//               >
-//                 {!empty && d.getDate()}
-//                 {(isStart || isEnd) && <span className="absolute inset-0 ring-2 ring-rose-300  rounded-md pointer-events-none" />}
-//               </button>
-//             );
-//           })}
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   if (!open) return null;
-
-//   const nights = s && e ? diffDays(s,e) : 0;
-
-//   return (
-//     <div ref={boxRef} className="absolute z-50 mt-2 rounded-2xl border bg-white shadow-2xl p-4 w-[680px]">
-//       {/* 상단 바 */}
-//       <div className="flex items-center justify-between mb-3">
-//         <div className="text-lg font-bold">{nights>0 ? `${nights}박` : ""}</div>
-//         <div className="flex items-center gap-2">
-//           <div className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm">
-//             <span className="text-neutral-500">체크인</span>
-//             <strong>{s ? fmtK(toISO(s)) : "-"}</strong>
-//             {s && <button onClick={()=>{ setS(null); setE(null); onChange?.("",""); }} className="ml-1 text-neutral-400 hover:text-neutral-600">×</button>}
-//           </div>
-//           <div className="flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm">
-//             <span className="text-neutral-500">체크아웃</span>
-//             <strong>{e ? fmtK(toISO(e)) : "-"}</strong>
-//             {e && <button onClick={()=>{ setE(null); onChange?.(toISO(s), ""); }} className="ml-1 text-neutral-400 hover:text-neutral-600">×</button>}
-//           </div>
-//         </div>
-//         <div className="flex items-center gap-1">
-//           <button onClick={()=>setView(addMonths(view,-1))} className="rounded-md border px-2 py-1 hover:bg-neutral-50">◀</button>
-//           <button onClick={()=>setView(addMonths(view, 1))} className="rounded-md border px-2 py-1 hover:bg-neutral-50">▶</button>
-//         </div>
-//       </div>
-
-//       {/* 2개월 */}
-//       <div className="flex gap-6">
-//         <Month base={view}/>
-//         <Month base={addMonths(view,1)}/>
-//       </div>
-
-//       {/* 하단 */}
-//       <div className="mt-4 flex items-center justify-between text-sm">
-//         <button
-//           onClick={()=>{ setS(null); setE(null); onChange?.("",""); }}
-//           className="rounded-md border px-3 py-1.5 hover:bg-neutral-50"
-//         >날짜 지우기</button>
-//         <button onClick={onClose} className="rounded-md bg-neutral-900 text-white px-3 py-1.5">닫기</button>
-//       </div>
-//     </div>
-//   );
-// }
 // ===== Range Calendar (데스크탑 2개월 / 모바일 1개월) =====
 function RangeCalendar({
   open, onClose,

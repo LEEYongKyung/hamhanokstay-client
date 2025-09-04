@@ -1,5 +1,20 @@
 import {useState, useEffect, useRef} from "react";
 
+// 화면 폭에 따라 모바일 여부 감지
+function useIsMobile() {
+    const [is, setIs] = useState(false);
+    useEffect(() => {
+        if(typeof window === "undefined") return;
+        const mq = window.matchMedia("(max-width: 640px)"); 
+        const onChange = (e) => setIs(e.matches);
+        setIs(mq.matches);
+        // addEventListener/new +  구형 브라우저 대응
+        mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
+        return () => mq.removeEventListener ? mq.removeEventListener('change', onChange) : mq.removeListener(onChange);
+    }, []);
+    return is;
+}
+
 //  페이지 회전 관련 변수 정의 
 const FLIP_MS = 900;    // 페이지 회전 시간 (왼쪽/오른쪽 동일하게)
 const AUTO_MS = 4000;   // 자동 넘김 간격 (4초)
@@ -34,7 +49,7 @@ export default function ArtisanSection() {
     const [flipDir, setFlipDir] = useState('next'); // JSX는 제네릭X
     const [autoDir, setAutoDir] = useState('next') // 자동 진행 방향 : 'next' 또는 'prev'
 
-    
+     const isMobile = useIsMobile();
 // Evan
     //  뷰포트 진입 시 1회 트리거 
     useEffect(() => {
@@ -120,7 +135,7 @@ export default function ArtisanSection() {
     const currentFurniture = FURNITURE[currentPage] ;
 
     return(
-        <section id="artisan" ref={sectionRef} className= "relative py-16 lg:py-24 overflow-hidden min-h-screen flex items-center justify-center">
+        <section id="artisan" ref={sectionRef} className= "relative overflow-hidden min-h-[calc(100svh-56px)] sm:min-h-[calc(100svh-64px)] flex items-center justify-center py-8  md:py-12 lg:py-16">
             {/* 배경 이성구 선생 사진 */}
             <div className = "absolute inset-0 -z-10">
                 <img 
@@ -132,25 +147,25 @@ export default function ArtisanSection() {
                 <div className = "absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30"/>
             </div>
 
-            {/* 헤더  */}
-            <div className="absolute top-8 left-0 right-0 text-center text-white z-20">
-                <span className="inline-block text-xs tracking-[0.3em] uppercase text-white/70">
+            {/* 헤더 : 모바일 타이포/ 여백 축소 + 가독성 향상 */}
+            <div className="absolute left-0 right-0 text-center text-white z-20 top-3 sm:top-6 md:top-8 px-4">
+                <span className="inline-block text-[10px] sm:text-xs tracking-[0.30em] uppercase text-white/70">
                     {ARTIST.eyebrow}
                 </span>
-                <h2 className="mt-2 text-3xl md:text-4xl font-bold drop-shadow-lg">
+                <h2 className="mt-1 sm:mt-2 font-bold drop-shadow-lg text-[clamp(1rem ,4.2vw, 1.5rem)] md:text-3xl lg:text-4xl leading-tight px-2">
                     {ARTIST.title}
                 </h2>
-                <p className="mt-2 text-white/85 drop-shadow">
+                <p className="mt-1 sm:mt-2 text-white/85 drop-shadow text-[12px] sm:text-sm md:text-base max-w-[880px] mx-auto px-3">
                     {ARTIST.description}
                 </p>
             </div>
-            {/* Flipbook 컨테이너 */}
-            <div className="relative w-full max-w-4xl mx-auto px-4">
+            {/* Flipbook 컨테이너: 모바일에서 헤더와 겹치지 않게 여백 추가  */}
+            <div className="relative w-full max-w-4xl mx-auto px-3 sm:px-4 mt-24 sm:mt-20 md:mt-16">
                 <div 
                     className={`flipbook-container ${isVisible ? 'visible': ''}`}
                     style= {{
-                        width: '700px',
-                        height: '500px',
+                        width: "min(90vw, 700px)",
+                        height: "calc(min(90vw, 700px)*0.72)",
                         margin: "0 auto",
                         perspective: '2500px',
                         position: 'relative'
@@ -161,17 +176,17 @@ export default function ArtisanSection() {
                     className= {`book-shadow  ${isVisible ? 'visible' : ''}`}
                     style={{
                         position: 'absolute',
-                        top: '20px',
-                        left: '20px',
-                        right: '-20px',
-                        bottom: '-20px',
-                        background: 'rgba(0, 0, 0, 0.2)',
-                        borderRadius: '15px',
-                        filter: 'blur(20px)',
+                        top: '12px',
+                        left: '12px',
+                        right: '-12px',
+                        bottom: '-12px',
+                        background: 'rgba(0, 0, 0, 0.18)',
+                        borderRadius: '12px',
+                        filter: 'blur(18px)',
                         zIndex: -1
                     }}
                    />
-                   {/* Flipbook */}
+                   {/* Flipbook 본책*/}
                    <div
                         className={`flipbook ${brochureOpen ? 'opened' : 'closed'}`}
                         style={{
@@ -200,8 +215,8 @@ export default function ArtisanSection() {
                             transition: 'transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94)',
                             background: 'rgba(255, 255, 255, 0.9)',
                             border: '1px solid #e5e7eb',
-                            borderRadius: '15px 5px 5px 15px',
-                            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                            borderRadius: '12px 4px 4px 12px',
+                            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.10)',
                             
                             // Evan 왼 화살표 버튼 눌렀을 때 , 미리보기 개선을 위한 2차 개선
                             // 초기 오픈때는 isClosed가 true-> 0deg로 펼침 
@@ -228,22 +243,24 @@ export default function ArtisanSection() {
                         >
                             {brochureOpen && (
                                 // 열린 상태 - 텍스트 내용 
-                                <div style={{padding:'40px 30px', width: '100%', textAlign:'center'}}>
-                                    <div style={{marginBottom:'24px'}}>
+                                <div style={{padding:'24px 16px', width: '100%', textAlign:'center'}}>
+                                    {/* 레이블 모바일 숨김 */}
+                                    {!isMobile && (
+                                        <div style={{marginBottom:'14px'}}>
                                         <div 
                                             style={{
-                                                fontSize: '11px',
+                                                fontSize: '10px',
                                                 letterSpacing: '0.3em',
                                                 textTransform:'uppercase',
                                                 color: '#6b7280',
-                                                marginBottom: '8px'
+                                                marginBottom: '6px'
                                             }}
                                         >
                                             Traditional Furniture
                                         </div>
                                         <div
                                             style={{
-                                                width: '40px',
+                                                width: '36px',
                                                 height: '1px',
                                                 background: '#d1d5db',
                                                 margin: '0 auto'
@@ -251,26 +268,30 @@ export default function ArtisanSection() {
                                         />
 
                                     </div>
+
+                                    )}
+                                    
                                     <h3
                                         style={{
-                                            fontSize: '28px',
-                                            fontWeight: 'bold',
+                                            fontSize: isMobile ? '18px' : 'clamp(18px, 4.6vw, 24px)',
+                                            fontWeight: '700',
                                             color : '#1f2937',
-                                            margin: '16px 0'
+                                            margin: '10px 0',
+                                            lineHeight: 1.25,
                                         }}
                                         >
                                         {currentFurniture.title}
                                     </h3>
-                                    <div style={{margin: '16px 0'}}>
+                                    <div style={{margin: '10px 0'}}>
                                         <span
                                             style={{
                                                 display: 'inline-block',
-                                                padding: '6px 16px',
+                                                padding: '5px 12px',
                                                 background: '#f3f4f6',
                                                 color: '#4b5563',
-                                                fontSize: '14px',
+                                                fontSize: isMobile ? '12px' : '13px',
                                                 fontWeight: '500',
-                                                borderRadius: '20px'
+                                                borderRadius: '16px'
                                             }}
                                         >
                                             {currentFurniture.material}
@@ -279,10 +300,12 @@ export default function ArtisanSection() {
 
                                     <p
                                         style={{
-                                            fontSize: '14px',
+                                            fontSize: isMobile ? '12px' : '13px',
                                             lineHeight: '1.6',
                                             color: '#4b5563',
-                                            margin: '20px 0'
+                                            margin: '16px 0',
+                                            wordBreak:'break-word',
+                                            overflowWrap:'anywhere'
                                         }}
                                     >
                                       {currentFurniture.desc}  
@@ -290,9 +313,9 @@ export default function ArtisanSection() {
 
                                     <div
                                         style={{
-                                            fontSize: '12px',
+                                            fontSize: '11px',
                                             color: '#9ca3af',
-                                            marginTop: '24px'
+                                            marginTop: '10px'
                                         }}
                                     >
                                         {currentPage +1 }/{FURNITURE.length}
@@ -313,7 +336,7 @@ export default function ArtisanSection() {
                                 boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
                                 backfaceVisibility:'hidden',
                                 transform:'rotateY(180deg) scaleX(-1)', // 좌측 페이지 뒷면 보정 
-                                padding: 30,
+                                padding: 20,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center'
@@ -338,8 +361,8 @@ export default function ArtisanSection() {
                                      //  표지  - HAM 엠블럼 
                                     <div
                                         style={{
-                                            width: '220px',
-                                            height: '220px',
+                                            width: '200px',
+                                            height: '200px',
                                             // border: '3px solid #6b7280',
                                             // borderRadius: '8px',
                                             display: 'flex',
@@ -349,7 +372,7 @@ export default function ArtisanSection() {
                                             textAlign: 'center'
                                         }}
                                     >
-                                        <div>
+                                        
                                             {/* <div style={{fontSize: '12px', color: '#9ca3af', marginBottom:'8px'}}>
                                                 HAM Logo
                                             </div>
@@ -361,7 +384,7 @@ export default function ArtisanSection() {
                                                 alt="HAMHanokStay emblem"
                                                 style={{ height: "100%"}}
                                             />
-                                        </div>
+                                        
                                     </div>
                                 ): (
                                     // 오픈 이후 : 이전(prev) 미리보기 
@@ -386,8 +409,8 @@ export default function ArtisanSection() {
                             style={{
                                 position: 'absolute',
                                 right:'-1px',
-                                top: '20px',
-                                bottom: '20px',
+                                top: '16px',
+                                bottom: '16px',
                                 width: '2px',
                                 background: 'linear-gradient(to bottom, transparent, #e5e7eb 20%, #e5e7eb 80%, transparent) '
                             }}
@@ -427,10 +450,10 @@ export default function ArtisanSection() {
                                     height: '100%',
                                     backgroundColor: 'white',
                                     border: '1px solid #e5e7eb',
-                                    borderRadius: '5px 15px 15px 5px',
-                                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                                    borderRadius: '4px 12px 12px 4px',
+                                    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
                                     backfaceVisibility: 'hidden',
-                                    padding: '30px'
+                                    padding: '20px'
                                 }}
                             >
                                 {brochureOpen && (
@@ -469,14 +492,14 @@ export default function ArtisanSection() {
                                     height: '100%',
                                     backgroundColor: 'white',
                                     border: '1px solid #e5e7eb',
-                                    borderRadius: '5px 15px 15px 5px',
-                                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                                    borderRadius: '4px 12px 12px 4px',
+                                    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
                                     backfaceVisibility: 'hidden',
                                     // 회전 방향에 따라 미러 보정이 달라짐
                                     transform: flipDir === 'next'
                                     ? 'rotateY(180deg) scaleX(-1)'  // → (기존) 다음으로 넘길 때
                                     : 'rotateY(180deg)',            // ← 이전으로 넘길 때
-                                    padding: '30px'
+                                    padding: '20px'
                                 }}
                             >
                                 {/* {brochureOpen && currentPage < FURNITURE.length -1 && (
@@ -549,12 +572,12 @@ export default function ArtisanSection() {
                                     position: 'absolute',
                                     left: 0, //고정 값 대신 엣지로 붙이고
                                     top : '50%',
-                                    transform: 'translate(-120%, -50%)', // 반쯤 밖으로 
-                                    width: '50px',
-                                    height: '50px',
+                                    transform: isMobile ? 'translate(-50%, -50%)' : 'translate(-90%, -50%)', 
+                                    width: isMobile ? '40px' : '46px',
+                                    height: isMobile ? '40px' : '46px',
                                     background: 'white',
                                     border: '1px solid #e5e7eb',
-                                    borderRadius: '50%',
+                                    borderRadius: '9999px',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent:'center',
@@ -572,7 +595,7 @@ export default function ArtisanSection() {
                                         const btn = e.currentTarget; // 꼭 currentTarget
                                         btn.style.background = '#f3f4f6';
                                         // btn.style.transform = 'translate(-50% -50%) scale(1.1)';
-                                        btn.style.transform = 'translate(-120%, -50%) scale(1.1)';
+                                        btn.style.transform =  isMobile ? 'translate(-50%, -50%) scale(1.1)' : 'translate(-90%, -50%) scale(1.1)';
                                         btn.style.boxShadow = '0 6px 16px rgba(0,0,0,0.15)';
                                     }
                                 }}
@@ -581,11 +604,11 @@ export default function ArtisanSection() {
                                     btn.style.background = 'white';
                                     // btn.style.borderRadius= '50%'
                                     // btn.style.transform = 'translate(-50% -50%) scale(1)';
-                                    btn.style.transform = 'translate(-120%, -50%) scale(1)';
-                                    btn.style.boxShadow="0 4px 12px rgba(0,0,0, 0.1)";
+                                    btn.style.transform = isMobile ? 'translate(-50%, -50%) scale(1)' : 'translate(-90%, -50%) scale(1)';
+                                    btn.style.boxShadow="0 4px 12px rgba(0,0,0, 0.10)";
                                 }}
                             >
-                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ pointerEvents: 'none' }}>
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ pointerEvents: 'none' }}>
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                 </svg>
                             </button>
@@ -597,12 +620,12 @@ export default function ArtisanSection() {
                                     position: 'absolute',
                                     right: 0,
                                     top : '50%',
-                                    transform: 'translate(120%, -50%)', // 오른쪽에도 엣지 기준
-                                    width: '50px',
-                                    height: '50px',
+                                    transform: isMobile ? 'translate(50%, -50%)' : 'translate(90%, -50%)',
+                                    width: isMobile ? '40px' : '46px',
+                                    height: isMobile ? '40px' : '46px',
                                     background: 'white',
                                     border: '1px solid #e5e7eb',
-                                    borderRadius: '50%',
+                                    borderRadius: '9999px',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
@@ -619,7 +642,7 @@ export default function ArtisanSection() {
                                         const btn = e.currentTarget;
                                         btn.style.background = '#f3f4f6';
                                         // btn.style.transform = 'translate(50% -50%) scale(1.1)';
-                                        btn.style.transform = 'translate(120%, -50%) scale(1.1)';
+                                        btn.style.transform = isMobile ? 'translate(50%, -50%) scale(1.1)' : 'translate(90%, -50%) scale(1.1)';
                                         btn.style.boxShadow = '0 6px 16px rgba(0,0,0,0.15)';
                                     }
                                 }}
@@ -627,11 +650,11 @@ export default function ArtisanSection() {
                                     const btn = e.currentTarget;
                                     btn.style.background = 'white';
                                     // btn.style.transform = 'translate(50% -50%) scale(1)';
-                                    btn.style.transform = 'translate(120%, -50%) scale(1)';
+                                    btn.style.transform = isMobile ? 'translate(50%, -50%) scale(1)' : 'translate(90%, -50%) scale(1)';
                                     btn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
                                 }}
                                 >
-                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ pointerEvents: 'none' }}>
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ pointerEvents: 'none' }}>
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                             </button>
@@ -640,27 +663,20 @@ export default function ArtisanSection() {
                 </div>
                 {/* 페이지 인디케이터 */}
                 {brochureOpen && (
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            gap: '8px',
-                            marginTop: '40px'
-                        }}
-                    >
+                    <div className="flex justify-center gap-2 mt-6 sm:mt-8">
                         {FURNITURE.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => !isFlipping && setCurrentPage(index)}
                                 disabled={isFlipping}
                                 style={{
-                                    width: currentPage === index? '24px':'8px',
+                                    width: currentPage === index? '22px':'8px',
                                     height: '8px',
-                                    borderRadius: currentPage === index? '12px': '50%',
-                                    background: currentPage === index?'white': 'rgba(255, 255, 255, 0.5)',
+                                    borderRadius: currentPage === index? '9999px': '9999%',
+                                    background: currentPage === index?'white': 'rgba(255, 255, 255, 0.55)',
                                     border: 'none',
                                     cursor: isFlipping? 'not-allowed': 'pointer',
-                                    transition: 'all 0.3s'
+                                    transition: 'all 0.25s'
                                 }}
                                 onMouseEnter={(e) => {
                                     if (index !== currentPage && !isFlipping) {
