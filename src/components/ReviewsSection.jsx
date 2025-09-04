@@ -42,9 +42,10 @@ export default function ReviewsSection({
   const dragRef = useRef({ active: false, startX: 0, lastX: 0 });
 
   // === Drag 튜닝 값 ===
-  const DRAG_MULT = 2.2; // 드래그 1px당 레일 이동 배수 (2~3 추천)
-  const SPEED_GAIN = 28; // 드래그 속도 → px/s 가속 환산 계수
-  const MAX_SPEED = 600; // 가속 상한(px/s)
+  const DRAG_MULT = 2.8; // 드래그 1px당 레일 이동 배수 (2~3 추천)
+  const SPEED_GAIN = 70; // 드래그 속도 → px/s 가속 환산 계수
+  const MAX_SPEED = 1200; // 가속 상한(px/s)
+  const DECAY = 0.985;     // 관성 감쇠(프레임당) - 천천히 기본속도로 복귀
 
   const pauseNow = () => {
     pausedRef.current = true;
@@ -100,6 +101,11 @@ export default function ReviewsSection({
       last = now;
 
       if (!pausedRef.current && rows.length) {
+        // 관성: 드래그 중이 아닐 땐 속도를 서서히 기본 속도로 복귀
+        if (!dragRef.current.active) {
+          const base = baseSpeedRef.current;
+          speedRef.current = base + (speedRef.current - base) * Math.pow(DECAY, dt * 60);
+        }
         // offset 업데이트
         offsetRef.current += dirRef.current * speedRef.current * dt;
 
@@ -135,6 +141,7 @@ export default function ReviewsSection({
     dragRef.current.startX = x;
     dragRef.current.lastX = x;
     pausedRef.current = false;
+    e.currentTarget.style.cursor = "grabbing";
   };
 
   const onPointerMove = (e) => {
@@ -183,6 +190,7 @@ export default function ReviewsSection({
     dragRef.current.dragging = false;
     // 드래그로 가속된 속도를 유지하되 너무 느리면 조금 보태줌
     speedRef.current = Math.max(speedRef.current, baseSpeedRef.current * 2);
+    e.currentTarget.style.cursor = "grab";
     resumeNow();
   };
 
@@ -197,25 +205,19 @@ export default function ReviewsSection({
   }, [modal]);
 
   return (
-    <section style={section} onMouseLeave={resumeNow}>
+    <section id="reviews" style={section} onMouseLeave={resumeNow}>
       {/* 헤더 */}
-      {/* <header className="mb-6 text-center">
-        <h2 className="text-2xl text-white sm:text-3xl font-bold tracking-tight">
-          <span className="text-4xl text-bold">{totalCount}</span>
-          명의 게스트분들이 <br className="sm:hidden" />
-          HAMHanokStay와 함께 하였습니다.
-        </h2>
-      </header> */}
+      
       <div className="absolute top-8 left-0 right-0 text-center text-white z-20">
         
-        <span className="inline-block text-xs tracking-[0.3em] uppercase text-white/70">
+        <span className="inline-block text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/70">
           {HEADER.eyebrow}
         </span>
-        <h2 className="mt-2 text-3xl md:text-4xl font-bold drop-shadow-lg">
-          <span className="text-4xl text-bold"> {totalCount}</span>
+        <h2 className="mt-2 font-bold drop-shadow-lg text-[22px] leading-tight md:text-4xl">
+          <span className="text-3xl md:text-5xl font-extrabold align-middle mr-1"> {totalCount}</span>
           {HEADER.title}
         </h2>
-        <p className="mt-2 text-white/85 drop-shadow">
+        <p className="mt-2 text-white/85 drop-shadow text-[12px] md:text-base max-w-xl mx-auto">
           {HEADER.description}
         </p>
       </div>
@@ -386,6 +388,9 @@ const viewport = {
   transform: "translateX(-50%)",
   overflow: "hidden",
   padding: "12px 0",
+  // ✨ 중요: 모바일에서 가로 드래그를 브라우저가 가로 스와이프로 먹지 않게
+  touchAction: "pan-y",
+  cursor: "grab",
 };
 
 const rail = {

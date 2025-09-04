@@ -1,104 +1,155 @@
-import { useState } from "react";
-// import {HiLanguage } from "react-icons/fa"; // 지구본 아이콘(언어 설정)
-import { HiLanguage } from "react-icons/hi2"
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import logoWhite from "../assets/logo_white.png";
+import logo from "/images/logo.svg"
+import { RxHamburgerMenu } from "react-icons/rx";
+import { useEffect, useState } from "react";
+import {FiMenu, FiX} from "react-icons/fi";
+import { header } from "framer-motion/client";
 
 
-export default function Header(variant="default") {
-    const [langOpen, setLangOpen] = useState(false);
-    const toggleLangMenu = () => setLangOpen(!langOpen); // 버튼 클릭 시 열림 토글 
-    // const mode = varient ?? variant; //오타 호환
-    const isOverlay = variant === "overlay"; // 오버레이 모드 여부 확인
+const scrollTo = (id) => {
+  const el = document.getElementById(id);
+  const container = document.getElementById("app-scroll");
+  if (!el || !container) return;
+
+  const headerOffset = 80; // 고정 헤더 높이에 맞게 조절
+  const targetY =
+    el.getBoundingClientRect().top -
+    container.getBoundingClientRect().top +
+    container.scrollTop -
+    headerOffset;
+
+  container.scrollTo({ top: targetY, behavior: "smooth" });
+};
+const NAV = [
+    { label: "HAM",   target: "artisan" },
+    { label: "ABOUT",   target: "hamstay" },
+    { label: "REVIEWS", target: "reviews" },
+    { label: "RESERVE", target: "reserve" },
+];
+
+
+export default function Header() {
+
+    const [open , setOpen] = useState(false);
+    useEffect(() => {
+        document.body.style.overflow = open ? "hidden":"";
+        return () => (document.body.style.overflow = ""); 
+    }, [open])
+
+    // id를 인자로 받아 현재 열려있는 메뉴나 모달을 닫을 뒤 (SetOpen(false)), 해당 id를 가진 요소가 있는 위치로 화면을 부드럽게 이동 
+    const go = (id) => {
+        setOpen(false);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({behavior: "smooth", block:"start"});
+    }
+    
+
     return (
-        <header className={
-            isOverlay
-            // 오버레이 모드일 때: 배경 비디오 위에 텍스트가 오도록 설정
-            ? "absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white "
-            : // 일반 모드일 때: 상단 고정 헤더
-            "bg-white w-full text-center px-4 py-2 shadow-md"
-            }
-        >
-            {/* 상단로고 + 언어 선택 아이콘 중앙에 배치  */}
-            <div
-                className={
-                    isOverlay
-                    ? "flex flex-col items-center"
-                    : "flex justify-between items-center max-w-8xl mx-auto"
-                }
-            >
-                {/* 로고 이미지  */}
-                <Link to="/" className={isOverlay ?"block":"mx-auto"}>
-                    <img 
-                        src="../assets/logo.svg" 
-                        alt="HAMHanokStay Logo"
-                        style={{height: "130px"}} 
-                    />
-                </Link>
-                {!isOverlay && (
-                 
-                    <div className="relative ">
-                        <button onClick={toggleLangMenu}>
-                            <HiLanguage  className="text-2xl text-gray-500" />
+        // 비디오 위에 얹는 투명 헤더 
+        <header className="absolute inset-x-0 top-0 z-20">
+            {/* group 컨테이너 하나로 묶되 , 'peer'를 nav에 주고 아래 배경 레이어가 peer-hover로 반응하게 구성 */}
+            <div className="relative">
+                {/* 실제 헤더 컨텐츠 (로고 좌측 / 메뉴 우측) */}
+                <div className="peer relative z-10 flex items-center justify-between px-6 lg:px-10 py-5">
+                    {/* 로고: 좌측 , 투명 배경  */}
+                    <Link to="/" className="shrink-0">
+                        <img src={logoWhite} alt="HAMHanokStay" className="h-[100px] w-auto" />
+                    </Link>
+                
+                   {/* 데스크톱 메뉴 */}
+                    <nav className="hidden md:flex items-center gap-8 text-white/90 font-medium tracking-wide">
+                        {NAV.map((item) => (
+                        <button
+                            key={Array.isArray(item.target) ? item.target[0] : item.target}
+                            onClick={() => scrollTo(item.target)}
+                            className="text-sm font-medium hover:opacity-80 transition"
+                            type="button"
+                        >
+                            {item.label}
                         </button>
-                        {langOpen && (
-                            <ul className="absolute right-0 mt-2 bg-white border rounded text-sm shadow-md z-10">
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">한국어</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">English</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">日本語</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Deutsch</li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">中文</li>
-                            </ul>
-                        )}
-                    </div>
-                )}
-            </div>
-            {/* 네비게이션 메뉴 */}
-            <nav className={
-                isOverlay
-                ? "mt-8 space-x-6 font-medium"
-                : "space-x-6 font-medium"
-            }
-            >
-                <Link to="/about" className={isOverlay ? "hover:underline" : "hover:underline"}>About</Link>
-                <Link to="/review" className={isOverlay ? "hover:underline" : "hover:underline"}>Review</Link>
-                <Link to="/reserve"className={isOverlay ? "hover:underline" : "hover:underline"}>Reserve</Link>
-                <Link to="/contact"className={isOverlay ? "hover:underline" : "hover:underline"}>Contact</Link>
-            </nav>
+                        ))}
+                    </nav>
+                    {/* (옵션) 모바일 메뉴 버튼 자리 */}
+                    <button 
+                        className="md:hidden text-white/90" 
+                        aria-label="Open menu" 
+                        aria-expanded={open}
+                        onClick={()=> setOpen(true)}
+                        type="button">
+                        <RxHamburgerMenu className="w-7 h-7" />
+                    </button>
+                </div>
 
+                {/* 배경 레이어 : 기본은 투명, 메뉴(nav) hover 시 어두워짐  */}
+                <div 
+                    className="pointer-events-none absolute inset-0 z-0 bg-transparent transition-colors duration-300 peer-hover:bg-black/60"
+                />
+
+            </div>
+            {/*  모바일 오버레이 & 슬라이드 페널 */}
+            {open && (
+                <>
+                    {/* 배경 오버레이 클릭 시 닫기  */}
+                    <button
+                        className="fixed inset-0 z-40 bg-black/40"
+                        aria-label= "close menu backdrop"
+                        onClick={() => setOpen(false)}
+                        type="button"
+                    />
+                    {/* 우측 그라이드 메뉴 */}
+                    <nav
+                        className="fixed right-0 top-0 bottom-0 z-50 w-72 max-w-[80vw] bg-white shadow-2xl flex flex-col"
+                        role="dialog"
+                        aria-modal="true"
+                    >
+                        {/* 패널 헤더 */}
+                        <div className="flex items-center justify-between px-5 py-4 border-b">
+                            <img src={logo} alt="HAMHanokStay" className="h-9 w-auto" />
+                            <button
+                                className="p-2 rounded-md hover:bg-neutral-100"
+                                aria-label="Close menu"
+                                onClick={() => setOpen(false)}
+                                type="button"
+                            >
+                                <FiX className="w-6 h-6" />
+                            </button>
+                        </div>
+
+                        {/* 패널 링크 */}
+                        <ul className="flex-1 px-5 py-4 space-y-2 text-neutral-800">
+                            {NAV.map((item) => (
+                            <li key={item.target}>
+                                <button
+                                    onClick={() => go(item.target)}
+                                    className="w-full text-left px-3 py-3 rounded-md hover:bg-neutral-100 font-medium"
+                                    type="button"
+                                >
+                                    {item.label}
+                                </button>
+                            </li>
+                            ))}
+                        </ul>
+
+                        {/*  하단 여백 (안전영역) */}
+                        <div className="h-6" />
+
+                    </nav>
+                    
+                </>
+            )}
+            
 
         </header>
     )
+
     // return (
-    //     <header className="bg-white w-full text-center px-4 py-2 shadow-md">
-    //         {/* 상단 로고 + 언어 선택 아이콘 */}
-    //         <div className="flex justify-between items-center max-w-8xl mx-auto ">
-    //             {/* 로고 이미지  */}
-    //             <Link to="/" className="mx-auto">
-    //                 <img src="../assets/logo.svg" alt="HAMHanokStay Logo"  style={{ height: '130px' }} />
-    //             </Link>
-    //             {/* 언어 선택 드롭다운 */}
-    //             <div className="relative">
-    //                 <button onClick={toggleLangMenu}>
-    //                     <FaGlobe className="text-2xl text-gray-700"></FaGlobe>
-    //                 </button>
-    //                 {langOpen && (
-    //                     <ul className="absolute right-0 mt-2 bg-white border rounded text-sm shadow-md z-10">
-    //                         <li className="px-4 py-2 hover:bg-gray=100 cursor-pointer">한국어</li>
-    //                         <li className="px-4 py-2 hover:bg-gray=100 cursor-pointer">English</li>
-    //                         <li className="px-4 py-2 hover:bg-gray=100 cursor-pointer">日本語</li>
-    //                         <li className="px-4 py-2 hover:bg-gray=100 cursor-pointer">Deutsch </li>
-    //                         <li className="px-4 py-2 hover:bg-gray=100 cursor-pointer">中文</li>
-    //                     </ul>
-    //                 )}
-    //             </div>
+    //     <header className="sticky top-0 z-50 backdrop-blur bg-white/70 border-b border-neutral-200"> 
+    //         <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
+    //             <button onClick={() => go("home")} className="font-semibold ">
+
+    //             </button>
     //         </div>
-    //         {/* 네비게이션 메뉴 */}
-    //         <nav className="space-x-6 font-medium">
-    //             <Link to="/about" className="hover:underline">About</Link>
-    //             <Link to="/review" className="hover:underline">Review</Link>
-    //             <Link to="/reserve" className="hover:underline">Reserve</Link>
-    //             <Link to="/contact" className="hover:underline">Contact</Link>
-    //         </nav>
     //     </header>
-    // );
+    // )
 }
