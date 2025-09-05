@@ -36,12 +36,13 @@ jobs: # 작업 목록 : 워크플로우는 하나 이상의 job을 가짐 jobs�
     deploy: # build 작업에서 생성한 아티팩트를 실제 깃헙 사이트에서 배포하는 역활 수행
         needs: build # 해당 작업은 반드시 빌드 작업이 완료된 후에만 실행 
         runs-on: ubuntu-latest
-        enviroment:  # 배포 환경 설정
+        environment:  # 배포 환경 설정
             name: github-pages # 깃헙 페이지스 배포를 위한 전용 환경을 사용하도록 지정
-            url: ${{steps.deployment.outputs.page_url}} # 배포가 완료도니후 해당 url은 워크플로우 실행 결과에 표시
+            url: ${{ steps.deployment.outputs.page_url }} # 배포가 완료도니후 해당 url은 워크플로우 실행 결과에 표시
         steps:
-            - id: deployment
-            uses: actions/deploy-pages@v4 #핵심 배포 단계 빌드 작업에서 업로드한 아티팩트를 자동으로 다운로드 하여 깃헙 페이지스 환경에 배포하는 모든 복합 과정 액션
+            - name: Deploy to Github Pages
+              id: deployment
+              uses: actions/deploy-pages@v4 #핵심 배포 단계 빌드 작업에서 업로드한 아티팩트를 자동으로 다운로드 하여 깃헙 페이지스 환경에 배포하는 모든 복합 과정 액션
 
 
 
