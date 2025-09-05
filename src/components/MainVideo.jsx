@@ -1,15 +1,17 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { withBase } from "@/utils/path";
+
 const VIDEOS = [
-        "/video/hero_1.mp4",
-        "/video/hero_2.mp4",
-        // "/video/hero_3.mp4",
-        "/video/hero_4.mp4",    
-        "/video/hero_5.mp4",
-        "/video/hero_6.mp4",
-        "/video/hero_7.mp4",
-        "/video/hero_8.mp4",
+        "video/hero_1.mp4",
+        "video/hero_2.mp4",
+        // "video/hero_3.mp4",
+        "video/hero_4.mp4",    
+        "video/hero_5.mp4",
+        "video/hero_6.mp4",
+        "video/hero_7.mp4",
+        "video/hero_8.mp4",
     ];
 
 export default function MainVideo() {
@@ -55,7 +57,7 @@ export default function MainVideo() {
                 onEnded = {goNext}
                 onError={handleError}
             >
-                <source key= {idx} src={VIDEOS[idx]} type="video/mp4"/>
+                <source key= {idx} src={withBase(VIDEOS[idx])} type="video/mp4"/>
 
             </video>
 
@@ -85,3 +87,4 @@ export default function MainVideo() {
         </div>
     );
 }
+

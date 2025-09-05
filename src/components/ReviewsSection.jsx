@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { withBase } from "@/utils/path";
 
 /** JSON -> 내부 포맷 + 빈 텍스트 필터 */
 function normalize(row) {
@@ -26,7 +27,7 @@ const HEADER = {
 // =============== 컴포넌트 =================
 export default function ReviewsSection({
   totalCount = 0,
-  src = "/docs/booking_reviews.json",
+  src = withBase("docs/booking_reviews.json"),
 }) {
   const [rows, setRows] = useState([]);
   const pausedRef = useRef(false);
@@ -373,7 +374,7 @@ const section = {
   display: "flex",
   flexDirection: "column",
   backgroundColor: "#000000",
-  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5), transparent), url("/images/bg_review.jpg")`,
+  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5), transparent), url("${withBase("images/bg_review.jpg")}")`,
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",

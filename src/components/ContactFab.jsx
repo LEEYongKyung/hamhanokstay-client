@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { withBase } from "@/utils/path";
 import { SiKakaotalk, SiWhatsapp, SiInstagram } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
 
@@ -95,7 +96,7 @@ export default function ContactFab() {
           className="relative inline-flex items-center justify-center w-14 h-14 rounded-full bg-white border border-neutral-200 shadow-[0_14px_35px_rgba(0,0,0,.24)] transition-transform"
         >
           <img
-            src="/images/emblem.png"
+            src={withBase("images/emblem.png")}
             alt="HAMHanokStay 엠블럼"
             className="w-9 h-9"
             style={{ animation: `fabSpin ${totalMs}ms linear 1` }}

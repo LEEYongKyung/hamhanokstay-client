@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useState} from "react";
+import { withBase } from "@/utils/path";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // ===========날짜 유형===========
@@ -281,7 +282,7 @@ export default function ReserveSection({
                 playsInline
                 className="absolute top-0 left-0 w-full h-full object-cover -z-10"
             >
-                <source src="/video/reserve_bg.mp4" type="video/mp4" />
+                <source src={withBase("video/reserve_bg.mp4")} type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-black/60 -z-10" />
 

@@ -18,6 +18,7 @@ import { MdOutlineCoffeeMaker as CoffeeMakerIcon, MdOutlineYard as YardIcon } fr
 import { GiWineGlass as WineGlassIcon, GiDoorHandle as DoorlockIcon } from "react-icons/gi";
 import { TbDeviceTvOff as TvOffIcon } from "react-icons/tb";
 import RangeCalendarPopover from "./RangeCalendarPopover";
+import { withBase } from "@/utils/path";
 /**
  * HAM HanokStay - Airbnb 스타일 섹션
  * 
@@ -30,7 +31,6 @@ import RangeCalendarPopover from "./RangeCalendarPopover";
  * onReserve?: (payload) => void
  * 
  */
-import amenity from '../../public/docs/amenity.json';
 
 const HEADER = {
     eyebrow : "STAY HANOK",
@@ -42,11 +42,11 @@ const HEADER = {
 export default function HamStaySection({
     // props 섹션
     images =[
-        "/images/HamStay/ham_1.png",
-        "/images/HamStay/ham_2.jpg",
-        "/images/HamStay/ham_3.jpg",
-        "/images/HamStay/ham_4.jpg",
-        "/images/HamStay/ham_5.jpg",
+        withBase("images/HamStay/ham_1.png"),
+        withBase("images/HamStay/ham_2.jpg"),
+        withBase("images/HamStay/ham_3.jpg"),
+        withBase("images/HamStay/ham_4.jpg"),
+        withBase("images/HamStay/ham_5.jpg"),
     ],
 
     title = "조선시대 전통가구가 살아 숨 쉬는 한옥공간 함한옥스테이",
@@ -296,7 +296,7 @@ export default function HamStaySection({
         // JSON 불러오기
         useEffect(() => {
             let alive = true;
-            fetch("/docs/amenity.json")
+            fetch(withBase("docs/amenity.json"))
                 .then(r => r.json())
                 .then(data => {if (alive) setAmenity(data);})
                 .catch(() => {
