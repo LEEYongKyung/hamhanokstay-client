@@ -1,0 +1,47 @@
+
+name: Deploy HAMHanokClient app to GitHub Pages
+
+on: # 실행 조건  : 어떤 상황에서 워크플로우를 실행할 지 
+    push:  # 브랜치 코드가 푸쉬 될때마다 자동 실행
+        branches: [ main ] #기본 브랜치 이름
+    workflow_dispatch: # Action 탭에서 'Run workflow'버튼을 눌러 수동으로 워크플로우를 실행할 수 있게 해줌 
+
+
+permissions: #권한 설정 : 워크플로우가 실행될 때 사용되는 GITHUB_TOKEN 에 부여할 권한을 지정 
+    contents: read # 저장소의 모든 코드를 읽을 수 있는 권한
+    pages: write  # 깃헙 페이지에 배포(쓰기)할 수 있는 권한
+    id-token: write # 배포시 비밀번호 없는 인증을 위해 토큰을 요청할 수 있는 권한 
+
+concurrency: # 동시성 제어 : 여러 워크플로우가 동시에 실행되는 것을 제어 
+    group: "pages" # pages라는 그룹으로 묶어, 이 그룹 내에서는 한 번에 하나의 작업만 수행 
+    cancel-in-progress: true # 새로운 푸시로 인해 워크플로우가 또 실행되면 , 이전에 진행 중이던 배포는 자동으로 취소하고 새배포 시작
+
+jobs: # 작업 목록 : 워크플로우는 하나 이상의 job을 가짐 jobs는 build와 deploy의 작업이 있음. 
+    build: #Vite 프로젝트를 빌드하여 배포할 정적 파일(HTML, CSS, JS)을 생성하는 역활
+        runs-on: ubuntu-latest # 최신버전 리눅스 환경에서 시작 
+        steps:
+            - uses: actions/checkout@v4 #저장소의 코드를 가상 머신으로 내려받음
+            - uses: actions/setup-node@v4 # Nodejs 환경을 설정 
+              with:
+                node-version: 20 # Node 20 버전
+                cache: 'npm' #npm 패키지를 캐싱하여 다음 실행히 설치 속도를 높인다.
+            - run: npm ci # package-lock.json 을 기반으로 npm 종속성 설치 npm install CI/CD 환경에서 더 빠르고 안정적 
+            - run: npm run build # package.json에 정의된 build 스크립트 를 실행하여 프로젝트 빌드 
+            # SPA fallback(새로고침 404방지)
+            - run: cp dist/index.html dist/404.html #(중요!) React나 Vite에서 SPA(Single Page App)에서 새로고침 시 404 오류가 발생하는 것을 방지하기 위해 /about같은 직접경로로 접근하면 파일 을 찾지못해 에러가 나지만 index.html로 유도 
+            - uses: actions/upload-pages-artifact@v3 # 빌드 결과물인 dist 폴더를 깃헙 페이지배포에 사용될 artifact로 업로드 
+              with:
+                path: 'dist'
+
+    deploy: # build 작업에서 생성한 아티팩트를 실제 깃헙 사이트에서 배포하는 역활 수행
+        needs: build # 해당 작업은 반드시 빌드 작업이 완료된 후에만 실행 
+        runs-on: ubuntu-latest
+        enviroment:  # 배포 환경 설정
+            name: github-pages # 깃헙 페이지스 배포를 위한 전용 환경을 사용하도록 지정
+            url: ${{steps.deployment.outputs.page_url}} # 배포가 완료도니후 해당 url은 워크플로우 실행 결과에 표시
+        steps:
+            - id: deployment
+            uses: actions/deploy-pages@v4 #핵심 배포 단계 빌드 작업에서 업로드한 아티팩트를 자동으로 다운로드 하여 깃헙 페이지스 환경에 배포하는 모든 복합 과정 액션
+
+
+
