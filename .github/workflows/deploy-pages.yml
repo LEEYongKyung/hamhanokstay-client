@@ -16,20 +16,34 @@ concurrency: # 동시성 제어 : 여러 워크플로우가 동시에 실행되�
     group: "pages" # pages라는 그룹으로 묶어, 이 그룹 내에서는 한 번에 하나의 작업만 수행 
     cancel-in-progress: true # 새로운 푸시로 인해 워크플로우가 또 실행되면 , 이전에 진행 중이던 배포는 자동으로 취소하고 새배포 시작
 
-jobs: # 작업 목록 : 워크플로우는 하나 이상의 job을 가짐 jobs는 build와 deploy의 작업이 있음. 
+jobs: # 작업 목록 : 워크플로우는 하나 이상의 job을 가짐 jobs는 build와 deploy의 작업이 있음.
+    
     build: #Vite 프로젝트를 빌드하여 배포할 정적 파일(HTML, CSS, JS)을 생성하는 역활
+        name: Build and Deploy 
         runs-on: ubuntu-latest # 최신버전 리눅스 환경에서 시작 
         steps:
-            - uses: actions/checkout@v4 #저장소의 코드를 가상 머신으로 내려받음
-            - uses: actions/setup-node@v4 # Nodejs 환경을 설정 
+            - name: Checkout repository
+              uses: actions/checkout@v4 #저장소의 코드를 가상 머신으로 내려받음
+            - name : Fetch iCal feeds # ICS 캘린더 데이터 불러오기 
+              run: | 
+                mkdir -p public/docs/ics 
+                curl -L ${{secrets.REACT_APP_AIRBNB_ICS_URL}} -o public/docs/ics/aribnb.ics
+                curl -L ${{secrets.REACT_APP_BOOKING_ICS_URL}} -o public/docs/ics/booking.ics
+                curl -L ${{secrets.REACT_APP_AGODA_ICS_URL}} -o public/docs/ics/agoda.ics
+            - name: Setup Node.js
+              uses: actions/setup-node@v4 # Nodejs 환경을 설정 
               with:
                 node-version: 20 # Node 20 버전
                 cache: 'npm' #npm 패키지를 캐싱하여 다음 실행히 설치 속도를 높인다.
-            - run: npm ci # package-lock.json 을 기반으로 npm 종속성 설치 npm install CI/CD 환경에서 더 빠르고 안정적 
-            - run: npm run build # package.json에 정의된 build 스크립트 를 실행하여 프로젝트 빌드 
+            - name: Install dependencies
+              run: npm ci # package-lock.json 을 기반으로 npm 종속성 설치 npm install CI/CD 환경에서 더 빠르고 안정적 
+            - name: Build project  
+              run: npm run build # package.json에 정의된 build 스크립트 를 실행하여 프로젝트 빌드 
             # SPA fallback(새로고침 404방지)
-            - run: cp dist/index.html dist/404.html #(중요!) React나 Vite에서 SPA(Single Page App)에서 새로고침 시 404 오류가 발생하는 것을 방지하기 위해 /about같은 직접경로로 접근하면 파일 을 찾지못해 에러가 나지만 index.html로 유도 
-            - uses: actions/upload-pages-artifact@v3 # 빌드 결과물인 dist 폴더를 깃헙 페이지배포에 사용될 artifact로 업로드 
+            - name: Create 404.html for SPA fallback
+              run: cp dist/index.html dist/404.html #(중요!) React나 Vite에서 SPA(Single Page App)에서 새로고침 시 404 오류가 발생하는 것을 방지하기 위해 /about같은 직접경로로 접근하면 파일 을 찾지못해 에러가 나지만 index.html로 유도 
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3 # 빌드 결과물인 dist 폴더를 깃헙 페이지배포에 사용될 artifact로 업로드 
               with:
                 path: 'dist'
 
