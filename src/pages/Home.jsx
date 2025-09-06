@@ -12,6 +12,7 @@ import HamStaySection from "../components/HamStaySection";
 import ReviewSection from "../components/ReviewsSection";
 import ReserveSection from "../components/ReserveSection";
 import ContactFab from "../components/ContactFab";
+import { withBase } from "../utils/path";
 
 const Calendars = [
     "/booking/v1/export?t=2b9c85f1-2ce8-4686-b829-2ecfde2044cb",

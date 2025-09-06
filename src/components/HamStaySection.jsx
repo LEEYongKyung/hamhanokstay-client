@@ -54,9 +54,9 @@ export default function HamStaySection({
     addressText = "서울특별시 종로구 계동6길 4-1",
     ratings = {airbnb: 4.89, booking: 9.8, naver: 9.8},
     reservationUrls = {
-        airbnb: "https://www.airbnb.co.kr/rooms/1141509028517381236?guests=1&adults=1&s=67&unique_share_id=c7c78e2f-3f97-4418-a061-b63fcc6909be",
-        booking: "https://www.booking.com/Share-ofy5NuJ",
-        naver: "https://naver.me/55rXUyZA"
+        airbnb: withBase("https://www.airbnb.co.kr/rooms/1141509028517381236?guests=1&adults=1&s=67&unique_share_id=c7c78e2f-3f97-4418-a061-b63fcc6909be"),
+        booking: withBase("https://www.booking.com/Share-ofy5NuJ"),
+        naver: withBase("https://naver.me/55rXUyZA")
     },
     onReserve,
     addressMapUrl="https://maps.app.goo.gl/aXTt5T1NUE9Ehfif8",
