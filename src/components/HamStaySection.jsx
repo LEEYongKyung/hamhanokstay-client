@@ -19,6 +19,7 @@ import { GiWineGlass as WineGlassIcon, GiDoorHandle as DoorlockIcon } from "reac
 import { TbDeviceTvOff as TvOffIcon } from "react-icons/tb";
 import RangeCalendarPopover from "./RangeCalendarPopover";
 import { withBase } from "@/utils/path";
+import { SHARE_CALENDARS } from "../config/calendars";
 /**
  * HAM HanokStay - Airbnb 스타일 섹션
  * 
@@ -132,11 +133,7 @@ export default function HamStaySection({
         발급 지역: 부산광역시, 해운대구
         허가 유형: 일반숙박업
         허가번호: 제 2022-00005 호`,
-        shareCalendars = [
-            "/booking/v1/export?t=2b9c85f1-2ce8-4686-b829-2ecfde2044cb",
-            "/airbnb/calendar/ical/1141509028517381236.ics?s=4ff6139029b739ac857b7faa0e522542",
-            "/agoda/en-us/api/ari/icalendar?key=Mq%2f3dKl3aQT1CaFASpd7juPktu8s1wp%2f",
-        ],
+    shareCalendars = SHARE_CALENDARS,
 
 
 }){

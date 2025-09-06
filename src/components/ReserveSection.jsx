@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import { withBase } from "@/utils/path";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { SHARE_CALENDARS } from "../config/calendars";
 
 // ===========날짜 유형===========
 const pad = (n) => String(n).padStart(2, "0");
@@ -97,11 +98,7 @@ const RING = "rgba(64,42, 28,.35)" // 사직/끝 링
 
 // ===========컴포넌트===========
 export default function ReserveSection({
-    shareCalendars = [
-    "/booking/v1/export?t=2b9c85f1-2ce8-4686-b829-2ecfde2044cb",
-    "/airbnb/calendar/ical/1141509028517381236.ics?s=4ff6139029b739ac857b7faa0e522542",
-    "/agoda/en-us/api/ari/icalendar?key=Mq%2f3dKl3aQT1CaFASpd7juPktu8s1wp%2f",
-  ],
+    shareCalendars = SHARE_CALENDARS,
   onReserve,
 
 }) {

@@ -13,12 +13,7 @@ import ReviewSection from "../components/ReviewsSection";
 import ReserveSection from "../components/ReserveSection";
 import ContactFab from "../components/ContactFab";
 import { withBase } from "../utils/path";
-
-const Calendars = [
-    "/booking/v1/export?t=2b9c85f1-2ce8-4686-b829-2ecfde2044cb",
-    "/airbnb/calendar/ical/1141509028517381236.ics?s=4ff6139029b739ac857b7faa0e522542",
-    "/agoda/en-us/api/ari/icalendar?key=Mq%2f3dKl3aQT1CaFASpd7juPktu8s1wp%2f",
-  ];
+import { SHARE_CALENDARS } from "../config/calendars";
 export default function Home() {
     const totalReservations = 123;
     return (
@@ -32,13 +27,6 @@ export default function Home() {
                 <div className="absolute inset-0 -z-10 ">
                     <MainVideo />
                 </div>
-                {/* 엠블럼 오버레이 레이어 */}
-                {/* <img
-                    src={emblemwhite}
-                    alt="HAM HanokStay emblem"
-                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] h-auto max-w-none pointer-events-none" // 가운데 정렬
-                >
-                </img> */}
                 {/* 이씨함 오버레이 레이어 */}
                 <img
                     src={leessihamwhite}
@@ -60,6 +48,8 @@ export default function Home() {
                     addressMapUrl="https://maps.app.goo.gl/aXTt5T1NUE9Ehfif8"
                     // ratings={{ airbnb: 4.89, booking: 9.8, naver: 9.8 }}
                     onReserve={(p)=>console.log("reserve payload:", p)}
+                    shareCalendars = {SHARE_CALENDARS}
+                    
                 
                 />
             </section>
@@ -71,7 +61,7 @@ export default function Home() {
             {/* 페이지5: ReserveSection */}
             <section id="reserve" className="min-h-screen lg:snap-start overflow-visible">
                 <ReserveSection
-                    shareCalendars = {Calendars}
+                    shareCalendars = {SHARE_CALENDARS}
                 />
             
                 <Footer />
