@@ -121,12 +121,9 @@ export default function RangeCalendarPopover({
   React.useEffect(() => {
     if (!open) return;
     reflow();
-    const onScroll = () => reflow();
     const onResize = () => reflow();
-    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
     return () => {
-      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
   }, [open, reflow]);

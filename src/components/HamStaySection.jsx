@@ -172,6 +172,7 @@ export default function HamStaySection({
         };
         const checkinBtnRef = useRef(null);
         const checkoutBtnRef = useRef(null);
+        const bookingCardRef = useRef(null);
 
         const [openWhich, setOpenWhich] = useState(null);
         // const [checkIn, setCheckIn] = useState(null);
@@ -247,6 +248,21 @@ export default function HamStaySection({
             const idShake = setInterval(runShake, 6000);
             return () => { clearInterval(idSpark); clearInterval(idShake); }; // ← 이렇게
         }, [inView])
+
+        useEffect(() => {
+            const body = document.body;
+            const originalOverflow = body.style.overflow;
+        
+            if (openWhich) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = originalOverflow;
+            }
+        
+            return () => {
+                body.style.overflow = originalOverflow;
+            };
+        }, [openWhich]);
 
 
         //  ===================== 어메니티 상태  ========================================
@@ -522,7 +538,7 @@ export default function HamStaySection({
                 </div>
 
                 {/* 우측 예약 카드 : 하단 정보 옆으로 배치  */}
-                <aside className="lg:col-span-4">
+                <aside ref={bookingCardRef} className="lg:col-span-4">
                     <div 
                         className="rounded-2xl border border-neutral-200 bg-white/90 shadow-2xl p-5 lg:sticky lg:top-4"
                         style={shake? {animation:"hamShake 550ms ease-in-out both"}:{}}>
@@ -535,7 +551,10 @@ export default function HamStaySection({
                                 <div className="grid grid-cols-2 gap-2">
                                     <button
                                         ref={checkinBtnRef}
-                                        onClick={() => setOpenWhich((v) => (v === "in" ? null : "in"))}
+                                        onClick={() => {
+                                            bookingCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                            setTimeout(() => setOpenWhich((v) => (v === "in" ? null : "in")), 300);
+                                        }}
                                         className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50 text-[13px] sm:text-sm"
                                     >
                                         {checkIn ? checkIn.replaceAll("-", ". ") : "연도. 월. 일."}
@@ -545,7 +564,10 @@ export default function HamStaySection({
                                      {/* 체크아웃 버튼 */}
                                     <button
                                         ref={checkoutBtnRef}
-                                        onClick={() => setOpenWhich((v) => (v === "out" ? null : "out"))}
+                                        onClick={() => {
+                                            bookingCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                            setTimeout(() => setOpenWhich((v) => (v === "out" ? null : "out")), 300);
+                                        }}
                                         className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50 text-[13px] sm:text-sm"
                                     >
                                         {checkOut ? checkOut.replaceAll("-", ". ") : "연도. 월. 일."}
