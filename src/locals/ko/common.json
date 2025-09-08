@@ -1,0 +1,122 @@
+// 한국어 원문
+
+{
+    "brand": "함한옥스테이",
+    "tagline": "조선시대 전통가구와 살아 숨 쉬는 한옥공간 함한옥스테이",
+    "menu": {
+        "home": "HOME",
+        "artisan_section": "HAM",
+        "hamstay_section": "ABOUT",
+        "review_section": "REVIEWS",
+        "reserve_section": "RESERVE"
+    },
+    "mainvideo_section": {
+        "title": "조선의 작품과 만나다.",
+        "subtitle": "HAMHanokStay"
+    },
+    "artisan_section": {
+        "header": {
+            "eyebrow": "GALLERY HANOK",
+            "title": "전통가구의 장인이신 이성구 작자의 작품과 생활할 수 있는 갤러리 한옥",
+            "description": "이성구 작가님은 전통가구의 현대적 재해석을 통해, 전통과 현대가 조화를 이루는 공간을 창조하였습니다."
+        },
+        "furniture": {
+            "1": {
+                "name": "사방탁자",
+                "material": "오동나무 · 옻칠",
+                "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
+                "image": "images/Furniture/furniture_1.jpg"
+            },
+            "2": {
+                "name": "사방탁자2",
+                "material": "오동나무 · 옻칠",
+                "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
+                "image": "images/Furniture/furniture_2.jpg"
+            },
+            "3": {
+                "name": "사방탁자3",
+                "material": "오동나무 · 옻칠",
+                "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
+                "image": "images/Furniture/furniture_3.jpg"
+            },
+            "4": {
+                "name": "사방탁자4",
+                "material": "오동나무 · 옻칠",
+                "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
+                "image": "images/Furniture/furniture_4.jpg"
+            },
+            "5": {
+                "name": "사방탁자5",
+                "material": "오동나무 · 옻칠",
+                "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
+                "image": "images/Furniture/furniture_5.jpg"
+            },
+            "6": {
+                "name": "사방탁자6",
+                "material": "오동나무 · 옻칠",
+                "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
+                "image": "images/Furniture/furniture_6.jpg"
+            }
+        }
+    },
+    "hamstay_section": {
+        "header": {
+            "eyebrow": "STAY HANOK",
+            "title": "조선시대 전통가구가 살아 숨 쉬는 한옥공간 함한옥스테이",
+            "description": "HAMHanokStay"
+        },
+        "btn_show_all_images": "사진 모두 보기",
+        "address": "서울특별시 종로구 계동6길 4-1",
+        "guest_capacity": "최대 인원 4명 · 침실 2개 · 욕실 2개",
+        "btn_show_more": "더보기",
+        "btn_show_amenities": "편의시설 {{amenities_num}}개 모두 보기",
+        "subtitle_amenity": "숙소 편의시설",
+        "subtitle_location":"위치",
+        "reserve_card": {
+            "title": "예약날짜 선택하기",
+            "label_date": "날짜",
+            "label_num": "인원",
+            "placeholder_date": "연도. 월. 일.",
+            "placeholder_num": "게스트 1명",
+            "num_1": "게스트 1명",
+            "num_2": "게스트 2명",
+            "num_3": "게스트 3명",
+            "num_4": "게스트 4명"
+        },
+        "description_popup": {
+            "title": "숙소 소개",
+            "btn_exit": "닫기"
+        },
+        "amenity_popup": {
+            "title": "숙소 편의시설",
+            "btn_exit": "닫기"
+        }
+    },
+    "reviews_section": {
+        "header": {
+            "eyebrow": "EXPERIENCE HANOK",
+            "title": "게스트와 함께한 함한옥스테이",
+            "description": "게스트들의 한옥에서의 다양한 추억을 공유합니다."
+        },
+        "card_date": "{{year}}년 {{month}}월"
+    },
+    "reserve_section": {
+        "header": {
+            "eyebrow": "ENJOY HANOK",
+            "title": "함한옥스테이와 함께 조선시대를 스테이 해보세요.",
+            "description": "한옥의 아름다운 풍경과 따뜻한 분위기 속에 지친 몸과 마음이 잠시나마 휴식을 취할 수있는 시간이 되시길 바랍니다."
+        },
+        "subtitle_default": "체크인 날짜 선택",
+        "subtitle_checkout": "체크아웃 날짜 선택",
+        "subtitle_range": "함한옥스테이에서의 {{night}}박",
+        "description_default": "여행 날짜를 입력하여 정확한 요금을 확인하세요.",
+        "description_range": "{{start_year}}년 {{start_month}}월 {{start_day}}일 - {{end_year}}년 {{end_month}}월 {{end_day}}일",
+        "calendar_part_title": "{{year}}년 {{month}}월부터 {{period}}개월 보기",
+        "calendar_title": "{{year}}년 {{month}}월",
+        "btn_preview": "이전",
+        "btn_next":"다음",
+        "btn_clear_dates": "날짜 지우기",
+        "btn_reserve": "예약하기"
+    }
+    
+}
