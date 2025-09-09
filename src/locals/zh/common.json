@@ -1,1 +1,187 @@
-// 중국어 번역 
+{
+  "brand": "HAMHanokStay",
+  "tagline": "承载朝鲜时代传统家具的生动韩屋空间",
+  "menu": {
+    "home": "首页",
+    "artisan_section": "HAM",
+    "hamstay_section": "关于",
+    "review_section": "点评",
+    "reserve_section": "预订"
+  },
+  "mainvideo_section": {
+    "title": "邂逅朝鲜王朝的匠心之作。",
+    "subtitle": "HAMHanokStay"
+  },
+  "artisan_section": {
+    "header": {
+      "eyebrow": "韩屋画廊",
+      "title": "与传统家具大师李性求的作品共居的画廊式韩屋",
+      "description": "李性求大师以现代视角重新诠释传统家具，打造出传统与现代和谐共存的空间。"
+    },
+    "furniture": {
+      "furniture_1": {
+        "name": "四方桌",
+        "material": "泡桐木 · 漆",
+        "description": "为室内使用而设计，采用轻且结实的泡桐木制作。以传统漆艺收尾，兼具自然光泽与耐久度。",
+        "image": "images/Furniture/furniture_1.jpg"
+      },
+      "furniture_2": {
+        "name": "四方桌 2",
+        "material": "泡桐木 · 漆",
+        "description": "为室内使用而设计，采用轻且结实的泡桐木制作。以传统漆艺收尾，兼具自然光泽与耐久度。",
+        "image": "images/Furniture/furniture_2.jpg"
+      },
+      "furniture_3": {
+        "name": "四方桌 3",
+        "material": "泡桐木 · 漆",
+        "description": "为室内使用而设计，采用轻且结实的泡桐木制作。以传统漆艺收尾，兼具自然光泽与耐久度。",
+        "image": "images/Furniture/furniture_3.jpg"
+      },
+      "furniture_4": {
+        "name": "四方桌 4",
+        "material": "泡桐木 · 漆",
+        "description": "为室内使用而设计，采用轻且结实的泡桐木制作。以传统漆艺收尾，兼具自然光泽与耐久度。",
+        "image": "images/Furniture/furniture_4.jpg"
+      },
+      "furniture_5": {
+        "name": "四方桌 5",
+        "material": "泡桐木 · 漆",
+        "description": "为室内使用而设计，采用轻且结实的泡桐木制作。以传统漆艺收尾，兼具自然光泽与耐久度。",
+        "image": "images/Furniture/furniture_5.jpg"
+      },
+      "furniture_6": {
+        "name": "四方桌 6",
+        "material": "泡桐木 · 漆",
+        "description": "为室内使用而设计，采用轻且结实的泡桐木制作。以传统漆艺收尾，兼具自然光泽与耐久度。",
+        "image": "images/Furniture/furniture_6.jpg"
+      }
+    }
+  },
+  "hamstay_section": {
+    "header": {
+      "eyebrow": "韩屋住宿",
+      "title": "让朝鲜时代传统家具焕发生命力的韩屋空间",
+      "description": "HAMHanokStay"
+    },
+    "btn_show_all_images": "查看所有照片",
+    "address": "首尔特别市 钟路区 溪洞6街 4-1",
+    "guest_capacity": "最多4人 · 2间卧室 · 2间浴室",
+    "btn_show_more": "展开更多",
+    "btn_show_amenities": "查看全部 {{amenities_num}} 项设施",
+    "subtitle_amenity": "设施",
+    "subtitle_location": "位置",
+    "reserve_card": {
+      "title": "选择入住日期",
+      "label_date": "日期",
+      "label_num": "人数",
+      "placeholder_date": "年. 月. 日.",
+      "placeholder_num": "1位客人",
+      "num_1": "1位客人",
+      "num_2": "2位客人",
+      "num_3": "3位客人",
+      "num_4": "4位客人"
+    },
+    "description_popup": {
+      "title": "住宿介绍",
+      "btn_exit": "关闭"
+    },
+    "amenity_popup": {
+      "title": "设施",
+      "btn_exit": "关闭"
+    },
+    "rangepopup_calendar": {
+      "title": "请选择旅行日期。",
+      "btn_exit": "关闭",
+      "btn_clear_dates": "清除日期",
+      "popup_date": "{{year}}年 {{month}}月",
+      "status_nights": "{{nights}} nights",
+      "weekdays_short": ["日","一","二","三","四","五","六"]
+    },
+    "features": [
+      { "icon": "FaLandmark", "label": "标志性城市" },
+      { "icon": "BsTrainFront", "label": "靠近安国站" },
+      { "icon": "FaMedal", "label": "超级房东" },
+      { "icon": "BsDoorOpen", "label": "自助入住" },
+      { "icon": "CiRollingSuitcase", "label": "可寄存行李" }
+    ],
+    "hanok_description": "LEE SSI HAM｜为缅怀致力于传承韩国朝鲜时代传统家具工艺的李性求大师（1927–2000）的匠心精神，这里提供与其作品相伴的韩屋住宿——HAM Hanok Stay。\n在北村的文化空间中，您可同时体验正宗韩屋与朝鲜木家具。\n\n住宿\n位于北村的整栋韩屋“HAM Hanok Stay”。\n\n配有小庭院，适合3位成人或2成人+2儿童的家庭入住。若两位成人入住“舍廊房”，因个人感受不同，可能略显紧凑，敬请理解。\n\n温石地炕通向天空，通过落地玻璃可见的石墙古色古香。\n\n2人入住：主屋提供一套大床寝具。\n（若需分开就寝，请提前告知）\n\n3–4人入住：主屋与舍廊房均提供大床寝具。\n\n各房间均设有独立卫生间/淋浴。\n\n入住前一天将通过短信发送包含门锁密码的入住指南；亦可安排当面办理入住。\n\n可使用空间/设施\n📌空间\n檐廊与小庭、厨房、客厅、主屋、卫生间1、舍廊房、卫生间2\n\n📌设施\n【卫生间】\n毛巾／戴森吹风机\n竹牙刷／牙膏／洗发水、护发素、沐浴露／坐便器带喷淋（舍廊房）\n\n【主屋・舍廊房】\n大床寝具\n\n【客厅】\n地垫4个、Wi-Fi、毛巾收纳篮\n\n【厨房】\n制冰净水器、冰箱、微波炉、咖啡机/胶囊、单头电磁炉、餐具/基础锅具、急救箱、Marshall蓝牙音箱\n\n【小庭】\n露营桌、露营椅2把\n\n* 连住5晚及以上可提供免费洗衣服务。\n* ❌请勿擅自搬动家具。❌ 木质家具十分精致，易受损。作为本韩屋的珍贵资产，敬请爱护。如发生损坏，可能需要采取严肃措施以追偿费用。任何疑问都可随时咨询。\n\n其他注意事项\n🔒展品为极具价值的文化资产。带罩展品请仅供眼观。入住期间请悉心使用。若设施与物品发生损坏、外带、丢失，或寝具发生无法清洗的污损，将收取赔偿费用。\n\n登记信息\n签发地区：首尔特别市，钟路区\n许可类型：韩屋体验业\n许可编号：2015-000004",
+    "amenities": {
+      "bathroom": "浴室",
+      "bedroom": "卧室",
+      "heatingCooling": "供暖/制冷",
+      "entertainment": "娱乐",
+      "workspace": "网络与工作区",
+      "safety": "安全设施",
+      "kitchen": "厨房",
+      "yard": "户外",
+      "service": "服务",
+      "notAvailable": "无此设施",
+      "hairDryer": "吹风机",
+      "shampoo": "洗发水",
+      "conditioner": "护发素",
+      "showerGel": "沐浴露",
+      "boiler": "热水",
+      "towel": "毛巾",
+      "hanger": "衣架",
+      "airConditioning": "空调",
+      "speaker": "蓝牙音箱",
+      "wifi": "Wi-Fi",
+      "cctv": "室外安防摄像头",
+      "smokeAlarm": "烟雾报警器",
+      "fireExtinguisher": "灭火器",
+      "firstAidKit": "急救箱",
+      "refrigerator": "冰箱",
+      "cooking": "基础烹饪工具",
+      "tableware": "餐具",
+      "microwaveMachine": "微波炉",
+      "coffeeMaker": "咖啡机",
+      "wineGlass": "红酒杯",
+      "coffee": "咖啡",
+      "carrier": "可寄存行李",
+      "calendar": "可长期入住",
+      "key": "可自助入住",
+      "smartDoorLock": "智能门锁",
+      "tv": "电视",
+      "washing_machine": "洗衣机",
+      "dryer": "烘干机"
+    }
+  },
+  "reviews_section": {
+    "header": {
+      "eyebrow": "体验韩屋",
+      "title": "与宾客同在的 HAMHanokStay",
+      "description": "分享宾客在韩屋中的多样回忆。"
+    },
+    "card_date": "{{year}}年 {{month}}月",
+    "card_popup":{
+            "title": "评价详情",
+            "btn_exit": "关闭"
+        }
+  },
+  "reserve_section": {
+    "header": {
+      "eyebrow": "享受韩屋",
+      "title": "与 HAMHanokStay 一起感受朝鲜时代。",
+      "description": "在韩屋的美景与温暖氛围中，愿您身心获得片刻休憩。"
+    },
+    "subtitle_default": "选择入住日期",
+    "subtitle_checkout": "选择退房日期",
+    "subtitle_range": "在 HAMHanokStay 的 {{night}} 晚",
+    "description_default": "输入旅行日期以查看准确价格。",
+    "description_range": "{{start_year}}年{{start_month}}月{{start_day}}日 - {{end_year}}年{{end_month}}月{{end_day}}日",
+    "calendar_part_title": "从 {{year}}年{{month}}月起显示 {{period}} 个月",
+    "calendar_title": "{{year}}年 {{month}}月",
+    "btn_preview": "上一步",
+    "btn_next": "下一步",
+    "btn_clear_dates": "清除日期",
+    "btn_reserve": "预订"
+  },
+  "footer": {
+    "title": "HAMHanokStay",
+    "contact": "联系方式",
+    "kakao_id": "KakaoTalk",
+    "whatsapp_id": "WhatsApp",
+    "instagram_id": "Instagram",
+    "email_id": "电子邮件"
+  }
+}

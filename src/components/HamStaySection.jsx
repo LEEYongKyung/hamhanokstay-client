@@ -20,6 +20,7 @@ import { TbDeviceTvOff as TvOffIcon } from "react-icons/tb";
 import RangeCalendarPopover from "./RangeCalendarPopover";
 import { withBase } from "@/utils/path";
 import { SHARE_CALENDARS } from "../config/calendars";
+import { useTranslation } from "react-i18next";
 /**
  * HAM HanokStay - Airbnb 스타일 섹션
  * 
@@ -61,82 +62,12 @@ export default function HamStaySection({
     },
     onReserve,
     addressMapUrl="https://maps.app.goo.gl/aXTt5T1NUE9Ehfif8",
-    description = 
-    `※ 숙박업 등록된 합법적인 숙소입니다
-        (가구와 소품의 위치나 디자인은 조금씩 변동이 있을 수 있습니다. )
-
-        ※ 정확한 인원수로 예약해주세요. 기본 숙박비는 최대 2인 기준이며 3인까지 숙박가능, 3인부터는 추가금 반영됩니다.
-
-        ※ 지내시는 동안 게스트님만 사용가능한 현관 도어락 비밀번호라 안전합니다.
-
-        ※ 재실 청소는 비용 발생
-
-        ꔷ 해운대의 명소 미포 해변 열차(도보 이동)로 청사포,송정 기차여행
-
-        ꔷ 구남로, 아쿠아리움, 더베이101, 동백섬, 해운대 온천, 달맞이 고개, 해운대 재래시장 도보로 가능
-
-        ꔷ 클럽디 오아시스 워터파크 & 스파 35% 할인, 아쿠아리움 할인, 요트 투어 할인 쿠폰 제공
-
-        ꔷ 1분 내에 해운대 해변 이동 가능 (길건너)
-
-        ꔷ 24시간 무료 러기지보관 (체크아웃후에도 이용가능)
-
-        ꔷ 무료 주차공간, 넷플릭스, 와이파이 가능
-
-        ꔷ 휘트니스센터와 골프연습장 무료 이용
-
-        ꔷ 해운대 지하철역, 시외버스터미널, 시내버스정류장과도 도보로 가까운 거리
-        숙소
-        ※ 퀸침대 1개, 싱글침대 1개, 철저한 시트교체
-
-        ※ 주방이 포함된 넓은 공간의 싱글룸
-
-        ※ 충분한 식기와 주방용품, 전자레인지, 정수기, 냉동/냉장고
-
-        ※ 주방에 조리기구가 준비되어 있어 간단조리 가능
-
-        ※ 숙소 내 세탁기가 있어 세탁 및 건조 가능
-
-        ※ CUCKOO 정수기 있으므로 물 구매 안하셔도 됩니다
-
-        ※ 수건 샴푸 린스 바디클렌저 핸드워시
-
-        ※ 무료 와이파이
-
-        ※ 넷플릭스,유튜브 시청 가능
-        게스트 이용 가능 공간/시설
-        ※ 무료 주차 (B1 ~ B7)
-
-        ※ 휘트니스룸(A동3층), 골프연습장(A동5층)은 출입카드로 무료로 이용 가능
-
-        ※ 1층 라운지 대기 공간
-
-        ※ 빌딩내에 무료 짐보관 공간 (예약 후 안내)
-        기타 주의사항
-        ※ 원하시는 날짜에 예약이 불가할 때는 제 계정의 프로필을 통해 다른 숙소를 보실 수 있습니다.
-
-        ※ 숙소의 정확한 위치는 앱의 지도와 약간의 차이가 있을 수 있고 저희 숙소는 파라다이스호텔 가까이에 위치합니다.
-
-        ※ 체크인 매뉴얼은 체크인 하루 전 날 보내드립니다.
-
-        ※ 예약 일정 변경은 체크인 10일 전까지 가능하며
-        변경 시점으로부터 30일 이내의 기간으로 1회 가능합니다.
-
-        ※ 미성년자는 보호자 동의서를 작성해 주셔야 숙박 가능합니다. 제출 안하실 경우 과태료를 물 수 있습니다.
-
-        ※ 주차는 1대까지 무료로 하실 수 있고 미리 "차량 번호" 전체를 알려주세요. 그렇지 않으면 주차료가 부과됩니다.(추가차량 1박 10,000원)
-
-        ※ 시설물과 비품은 소중히 다루어 주시고 체크아웃 전에 설거지 및 정리정돈 부탁드립니다 :)
-
-        주의 : 숙소 내 흡연 금지 (과태료 10만원)
-        등록 세부 정보
-        발급 지역: 부산광역시, 해운대구
-        허가 유형: 일반숙박업
-        허가번호: 제 2022-00005 호`,
     shareCalendars = SHARE_CALENDARS,
 
 
 }){
+    const {t, i18n } = useTranslation();
+
     //예시 이미지 (없으면 Unplash 프리뷰 사용)
     //  ===================== 갤러리 영역 변수 및 함수  ========================================
         const fallback = useMemo(
@@ -190,14 +121,7 @@ export default function HamStaySection({
 
         //  ===================== 하단 정보 영역 변수 및 함수  ========================================
 
-        const features = [
-            {icon: FaLandmark, label:"상징적 도시"},
-            {icon: BsTrainFront, label:"안국역 근처"},
-            {icon: FaMedal, label:"슈퍼 호스트"},
-            {icon: BsDoorOpen, label:"셀프 체크인"},
-            {icon: CiRollingSuitcase, label:"짐 맡기기 가능"},
-        ]
-
+        const description = t("hamstay_section.hanok_description");
         const descRef = React.useRef(null);
         const [isOverflow, setIsOverflow] =  useState(false); // 3줄 초과 여부
         const [showAll, setShowAll] = useState(false); // 모두 보기
@@ -264,6 +188,20 @@ export default function HamStaySection({
             };
         }, [openWhich]);
 
+        // ================특징 (feature) - i18n에서 읽기 =====================
+        // common.json의 hamstay_section.features 배열을 그대로 가져오고, icon문자열을 컴포넌트로 매칭
+        const FEATURE_ICON_MAP = {
+            FaLandmark, BsTrainFront, FaMedal, BsDoorOpen, CiRollingSuitcase
+        };
+        const features = useMemo(() => {
+            const list = t("hamstay_section.features", {returnObjects: true}) || [];
+            return Array.isArray(list)
+                ? list.map((f) => ({
+                    Icon: FEATURE_ICON_MAP[f.icon]|| CiCircleAlert,
+                    label: f.label
+            })):[];
+        }, [i18n.language]) // 언어가 바뀌면 대시 계산 
+
 
         //  ===================== 어메니티 상태  ========================================
         // 편의시설 데이터 상태
@@ -314,34 +252,24 @@ export default function HamStaySection({
                 .then(data => {if (alive) setAmenity(data);})
                 .catch(() => {
                     // 실패 시 간단한 디폴트 
-                    if(alive) setAmenity({
-                        highlights: ["kitchen", "wifi", "airConditioning","yard", "carrier", "hairDryer", "refrigerator","microwaveMachine", "speaker", "cctv"],
-                        categories: [{title:"기본", items: [
-                            {id:"kitchen", label: "주방" },
-                            {id:"wifi", label: "와이파이" },
-                            {id:"airConditioning", label: "에어컨" },
-                            {id:"중정(앞마당)", label: "yard" },
-                            {id:"carrier", label: "여행 가방 보관 가능" },
-                            {id:"hairDryer", label: "헤어드라이어" },
-                            {id:"refrigerator", label: "냉장고" },
-                            {id:"microwaveMachine", label: "전자레인지" },
-                            {id:"speaker", label: "블루투스 스피커" },
-                            {id:"cctv", label: "숙소 내 실외 보안 카메라" }
-                        ]}]
-                    });
+                    if(alive) setAmenity(null);
                 });
                 return () => {alive = false;};
         }, []);
 
+        // id-> 표시 라벨 찾기 : i18n 우선 , 없으면 amenity.json의 label, 마지막엔 id 
+        const tAmenity = (id, fallbackLabel) => 
+            t(`hamstay_section.amenities.${id}`, {defaultValue: fallbackLabel || id});
+
         // id -> 라벨 찾기 유틸 
-        const findLabel = (id) => {
-            if (!amenity) return id; 
-            for (const cat of amenity.categories) {
-                const f = cat.items.find(it => it.id === id);
-                if (f) return f.label;
-            }
-            return id;
-        };
+        // const findLabel = (id) => {
+        //     if (!amenity) return id; 
+        //     for (const cat of amenity.categories) {
+        //         const f = cat.items.find(it => it.id === id);
+        //         if (f) return f.label;
+        //     }
+        //     return id;
+        // };
 
         // 총 아이템 수 
         const amenityCount = useMemo(() => {
@@ -373,19 +301,24 @@ export default function HamStaySection({
             return smDown ? highlight10.slice(0, 6) : highlight10;
         }, [highlight10, smDown]);
 
+       
+        
+        
+
+
         
     return (
         <section id="ham-hanok-stay" ref={sectionRef} className=" relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-6 pb-12 md:pt-8 md:pb-16 lg:pb-24 ">
             {/* 헤더 모바일에서는 흐름 위에 표시 md 부터 절대배치 */}
             <div className="md:absolute  sm:top-6 md:top-8 left-0 right-0 text-center text-main z-20 px-2">
                 <span className="inline-block text-[10px] sm:text-xs tracking-[0.3em] uppercase text-main/70">
-                    {HEADER.eyebrow}
+                    {t("hamstay_section.header.eyebrow")}
                 </span>
                 <h2 className="mt-1 text-2xl sm:text-3xl md:text-4xl leading-tight font-bold drop-shadow-lg">
-                    {HEADER.title}
+                    {t("hamstay_section.header.title")}
                 </h2>
                 <p className="mt-1 text-xs sm:text-sm  text-main/85 drop-shadow">
-                    {HEADER.description}
+                    {t("hamstay_section.header.description")}
                 </p>
             </div>
             {/* 사진 grid: 헤더 바로 아래 전체 폭  모바일에선 헤더 높이만큼 간격을 줄이고, md는 기존 여백 유지 */}
@@ -426,7 +359,7 @@ export default function HamStaySection({
                     onClick={()=>openGallery(0)}
                     className="flex items-center gap-2 absolute bottom-3 right-3 rounded-full bg-white/90 px-3 py-1.5 text-main font-semibold shadow hover:bg-white rounded-xl"
                 >
-                    <FaImage className="h-4 w-4 fill-main" />사진 모두 보기
+                    <FaImage className="h-4 w-4 fill-main" />{t("hamstay_section.btn_show_all_images")}
                 </button>
 
             </div>
@@ -437,12 +370,12 @@ export default function HamStaySection({
                     <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
                         <button
                         onClick={() => window.open(addressMapUrl, "_blank")}
-                        className="inline-flex  items-center gap-1.5 rounded-full bg-white px-3 py-1.5 shadow border hover:bg-neutral-50" aria-label="지도에서 보기"
+                        className="inline-flex  items-center gap-1.5 rounded-full bg-white px-3 py-1.5 shadow border hover:bg-neutral-50" aria-label={t("hamstay_section.subtitle_location")}
                     >
                         <FaMapPin className="h-4 w-4 fill-main"/>
-                        <span className="text-main">{addressText}</span>
+                        <span className="text-main">{t("hamstay_section.address")}</span>
                     </button>
-                    <span className="text-main"> 최대 인원 4명 · 침실 2개 · 욕실 2개 </span>
+                    <span className="text-main">{t("hamstay_section.guest_capacity")} </span>
 
                     </div>
                     {/* 평점 */}
@@ -488,7 +421,7 @@ export default function HamStaySection({
 
                     {/* 숙소의 특징 icon grid */}
                     <div className="grid grid-cols-2 gap-x-4 gap-y-4 sm:gap-y-6">
-                        {features.map(({icon:Icon, label},i)=> (
+                        {features.map(({Icon, label},i)=> (
                             <div key={i} className="flex items-center gap-4">
                                 <Icon className="h-4 w-4 sm:h-5 sm:w-5 fill-main"/>
                                 <span className="text-[13px] sm:text-sm text-main">{label}</span>
@@ -527,7 +460,7 @@ export default function HamStaySection({
                                 className=" mt-2 inline-flex items-center gap-1 rounded-lg border px-5 py-3 text-[13px] sm:text-sm font-bold bg-neutral-100 hover:bg-white"
                                 aria-haspopup= "dialog"
                             >
-                                더보기
+                                 {t("hamstay_section.btn_show_more")}
                             </button>
                             )
 
@@ -542,12 +475,12 @@ export default function HamStaySection({
                     <div 
                         className="rounded-2xl border border-neutral-200 bg-white/90 shadow-2xl p-5 lg:sticky lg:top-4"
                         style={shake? {animation:"hamShake 550ms ease-in-out both"}:{}}>
-                        <h3 className="w-full text-center text-base sm:text-lg font-semibold mb-4 text-main">날짜를 선택해 요금확인</h3>
+                        <h3 className="w-full text-center text-base sm:text-lg font-semibold mb-4 text-main"> {t("hamstay_section.reserve_card.title")}</h3>
                         <div className="space-y-3 ">
                             
                             {/*  달력 모듈 변경 */}
                             <div className="relative">
-                                <span className="text-xs font-semibold text-main mb-1 block">날짜</span>
+                                <span className="text-xs font-semibold text-main mb-1 block">{t("hamstay_section.reserve_card.label_date")}</span>
                                 <div className="grid grid-cols-2 gap-2">
                                     <button
                                         ref={checkinBtnRef}
@@ -557,7 +490,7 @@ export default function HamStaySection({
                                         }}
                                         className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50 text-[13px] sm:text-sm"
                                     >
-                                        {checkIn ? checkIn.replaceAll("-", ". ") : "연도. 월. 일."}
+                                        {checkIn ? checkIn.replaceAll("-", ". ") : t("hamstay_section.reserve_card.placeholder_date")}
 
                                     </button>
                                     
@@ -570,7 +503,7 @@ export default function HamStaySection({
                                         }}
                                         className="w-full rounded-lg border px-3 py-2 text-left hover:bg-neutral-50 text-[13px] sm:text-sm"
                                     >
-                                        {checkOut ? checkOut.replaceAll("-", ". ") : "연도. 월. 일."}
+                                        {checkOut ? checkOut.replaceAll("-", ". ") : t("hamstay_section.reserve_card.placeholder_date")}
                                     </button>
                                 </div>
 
@@ -595,11 +528,18 @@ export default function HamStaySection({
 
                             
                             <label className="flex flex-col" >
-                                <span className="text-xs font-semibold text-main mb-1">인원</span>
+                                <span className="text-xs font-semibold text-main mb-1">  {t("hamstay_section.reserve_card.label_num")}</span>
                                 <div className="flex items-center gap-2 rounded-lg border px-3 py-2">
                                     <FaUser className="h-4 w-4 fill-main" />
-                                    <select value={guests} onChange={(e) => setGuests(e.target.value)} className="w-full outline-none bg-transparent text-main text-[13px] sm:text-sm">
-                                        {[1,2,3,4].map(n=><option key={n} value={n}> 게스트 {n}명 </option>)}
+                                    <select
+                                        value={guests}
+                                        onChange={(e) => setGuests(Number(e.target.value))}
+                                        className="w-full outline-none bg-transparent text-main text-[13px] sm:text-sm"
+                                    >
+                                        <option value={1}>{t("hamstay_section.reserve_card.num_1")}</option>
+                                        <option value={2}>{t("hamstay_section.reserve_card.num_2")}</option>
+                                        <option value={3}>{t("hamstay_section.reserve_card.num_3")}</option>
+                                        <option value={4}>{t("hamstay_section.reserve_card.num_4")}</option>
                                     </select>
                                 </div>
                             </label>
@@ -608,7 +548,7 @@ export default function HamStaySection({
                                 onClick={reserve}
                                 className="mt-2 w-full rounded-xl bg-rose-600 py-3 text-white font-semibold hover:bg-rose-700 active:scale-[.98]"
                             >
-                                예약 가능 여부 보기
+                                {t("reserve_section.btn_reserve")}
                             </button>
 
                         </div>
@@ -618,15 +558,15 @@ export default function HamStaySection({
             </div>
             {/* 실선 */}
             <hr className="my-6 border-neutral-200"></hr>
-            {/* 어메니티 부분 */}
+            {/* 어메니티 하이라이트 부분 */}
             <div >
-                <h4 className="mb-3 text-base font-semibold text-main">숙소 편의시설</h4>
+                <h4 className="mb-3 text-base font-semibold text-main"> {t("hamstay_section.subtitle_amenity")}</h4>
                 {/* 5행 x 2열 하이라이트 */}
                 <div className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-2 sm:gap-y-5 sm:gap-x-8">
                     {highlightsToShow.map((id) => (
                         <div key={id} className="flex items-center gap-3">
                             <AmenityIcon id={id} className="h-4 w-4 text-main"/>
-                            <span className="text-[13px] sm:text-sm text-main">{findLabel(id)}</span>
+                            <span className="text-[13px] sm:text-sm text-main">{tAmenity(id)}</span>
                         </div>
                     ))}
                 </div>
@@ -636,7 +576,8 @@ export default function HamStaySection({
                     className="mt-3 inline-flex items-center gap-1 text-[13px] sm:text-sm rounded-lg border px-5 py-3 text-sm font-bold bg-neutral-100 hover:bg-white text-main"
                     disabled={!amenity}
                 >
-                    편의시설 {amenityCount}개 모두 보기
+                    {t("hamstay_section.btn_show_amenities", {amenities_num: amenityCount })}
+                    
                 </button>
                 
             </div>
@@ -646,7 +587,7 @@ export default function HamStaySection({
             {/* Google Map 부분 */}
             <div>
                 <h4 className="mb-3 text-main font-semibold">
-                    위치
+                    {t("hamstay_section.subtitle_location")}
                 </h4>
                 <div className="rounded-2xl overflow-hidden border">
                     <iframe
@@ -672,7 +613,7 @@ export default function HamStaySection({
                         <button
                             onClick={closeGallery}
                             className="absolute -top-10 right-0  text-white/90 p-2 shadow hover:text-white"
-                            aria-label = "닫기"
+                            aria-label = {t("hamstay_section.description_popup.btn_exit")}
                         >
 
                             <FaX className="h-6 w-6"/>
@@ -725,14 +666,8 @@ export default function HamStaySection({
                 >
                     <div className="w-full max-w-2xl rounded-2xl bg-white shadow-2xl">
                         <div className="flex items-center justify-between px-5 py-4 border-b">
-                            <h4 className="text-lg font-semibold"> 숙소 소개</h4>
-                            {/* <button
-                                onClick={() => setShowAll(false)}
-                                className="rounded-full border px-3 py-1.5 text-sm hover:bg-neutral-50"
-                                aria-label="닫기"
-                            >
-                                닫기
-                            </button> */}
+                            <h4 className="text-lg font-semibold"> {t("hamstay_section.description_popup.title")}</h4>
+                           
                         </div>
                         <div className="p-5 max-h-[70vh] overflow-auto whitespace-pre-line text-neutral-700 leading-relaxed">
                             {description}
@@ -742,7 +677,7 @@ export default function HamStaySection({
                                 onClick={() => setShowAll(false)}
                                 className="rounded-md bg-neutral-900 text-white px-4 py-2 text-sm"
                                 >
-                                확인
+                                {t("hamstay_section.description_popup.btn_exit")}
                             </button>
                         </div>
                     </div>
@@ -756,32 +691,33 @@ export default function HamStaySection({
                     <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden">
                         {/* 헤더 */}
                         <div className="flex items-center justify-between px-5 py-4 border-b">
-                            <h4 className="text-lg font-semibold text-main">숙소 편의시설</h4>
-                            {/* <button
-                                onClick={() => setAmenityOpen(false)}
-                                className="rounded-full border h-8 w-8 flex items-center justify-center hover:bg-neutral-50"
-                                aria-label="닫기"
-                            >
-                                <FaX />
-                            </button> */}
-                            
+                            <h4 className="text-lg font-semibold text-main">{t("hamstay_section.amenity_popup.title")}</h4>
+                          
                         </div>
                         {/* 컨텐츠 */}
                         <div className="max-h-[70vh] overflow-auto">
-                            {amenity.categories.map((cat, idx) => (
-                                <div key={cat.title} className={idx ? "border-t px-5 py-4": "px-5 py-4 "}>
-                                    <div className="text-[15px] font-semibold mb-3 text-main">{cat.title} </div>
-                                        <ul className="divide-y">
-                                            {cat.items.map((it) => (
-                                                <li key={it.id} className="flex items-center gap-3 py-2">
-                                                    <AmenityIcon id={it.id} className="h-5 w-5 text-main" />
-                                                    <span className="text-[15px] text-main">{it.label}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                           {(amenity.categories || []).map((cat, idx) => {
+                            // 새구조 (titleId)와 구 구조 (title) 모두 지원 
+                            const titleKey = cat.titleId || cat.title;
+                            return (
+                                <div key={titleKey || idx } className={idx ? "border-t px-5 py-4": "px-5 py-4"}>
+                                    <div className="text-[15px] font-semibold mb-3 text-main">
+                                        {t(`hamstay_section.amenities.${titleKey}`, {defaultValue: titleKey})}
+                                    </div>
+                                    <ul className="divide-y">
+                                        {(cat.items || []).map((it) => (
+                                            <li key={it.id} className="flex items-center gap-3 py-2">
+                                                <AmenityIcon id={it.id} className="h-5 w-5 text-main" />
+                                                <span className="text-[15px] text-main">
+                                                    {tAmenity(it.id, it.label)}
+                                                </span>
+                                            </li>
+                                        ))}
                                     
+                                    </ul>
                                 </div>
-                            ))}
+                            );
+                           })}
                         </div>
 
                         {/* 푸터 */}
@@ -790,7 +726,7 @@ export default function HamStaySection({
                                 onClick={() => setAmenityOpen(false)}
                                 className="rounded-mb bg-neutral-900 text-white px-4 py-2 text-sm"
                             >
-                                닫기                                
+                                {t("hamstay_section.amenity_popup.btn_exit")}                               
                             </button>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { withBase } from "@/utils/path";
-
+import { useTranslation } from "react-i18next";
 /** JSON -> 내부 포맷 + 빈 텍스트 필터 */
 function normalize(row) {
   const rating = row.rating ?? row["후기 평점"] ?? row.score ?? 5;
@@ -13,22 +13,44 @@ function normalize(row) {
     "";
   const name = row.guest_name ?? row["투숙객 이름"] ?? row.name ?? "게스트";
   const rawDate = row.date ?? row["후기 등록일"] ?? "";
-  const [y, m] = String(rawDate).split("-");
-  const dateYM = y && m ? `${y}년 ${Number(m)}월` : rawDate || "";
-  return { rating: Number(rating), text: String(text).trim(), name, dateYM };
+  // 변경: 연/월 분리 보관 (i18n 템플릿용)
+  let year = null, month = null
+  const m = String(rawDate).match(/(\d{4})-(\d{2})/);
+  if (m) {
+    year = Number(m[1]);
+    month = Number(m[2]);
+  }
+  return {
+    rating: Number(rating),
+    text: String(text).trim(),
+    name,
+    // 폴백용으로 원문 전체는 보관
+    dateYM: rawDate || "",
+    year,
+    month,
+  };
+  // if (rawDate) {
+  //   const [y, m] = String(rawDate).split("-");
+  //   if (y && m) {
+  //     year = Number(y);
+  //     month = Number(m);
+  //     dateYM = rawDate; // 폴백
+  //   } else {
+  //     dateYM = rawDate;
+  //   }
+  // }
+  // return { rating: Number(rating), text: String(text).trim(), name, dateYM };
 }
 
-const HEADER = {
-  eyebrow: "JOIN HANOK",
-  title: "  게스트와 함께한 함한옥스테이",
-  description: "게스트들의 다양한 경험은 우리 한옥을 더욱 풍부하게 합니다."
-}
 
 // =============== 컴포넌트 =================
 export default function ReviewsSection({
   totalCount = 0,
   src = withBase("docs/booking_reviews.json"),
 }) {
+
+  const { t } = useTranslation();
+  
   const [rows, setRows] = useState([]);
   const pausedRef = useRef(false);
 
@@ -212,14 +234,14 @@ export default function ReviewsSection({
       <div className="absolute top-8 left-0 right-0 text-center text-white z-20">
         
         <span className="inline-block text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/70">
-          {HEADER.eyebrow}
+          {t("reviews_section.header.eyebrow")}
         </span>
         <h2 className="mt-2 font-bold drop-shadow-lg text-[22px] leading-tight md:text-4xl">
           <span className="text-3xl md:text-5xl font-extrabold align-middle mr-1"> {totalCount}</span>
-          {HEADER.title}
+          {t("reviews_section.header.title")}
         </h2>
         <p className="mt-2 text-white/85 drop-shadow text-[12px] md:text-base max-w-xl mx-auto">
-          {HEADER.description}
+          {t("reviews_section.header.description")}
         </p>
       </div>
 
@@ -272,12 +294,12 @@ export default function ReviewsSection({
             {/* 모달 헤더 */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-200 flex-shrink-0">
               <h4 className="text-lg font-semibold text-neutral-800">
-                리뷰 상세
+                {t("reviews_section.card_popup.title")}
               </h4>
               <button
                 onClick={() => setModal(null)}
                 className="text-3xl leading-none text-neutral-500 hover:text-neutral-800 transition-colors"
-                aria-label="닫기"
+                aria-label={t("reviews_section.modal.aria_close")}
               >
                 &times;
               </button>
@@ -297,15 +319,17 @@ export default function ReviewsSection({
             <div className="px-5 py-4 border-t border-neutral-200 bg-neutral-50 flex justify-between items-center rounded-b-2xl flex-shrink-0">
               <div className="text-sm text-neutral-600">
                 <span className="font-bold">{modal.name}</span>
-                {modal.dateYM && (
-                  <span className="ml-2 text-neutral-500">{modal.dateYM}</span>
-                )}
+                {(modal.year && modal.month)
+                  ? <span className="ml-2 text-neutral-500">
+                      {t("reviews_section.card_date", { year: modal.year, month: modal.month })}
+                    </span>
+                  : (modal.dateYM && <span className="ml-2 text-neutral-500">{modal.dateYM}</span>)}
               </div>
               <button
                 onClick={() => setModal(null)}
                 className="rounded-md bg-neutral-800 text-white px-4 py-2 text-sm font-semibold hover:bg-neutral-900"
               >
-                닫기
+                {t("reviews_section.card_popup.btn_exit")}
               </button>
             </div>
           </div>
@@ -316,6 +340,7 @@ export default function ReviewsSection({
 }
 //  ================= 하위 컴포넌트 =======================
 function ReviewCard({ data, onOpen, onHoverPause }) {
+  const { t } = useTranslation(); // ★ 추가 (카드 ARIA용)
   return (
     <button
       type="button"
@@ -324,12 +349,23 @@ function ReviewCard({ data, onOpen, onHoverPause }) {
       onClick={onOpen}
       onMouseEnter={() => onHoverPause(true)}
       onMouseLeave={() => onHoverPause(false)}
-      aria-label="리뷰 상세 보기 "
+      aria-label={t("reviews_section.aria_open_detail")}
     >
       {/*  상단 : 이름 + 날짜 */}
       <div style={rowTop}>
         <div style={guestName}>{data.name}</div>
-        {data.dateYM && <div style={dataText}>{data.dateYM}</div>}
+        {/* {(data.year && data.month) ? (
+          <div style={dataText}>
+            {t("reviews_section.card_date", { year: data.year, month: data.month })}
+          </div>
+        ) : (
+          data.dateYM && <div style={dataText}>{data.dateYM}
+          
+          </div>
+        )} */}
+        {(data.year && data.month)
+          ? <div style={dataText}>{t("reviews_section.card_date", { year: data.year, month: data.month })}</div>
+          : (data.dateYM && <div style={dataText}>{data.dateYM}</div>)}
       </div>
 
       {/*  별점 (10점 만점) */}

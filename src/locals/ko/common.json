@@ -1,4 +1,3 @@
-// 한국어 원문
 
 {
     "brand": "함한옥스테이",
@@ -21,37 +20,37 @@
             "description": "이성구 작가님은 전통가구의 현대적 재해석을 통해, 전통과 현대가 조화를 이루는 공간을 창조하였습니다."
         },
         "furniture": {
-            "1": {
+            "furniture_1": {
                 "name": "사방탁자",
                 "material": "오동나무 · 옻칠",
                 "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
                 "image": "images/Furniture/furniture_1.jpg"
             },
-            "2": {
+            "furniture_2": {
                 "name": "사방탁자2",
                 "material": "오동나무 · 옻칠",
                 "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
                 "image": "images/Furniture/furniture_2.jpg"
             },
-            "3": {
+            "furniture_3": {
                 "name": "사방탁자3",
                 "material": "오동나무 · 옻칠",
                 "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
                 "image": "images/Furniture/furniture_3.jpg"
             },
-            "4": {
+            "furniture_4": {
                 "name": "사방탁자4",
                 "material": "오동나무 · 옻칠",
                 "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
                 "image": "images/Furniture/furniture_4.jpg"
             },
-            "5": {
+            "furniture_5": {
                 "name": "사방탁자5",
                 "material": "오동나무 · 옻칠",
                 "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
                 "image": "images/Furniture/furniture_5.jpg"
             },
-            "6": {
+            "furniture_6": {
                 "name": "사방탁자6",
                 "material": "오동나무 · 옻칠",
                 "description": "방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다.",
@@ -90,7 +89,65 @@
         "amenity_popup": {
             "title": "숙소 편의시설",
             "btn_exit": "닫기"
+        },
+        "rangepopup_calendar": {
+            "title": "여행날짜를 선택해주세요.",
+            "btn_exit": "닫기",
+            "btn_clear_dates": "날짜 지우기",
+            "popup_date": "{{year}}년 {{month}}월",
+            "status_nights": "{{nights}}박",
+            "weekdays_short": ["일", "월", "화", "수", "목", "금", "토"]
+        },
+        "features": [
+            {"icon": "FaLandmark", "label":"상징적 도시"},
+            {"icon": "BsTrainFront", "label":"안국역 근처"},
+            {"icon": "FaMedal", "label":"슈퍼 호스트"},
+            {"icon": "BsDoorOpen", "label":"셀프 체크인"},
+            {"icon": "CiRollingSuitcase", "label":"짐 맡기기 가능"}
+
+        ],
+        "hanok_description": "LEE SSI HAMㅣ이씨함이 대한민국 조선시대 전통 가구 공예를 계승하기 위해 홀로 정진을 다하였던 [故]이성구 작가 [李性求, 1927-2000]의 장인정신을 기리기 위해, 그의 작품들과 함께하는 함 한옥 스테이ㅣHAM Hanok Stay 입니다.\n서울 북촌 정통 한옥과 조선 목가구를 동시에 경험 할 수 있는 문화적 공간에서 이제 스테이하세요.\n\n숙소\n북촌에 위치한 독채 한옥 '함 한옥 스테이' 입니다.\n\n소담한 마당이 있는 성인 3명 또는 성인2명+ 아동2명에 적합한 가족 중심 한옥 독채입니다.\n사랑방에 성인2명의 경우 개인차에 따라 조금 협소하다고 느끼실 수 있는 점 미리 말씀드립니다.\n\n구둘석은 하늘과 맞닿아 있고 통유리로 내다보이는 석축은 고풍스럽습니다.\n\n2인 기준 - 퀸 사이즈 이불요가 안채에 제공됩니다.\n(따로 주무실 경우, 미리 꼭 말씀해주세요)\n\n3인,4인 기준 - 퀸 사이즈 이불요가 안채, 사랑채에 제공됩니다.\n\n각 방에는 화장실/ 샤워실이 있습니다.\n\n입실 전날, 메세지로 비밀번호를 포함한 가이드 메뉴얼이 전달되며 대면 체크인도 가능합니다.\n\n게스트 이용 가능 공간/시설\n📌공간 안내\n툇마루와 작은 뜰, 주방, 거실, 안채, 화장실1, 사랑채, 화장실2\n\n📌시설 안내\n【화장실】\n수건/ 다이슨 헤어드라이어\n대나무 칫솔/ 치약/ 샴푸, 컨디셔너, 바디워시/ 비데(사랑채에 설치되어 있음)\n\n【안채, 사랑채】\n퀸 사이즈 이불요\n\n【거실】\n방석 4, 와이파이, 수건정리바구니\n\n【주방】\n얼음정수기\n냉장고\n전자렌지\n커피머신/ 캡슐\n인덕션1구/ 식기류 / 간단한 조리도구\n구급상자\nMarshall 블루투스 스피커\n\n【작은뜰】\n캠핑테이블, 캠핑의자 2개\n\n* 5박 이상 예약시 세탁물 무료서비스 가능합니다.\n*❌허락 없이 가구를 이동하는것을 금지합니다. ❌\n이 목가구는 매우 섬세하여 파손될 위험이 있습니다.\n저희 한옥의 소중한 유산이므로 꼭 조심히 다뤄 주시길 부탁드립니다. 손해가 발생할 경우, 강경하게 대응할 수 밖에 없음을 양해부탁드려요. 사소한 것이라도 질문하는 것을 주저하지 말아 주세요.\n\n기타 주의사항\n🔒전시되어있는 작품들은 가치가 매우 높은 문화유산입니다.\n커버가 있는 작품들은 눈으로만 감상해주세요.\n머무시는 시간동안 귀하게 이용해주시길 부탁드립니다.\n모든 종류의 시설 및 비품의 파손, 반출, 분실 및 침구류 세탁불가 훼손 시 배상 비용 청구됩니다.\n\n등록 세부 정보\n발급 지역: 서울특별시, 종로구\n허가 유형: 한옥체험업\n허가번호: 2015-000004",
+        "amenities": {
+            "bathroom": "욕실",
+            "bedroom": "침실",
+            "heatingCooling": "난방/냉방",
+            "entertainment": "엔터테인먼트",
+            "workspace": "인터넷 및 업무공간",
+            "safety": "숙소 안전",
+            "kitchen": "주방",
+            "yard": "야외",
+            "service": "서비스",
+            "notAvailable": "숙소에 없는 시설",
+            "hairDryer": "헤어드라이어",
+            "shampoo": "샴푸",
+            "conditioner": "컨디셔너",
+            "showerGel": "바디워시",
+            "boiler": "온수",
+            "towel": "수건",
+            "hanger": "옷걸이",
+            "airConditioning": "에어컨",
+            "speaker": "블루투스 스피커",
+            "wifi": "와이파이",
+            "cctv": "숙소 실외 보안 카메라",
+            "smokeAlarm": "화재경보기",
+            "fireExtinguisher": "소화기",
+            "firstAidKit": "구급상자",
+            "refrigerator": "냉장고",
+            "cooking": "기본 조리도구",
+            "tableware": "식기류",
+            "microwaveMachine": "전자 레인지",
+            "coffeeMaker": "커피 메이커",
+            "wineGlass": "와인잔",
+            "coffee": "커피",
+            "carrier": "여행 가방 보관 가능",
+            "calendar": "장기 숙박 가능",
+            "key": "셀프 체크인 가능",
+            "smartDoorLock": "스마트 도어록",
+            "tv": "TV",
+            "washing_machine": "세탁기",
+            "dryer": "건조기"
         }
+        
     },
     "reviews_section": {
         "header": {
@@ -98,7 +155,11 @@
             "title": "게스트와 함께한 함한옥스테이",
             "description": "게스트들의 한옥에서의 다양한 추억을 공유합니다."
         },
-        "card_date": "{{year}}년 {{month}}월"
+        "card_date": "{{year}}년 {{month}}월",
+        "card_popup":{
+            "title": "리뷰 상세",
+            "btn_exit": "닫기"
+        }
     },
     "reserve_section": {
         "header": {
@@ -117,6 +178,14 @@
         "btn_next":"다음",
         "btn_clear_dates": "날짜 지우기",
         "btn_reserve": "예약하기"
+    },
+    "footer": {
+        "title": "HAMHanokStay",
+        "contact": "문의",
+        "kakao_id": "카카오톡",
+        "whatsapp_id": "WhatsApp",
+        "instagram_id": "Instagram",
+        "email_id": "Email"
     }
     
 }

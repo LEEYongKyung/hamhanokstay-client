@@ -1,1 +1,187 @@
-//  독일어 번역
+{
+  "brand": "HAMHanokStay",
+  "tagline": "Ein lebendiger Hanok-Raum mit Möbeln aus der Joseon-Zeit",
+  "menu": {
+    "home": "Startseite",
+    "artisan_section": "HAM",
+    "hamstay_section": "Über uns",
+    "review_section": "Bewertungen",
+    "reserve_section": "Reservieren"
+  },
+  "mainvideo_section": {
+    "title": "Begegnung mit Werken der Joseon-Dynastie.",
+    "subtitle": "HAMHanokStay"
+  },
+  "artisan_section": {
+    "header": {
+      "eyebrow": "GALERIE HANOK",
+      "title": "Ein Galerie-Hanok, in dem Sie mit den Werken des Möbelmeisters Lee Sung-Goo leben können",
+      "description": "Durch eine moderne Neuinterpretation traditioneller Möbel schuf Meister Lee Sung-Goo einen Raum, in dem Tradition und Moderne harmonieren."
+    },
+    "furniture": {
+      "furniture_1": {
+        "name": "Vierseitiger Tisch",
+        "material": "Paulownia · Lack",
+        "description": "Ein für den Innenbereich gestalteter Tisch aus leichtem und zugleich robustem Paulownia-Holz. Traditionell lackiert für natürlichen Glanz und Haltbarkeit.",
+        "image": "images/Furniture/furniture_1.jpg"
+      },
+      "furniture_2": {
+        "name": "Vierseitiger Tisch 2",
+        "material": "Paulownia · Lack",
+        "description": "Ein für den Innenbereich gestalteter Tisch aus leichtem und zugleich robustem Paulownia-Holz. Traditionell lackiert für natürlichen Glanz und Haltbarkeit.",
+        "image": "images/Furniture/furniture_2.jpg"
+      },
+      "furniture_3": {
+        "name": "Vierseitiger Tisch 3",
+        "material": "Paulownia · Lack",
+        "description": "Ein für den Innenbereich gestalteter Tisch aus leichtem und zugleich robustem Paulownia-Holz. Traditionell lackiert für natürlichen Glanz und Haltbarkeit.",
+        "image": "images/Furniture/furniture_3.jpg"
+      },
+      "furniture_4": {
+        "name": "Vierseitiger Tisch 4",
+        "material": "Paulownia · Lack",
+        "description": "Ein für den Innenbereich gestalteter Tisch aus leichtem und zugleich robustem Paulownia-Holz. Traditionell lackiert für natürlichen Glanz und Haltbarkeit.",
+        "image": "images/Furniture/furniture_4.jpg"
+      },
+      "furniture_5": {
+        "name": "Vierseitiger Tisch 5",
+        "material": "Paulownia · Lack",
+        "description": "Ein für den Innenbereich gestalteter Tisch aus leichtem und zugleich robustem Paulownia-Holz. Traditionell lackiert für natürlichen Glanz und Haltbarkeit.",
+        "image": "images/Furniture/furniture_5.jpg"
+      },
+      "furniture_6": {
+        "name": "Vierseitiger Tisch 6",
+        "material": "Paulownia · Lack",
+        "description": "Ein für den Innenbereich gestalteter Tisch aus leichtem und zugleich robustem Paulownia-Holz. Traditionell lackiert für natürlichen Glanz und Haltbarkeit.",
+        "image": "images/Furniture/furniture_6.jpg"
+      }
+    }
+  },
+  "hamstay_section": {
+    "header": {
+      "eyebrow": "STAY HANOK",
+      "title": "Ein Hanok-Raum, in dem Möbel der Joseon-Zeit lebendig werden",
+      "description": "HAMHanokStay"
+    },
+    "btn_show_all_images": "Alle Fotos ansehen",
+    "address": "Gyedong 6-gil 4-1, Jongno-gu, Seoul",
+    "guest_capacity": "Bis zu 4 Gäste · 2 Schlafzimmer · 2 Bäder",
+    "btn_show_more": "Mehr anzeigen",
+    "btn_show_amenities": "Alle {{amenities_num}} Ausstattungen anzeigen",
+    "subtitle_amenity": "Ausstattung",
+    "subtitle_location": "Lage",
+    "reserve_card": {
+      "title": "Reservierungsdaten wählen",
+      "label_date": "Datum",
+      "label_num": "Personen",
+      "placeholder_date": "Jahr. Monat. Tag.",
+      "placeholder_num": "1 Gast",
+      "num_1": "1 Gast",
+      "num_2": "2 Gäste",
+      "num_3": "3 Gäste",
+      "num_4": "4 Gäste"
+    },
+    "description_popup": {
+      "title": "Unterkunftsbeschreibung",
+      "btn_exit": "Schließen"
+    },
+    "amenity_popup": {
+      "title": "Ausstattung",
+      "btn_exit": "Schließen"
+    },
+    "rangepopup_calendar": {
+      "title": "Bitte Reisedaten wählen.",
+      "btn_exit": "Schließen",
+      "btn_clear_dates": "Daten löschen",
+      "popup_date": "{{month}} {{year}}",
+      "status_nights": "{{nights}} nights",
+      "weekdays_short":["So","Mo","Di","Mi","Do","Fr","Sa"]
+    },
+    "features": [
+      { "icon": "FaLandmark", "label": "Ikonische Stadt" },
+      { "icon": "BsTrainFront", "label": "Nahe Station Anguk" },
+      { "icon": "FaMedal", "label": "Superhost" },
+      { "icon": "BsDoorOpen", "label": "Selbstständiger Check-in" },
+      { "icon": "CiRollingSuitcase", "label": "Gepäckaufbewahrung möglich" }
+    ],
+    "hanok_description": "LEE SSI HAM | Zu Ehren des Handwerks des verstorbenen Meisters Lee Sung-Goo (1927–2000), der sich der Bewahrung der traditionellen Joseon-Möbel widmete, bietet HAM Hanok Stay einen Aufenthalt gemeinsam mit seinen Werken.\nBleiben Sie in einem Kulturraum, in dem sich authentischer Bukchon-Hanok und Joseon-Holzmöbel begegnen.\n\nUnterkunft\nEin ganzes Hanok-Haus in Bukchon – „HAM Hanok Stay“.\n\nMit kleinem Hof; geeignet für 3 Erwachsene oder 2 Erwachsene + 2 Kinder. Hinweis: Zwei Erwachsene im Sarang-Zimmer können es je nach persönlichem Empfinden als etwas kompakt erleben.\n\nDer Ondol-Stein öffnet sich zum Himmel, die durch die Glasfront sichtige Steinmauer wirkt klassisch.\n\nFür 2 Personen – Queen-Size-Bettzeug im Hauptraum.\n(Bei getrennten Schlafwünschen bitte vorab melden.)\n\nFür 3–4 Personen – Queen-Bettzeug im Hauptraum und im Sarang-Zimmer.\n\nJedes Zimmer hat eigenes WC/Dusche.\n\nAm Vortag senden wir per Nachricht ein Handbuch inkl. Türcode; persönlicher Check-in ist möglich.\n\nGästezugang / Ausstattung\n📌 Bereiche\nToenmaru & kleiner Hof, Küche, Wohnzimmer, Hauptraum, Bad 1, Sarang-Zimmer, Bad 2\n\n📌 Ausstattung\n[Bad]\nHandtücher / Dyson-Föhn\nBambuszahnbürste / Zahnpasta / Shampoo, Spülung, Duschgel / Bidet (im Sarang-Zimmer)\n\n[Hauptraum & Sarang]\nQueen-Bettzeug\n\n[Wohnzimmer]\n4 Sitzkissen, WLAN, Handtuchkorb\n\n[Küche]\nEis-Wasserfilter, Kühlschrank, Mikrowelle, Kaffeemaschine/Kapseln, 1-Platten-Induktion, Geschirr/Grundkochgeschirr, Erste-Hilfe-Set, Marshall-Bluetooth-Lautsprecher\n\n[Kleiner Hof]\nCampingtisch, 2 Campingstühle\n\n* Ab 5 Nächten kostenlose Wäscheservices.\n* ❌ Bitte Möbel nicht ohne Erlaubnis bewegen. ❌ Das Holz ist empfindlich und kann beschädigt werden. Als wertvolles Erbe unseres Hanoks bitten wir um sorgsamen Umgang. Bei Schäden müssen wir Kostenersatz einfordern. Fragen Sie im Zweifel jederzeit nach.\n\nWeitere Hinweise\n🔒 Ausgestellte Werke sind hochwertige Kulturgüter. Stücke mit Abdeckung bitte nur betrachten. Sorgsamer Umgang während des Aufenthalts erbeten. Bei Schäden/Entfernung/Verlust von Ausstattung sowie irreparablen Bettwarenverschmutzungen wird Ersatz fällig.\n\nRegistrierung\nAusgaberegion: Jongno-gu, Seoul\nGenehmigungsart: Hanok-Erlebnisbetrieb\nGenehmigungs-Nr.: 2015-000004",
+    "amenities": {
+      "bathroom": "Badezimmer",
+      "bedroom": "Schlafzimmer",
+      "heatingCooling": "Heizung/Klimaanlage",
+      "entertainment": "Unterhaltung",
+      "workspace": "Internet & Arbeitsbereich",
+      "safety": "Sicherheit",
+      "kitchen": "Küche",
+      "yard": "Außenbereich",
+      "service": "Service",
+      "notAvailable": "Nicht vorhanden",
+      "hairDryer": "Haartrockner",
+      "shampoo": "Shampoo",
+      "conditioner": "Spülung",
+      "showerGel": "Duschgel",
+      "boiler": "Warmwasser",
+      "towel": "Handtücher",
+      "hanger": "Kleiderbügel",
+      "airConditioning": "Klimaanlage",
+      "speaker": "Bluetooth-Lautsprecher",
+      "wifi": "WLAN",
+      "cctv": "Außen-Sicherheitskameras",
+      "smokeAlarm": "Rauchmelder",
+      "fireExtinguisher": "Feuerlöscher",
+      "firstAidKit": "Erste-Hilfe-Set",
+      "refrigerator": "Kühlschrank",
+      "cooking": "Kochgrundausstattung",
+      "tableware": "Geschirr",
+      "microwaveMachine": "Mikrowelle",
+      "coffeeMaker": "Kaffeemaschine",
+      "wineGlass": "Weingläser",
+      "coffee": "Kaffee",
+      "carrier": "Gepäckaufbewahrung möglich",
+      "calendar": "Langzeitaufenthalte möglich",
+      "key": "Selbstständiger Check-in",
+      "smartDoorLock": "Smart-Türschloss",
+      "tv": "TV",
+      "washing_machine": "Waschmaschine",
+      "dryer": "Trockner"
+    }
+  },
+  "reviews_section": {
+    "header": {
+      "eyebrow": "HANOK ERLEBEN",
+      "title": "HAMHanokStay mit unseren Gästen",
+      "description": "Wir teilen die vielfältigen Erinnerungen unserer Gäste im Hanok."
+    },
+    "card_date": "{{month}} {{year}}",
+    "card_popup":{
+            "title": "Bewertungsdetails",
+            "btn_exit": "Schließen"
+        }
+  },
+  "reserve_section": {
+    "header": {
+      "eyebrow": "HANOK GENIESSEN",
+      "title": "Erleben Sie die Joseon-Zeit mit HAMHanokStay.",
+      "description": "In der schönen Landschaft und warmen Atmosphäre des Hanok wünschen wir Ihnen eine kurze Erholung für Körper und Geist."
+    },
+    "subtitle_default": "Check-in-Datum wählen",
+    "subtitle_checkout": "Check-out-Datum wählen",
+    "subtitle_range": "{{night}} Nächte bei HAMHanokStay",
+    "description_default": "Reisedaten eingeben, um den genauen Preis zu sehen.",
+    "description_range": "{{start_day}}. {{start_month}} {{start_year}} – {{end_day}}. {{end_month}} {{end_year}}",
+    "calendar_part_title": "{{period}} Monate ab {{month}} {{year}} anzeigen",
+    "calendar_title": "{{month}} {{year}}",
+    "btn_preview": "Zurück",
+    "btn_next": "Weiter",
+    "btn_clear_dates": "Daten löschen",
+    "btn_reserve": "Reservieren"
+  },
+  "footer": {
+    "title": "HAMHanokStay",
+    "contact": "Kontakt",
+    "kakao_id": "KakaoTalk",
+    "whatsapp_id": "WhatsApp",
+    "instagram_id": "Instagram",
+    "email_id": "E-Mail"
+  }
+}

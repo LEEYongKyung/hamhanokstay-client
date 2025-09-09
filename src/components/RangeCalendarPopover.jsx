@@ -1,6 +1,7 @@
 // src/components/RangeCalendarPopover.jsx
 import React from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
 
@@ -60,6 +61,9 @@ export default function RangeCalendarPopover({
   theme = "#402a1c",  // 메인 컬러
   placement = "left", // left | over
 }) {
+
+  const { t } = useTranslation();
+
   const panelRef = React.useRef(null);
   const arrowRef = React.useRef(null);
 
@@ -192,19 +196,25 @@ export default function RangeCalendarPopover({
   const RING = "rgba(64,42,28,.35)";
 
   if (!open) return null;
+  // ★ 요일: i18n 배열 사용 (S~Sa 순)
+  const WEEKDAYS = t("hamstay_section.rangepopup_calendar.weekdays_short", { returnObjects: true });
+
 
   const Month = ({ base }) => {
     const cells = makeCells(base.getFullYear(), base.getMonth());
+    const year = base.getFullYear();
+    const month = base.getMonth() + 1;
     return (
       <div className="w-[320px]">
         <div className="text-center font-semibold mb-3" style={{ color: BRAND }}>
-          {base.getFullYear()}년 {base.getMonth() + 1}월
+          {t("hamstay_section.rangepopup_calendar.popup_date", {year, month})}
         </div>
         <div className="grid grid-cols-7 text-center text-xs mb-1" style={{ color: BRAND, opacity: 0.65 }}>
-          {["일", "월", "화", "수", "목", "금", "토"].map((w) => (
-            <div key={w} className="py-1">{w}</div>
+          {(Array.isArray(WEEKDAYS) ? WEEKDAYS : ["Su","Mo","Tu","We","Th","Fr","Sa"]).map((w, i) => (
+            <div key={i} className="py-1">{w}</div>
           ))}
         </div>
+        {/*  날짜셀  */}
         <div className="grid grid-cols-7 gap-1">
           {cells.map((d, i) => {
             const empty = !d;
@@ -275,7 +285,7 @@ export default function RangeCalendarPopover({
         {/* 상단: 액션바 */}
         <div className="flex items-center justify-between gap-3 p-6 border-b">
           <div className="text-sm font-medium" style={{ color: BRAND }}>
-            {nights > 0 ? `${nights}박` : "여행 날짜를 입력하여 정확한 요금을 확인하세요."}
+            {nights > 0 ? t("hamstay_section.rangepopup_calendar.status_nights", {nights}) : t("hamstay_section.rangepopup_calendar.title")}
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <button
@@ -283,13 +293,13 @@ export default function RangeCalendarPopover({
               className="rounded-md px-3 py-1.5 text-sm font-medium hover:bg-neutral-100"
               style={{ color: BRAND }}
             >
-              날짜 지우기
+              {t("hamstay_section.rangepopup_calendar.btn_clear_dates")}
             </button>
             <button
               onClick={onClose}
               className="rounded-md px-3 py-1.5 text-sm font-medium hover:bg-neutral-100 text-neutral-600"
             >
-              닫기
+              {t("hamstay_section.rangepopup_calendar.btn_exit")}
             </button>
           </div>
         </div>

@@ -1,0 +1,103 @@
+{
+  "highlights": [
+    "kitchen",
+    "wifi",
+    "airConditioning",
+    "yard",
+    "carrier",
+    "hairDryer",
+    "refrigerator",
+    "microwaveMachine",
+    "speaker",
+    "cctv"
+  ],
+  "categories": [
+    {
+      "title": "욕실",
+      "items": [
+        { "id": "hairDryer", "label": "헤어드라이어" },
+        { "id": "shampoo", "label": "샴푸" },
+        { "id": "conditioner", "label": "컨디셔너" },
+        { "id": "showerGel", "label": "바디워시" },
+        { "id": "boiler", "label": "온수" }
+        
+      ]
+    },
+    {
+      "title": "침실",
+      "items": [
+        { "id": "towel", "label": "수건" },
+        { "id": "hanger", "label": "옷걸이" }
+        
+
+      ]
+    },
+    {
+      "title": "난방/냉방",
+      "items": [
+        { "id": "airConditioning", "label": "에어컨" },
+        { "id": "boiler", "label": "난방 보일러" }
+      ]
+    },
+    {
+      "title": "엔터테인먼트",
+      "items": [
+        { "id": "speaker", "label": "블루투스 스피커" }
+      ]
+    },
+    
+    {
+      "title": "인터넷 및 업무공간",
+      "items": [
+        { "id": "wifi", "label": "와이파이" }
+      ]
+    },
+    {
+      "title": "숙소 안전",
+      "items": [
+        { "id": "cctv", "label": "숙소 실외 보안 카메라" },
+        { "id": "smokeAlarm", "label": "화재경보기" },
+        { "id": "fireExtinguisher", "label": "소화기" },
+        { "id": "firstAidKit", "label": "구급상자" }
+      ]
+    },
+    {
+      "title": "주방",
+      "items": [
+        { "id": "kitchen", "label": "주방" },
+        { "id": "refrigerator", "label": "냉장고" },
+        { "id": "cooking", "label": "기본 조리도구" },
+        { "id": "kitchen", "label": "식기류" },
+        { "id": "microwaveMachine", "label": "전자 레인지" },
+        { "id": "coffeeMaker", "label": "커피 메이커" },
+        { "id": "wineGlass", "label": "와인잔" },
+        { "id": "coffee", "label": "커피" }
+      ]
+    },
+    
+    {
+      "title": "야외",
+      "items": [
+        { "id": "yard", "label": "앞 마당" }
+      ]
+    },
+    {
+      "title": "서비스",
+      "items": [
+        { "id": "carrier", "label": "여행 가방 보관 가능" },
+        { "id": "calendar", "label": "장기 숙박 가능" },
+        { "id": "key", "label": "셀프 체크인 가능" },
+        { "id": "smartDoorLock", "label": "스마트 도어록" }
+      ]
+    },
+    {
+      "title": "숙소에 없는 시설",
+      "items": [
+        { "id": "tv", "label": "TV" },
+        { "id": "washing_machine", "label": "세탁기" },
+        { "id": "dryer", "label": "건조기" }
+      ]
+    }
+
+  ]
+}
