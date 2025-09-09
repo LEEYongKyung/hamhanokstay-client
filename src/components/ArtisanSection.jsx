@@ -1,5 +1,6 @@
-import {useState, useEffect, useRef} from "react";
+import {useState, useEffect, useRef, useMemo} from "react";
 import { withBase } from "@/utils/path";
+import { useTranslation } from "react-i18next";
 
 // 화면 폭에 따라 모바일 여부 감지
 function useIsMobile() {
@@ -28,17 +29,27 @@ const ARTIST = {
     title: "전통 가구의 장인이신 이성구 작가님의 작품과 생활할 수 있는 Gallery Hanok",
     description: "이성구 작가님은 전통 가구의 현대적 재해석을 통해, 전통과 현대가 조화를 이루는 공간을 창조하고 있습니다."
 };
+//  --- FURNITURE 리스트를 i18n에서 로드
+const FURNITURE_KEYS = [
+    "furniture_1",
+    "furniture_2",
+    "furniture_3",
+    "furniture_4",
+    "furniture_5",
+    "furniture_6"
+]
 
-const FURNITURE = [
-    { src: withBase("images/Furniture/furniture_1.jpg"), title: "사방탁자", material: "오동나무 · 옻칠", desc: "사방에서 사용할 수 있도록 설계된 탁자로, 오동나무의 가벼우면서도 견고한 특성을 살려 제작되었습니다. 전통 옻칠 기법으로 마감하여 자연스러운 광택과 내구성을 겸비하였습니다." },
-  { src: withBase("images/Furniture/furniture_2.jpg"), title: "문갑", material: "소나무 · 옻칠", desc: "문서와 귀중품을 보관하던 전통 가구로, 소나무의 직선적인 결이 아름다운 문양을 연출합니다. 정교한 장부 맞춤으로 제작되어 오랜 시간이 지나도 견고함을 유지합니다." },
-  { src: withBase("images/Furniture/furniture_3.jpg"), title: "반닫이", material: "밤나무 · 철물", desc: "상부를 들어 올려 여닫는 수납 가구로, 밤나무의 단단함과 아름다운 결을 활용하여 제작되었습니다. 전통 철물 장식이 기능성과 미적 아름다움을 동시에 제공합니다." },
-  { src: withBase("images/Furniture/furniture_4.jpg"), title: "책장", material: "소나무 · 전통장부", desc: "장부맞춤으로 제작된 견고한 책장으로, 못 하나 사용하지 않고도 완벽한 결합을 이루어냅니다. 소나무의 자연스러운 향과 결이 책을 보관하기에 최적의 환경을 제공합니다." },
-  { src: withBase("images/Furniture/furniture_5.jpg"), title: "경상", material: "느티나무", desc: "다과와 차 도구를 올려두는 낮은 상으로, 느티나무의 우아한 결과 따뜻한 색감이 차를 마시는 시간을 더욱 특별하게 만들어줍니다. 안정적인 구조로 일상 사용에 적합합니다." },
-  { src: withBase("images/Furniture/furniture_6.jpg"), title: "장", material: "소나무 · 옻칠", desc: "생활용품을 보관하던 전통 장으로, 소나무의 견고함과 옻칠의 아름다운 마감이 조화를 이룹니다. 넉넉한 수납공간과 실용적인 구조로 현대 생활에서도 유용하게 사용할 수 있습니다." },
-];
 
 export default function ArtisanSection() {
+    const { t, i18n } = useTranslation(); // 번역
+    const FURNITURE = useMemo(() => FURNITURE_KEYS.map((key) => ({
+        src:withBase(t(`artisan_section.furniture.${key}.image`)),
+        title: t(`artisan_section.furniture.${key}.name`),
+        material: t(`artisan_section.furniture.${key}.material`),
+        desc: t(`artisan_section.furniture.${key}.description`)
+
+    })),[i18n.language])
+
     const [isVisible , setIsVisible] = useState(false);
     const [brochureOpen, setBrochureOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
@@ -78,8 +89,8 @@ export default function ArtisanSection() {
         if (!brochureOpen) return ; 
         const raf = requestAnimationFrame(() => setIsClosed(false)); // rotateY(180->0)
         const DURATION = 900; // ms 아래 왼쪽 페이지 transition 시간과 동일하게
-        const t = setTimeout(() => setOpenedOnce(true), DURATION +20); // 드랜지션 끝난 뒤 
-        return () => {cancelAnimationFrame(raf); clearTimeout(t);};
+        const timer = setTimeout(() => setOpenedOnce(true), DURATION +20); // 드랜지션 끝난 뒤 
+        return () => {cancelAnimationFrame(raf); clearTimeout(timer);};
     }, [brochureOpen]);
 
     //  자동 플립 (왕복)
@@ -151,13 +162,13 @@ export default function ArtisanSection() {
             {/* 헤더 : 모바일 타이포/ 여백 축소 + 가독성 향상 */}
             <div className="absolute left-0 right-0 text-center text-white z-20 top-3 sm:top-6 md:top-8 px-4">
                 <span className="inline-block text-[10px] sm:text-xs tracking-[0.30em] uppercase text-white/70">
-                    {ARTIST.eyebrow}
+                    {t("artisan_section.header.eyebrow")}
                 </span>
                 <h2 className="mt-1 sm:mt-2 font-bold drop-shadow-lg text-[clamp(1rem ,4.2vw, 1.5rem)] md:text-3xl lg:text-4xl leading-tight px-2">
-                    {ARTIST.title}
+                    {t("artisan_section.header.title")}
                 </h2>
                 <p className="mt-1 sm:mt-2 text-white/85 drop-shadow text-[12px] sm:text-sm md:text-base max-w-[880px] mx-auto px-3">
-                    {ARTIST.description}
+                    {t("artisan_section.header.description")}
                 </p>
             </div>
             {/* Flipbook 컨테이너: 모바일에서 헤더와 겹치지 않게 여백 추가  */}
@@ -503,33 +514,6 @@ export default function ArtisanSection() {
                                     padding: '20px'
                                 }}
                             >
-                                {/* {brochureOpen && currentPage < FURNITURE.length -1 && (
-                                    <div
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            background: '#f9fafb',
-                                            borderRadius: '8px',
-                                            overflow: 'hidden',
-                                            display: 'flex',
-                                            alignItems:'center',
-                                            justifyContent: 'center',
-                                            boxShadow: 'inset 0 2px 8px rgba(0,0,0,0.1)'
-                                        }}
-                                    >
-                                        <img
-                                            src={FURNITURE[currentPage + 1].src}
-                                            alt={FURNITURE[currentPage +1].title}
-                                            style={{
-                                                maxWidth: '90%',
-                                                maxHeight: '90%',
-                                                objectFit: 'contain',
-                                                borderRadius: '4px'
-                                            }}
-                                            />
-                                    </div>
-                                )} */}
-
                                 {brochureOpen &&  (
                                     <div
                                         style={{

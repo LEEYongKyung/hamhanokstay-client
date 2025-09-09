@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import { withBase } from "@/utils/path";
+import { useTranslation } from "react-i18next";
+
 
 const VIDEOS = [
         "video/hero_1.mp4",
@@ -15,6 +17,7 @@ const VIDEOS = [
     ];
 
 export default function MainVideo() {
+    const {t, i18n} = useTranslation(); // 번역 관련 훅
 
     const [idx, setIndex] = useState(0); // 현재 비디오 인덱스 상태
     const videoRef = useRef(null); // 비디오 요소에 대한 참조
@@ -38,15 +41,7 @@ export default function MainVideo() {
     return (
         // 부모 섹션의 높이에 맞추어 화면이꽉 차도록 설정합니다.
         <div className="w-full h-full relative overflow-hidden">
-            {/* <video 
-                className="absolute top-0 left-0 w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                >
-            <source src="../../video/hero_2.mp4" />
-            </video> */}
+            
             <video 
                 ref = {videoRef}
                 className="absolute top-0 left-0 w-full h-full object-cover"
@@ -70,10 +65,10 @@ export default function MainVideo() {
                 {/* 중앙 기준으로 아래로 10~14vh 정도 내리기  */}
                 <div className="translate-y-[12vh] text-center px-6">
                     <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-[0_3px_14px_rgba(0,0,0,0.55)]">
-                    조선의 작품과 만나다. 
+                    {t("mainvideo_section.title")} 
                     </h1>
                     <div className="mt-4 text-white/90 text-base sm:text-lg md:text-xl tracking-[0.2em] font-medium">
-                        HAMHanokStay
+                        {t("mainvideo_section.subtitle")}
                     </div> 
 
 

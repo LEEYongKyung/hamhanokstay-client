@@ -1,0 +1,187 @@
+{
+  "brand": "HAMHanokStay",
+  "tagline": "朝鮮時代の伝統家具が息づく韓屋空間、HAMHanokStay",
+  "menu": {
+    "home": "ホーム",
+    "artisan_section": "HAM",
+    "hamstay_section": "紹介",
+    "review_section": "レビュー",
+    "reserve_section": "予約"
+  },
+  "mainvideo_section": {
+    "title": "朝鮮の作品と出会う。",
+    "subtitle": "HAMHanokStay"
+  },
+  "artisan_section": {
+    "header": {
+      "eyebrow": "ギャラリー韓屋",
+      "title": "伝統家具の巨匠・李成求の作品と共に暮らせるギャラリー韓屋",
+      "description": "李成求氏は伝統家具を現代的に再解釈し、伝統と現代が調和する空間を創り上げました。"
+    },
+    "furniture": {
+      "furniture_1": {
+        "name": "四方卓子",
+        "material": "キリの木 · 漆塗り",
+        "description": "室内用に設計された卓子で、キリの木の軽くて丈夫な特性を生かして製作。伝統的な漆技法で仕上げ、自然な光沢と耐久性を備えています。",
+        "image": "images/Furniture/furniture_1.jpg"
+      },
+      "furniture_2": {
+        "name": "四方卓子2",
+        "material": "キリの木 · 漆塗り",
+        "description": "室内用に設計された卓子で、キリの木の軽くて丈夫な特性を生かして製作。伝統的な漆技法で仕上げ、自然な光沢と耐久性を備えています。",
+        "image": "images/Furniture/furniture_2.jpg"
+      },
+      "furniture_3": {
+        "name": "四方卓子3",
+        "material": "キリの木 · 漆塗り",
+        "description": "室内用に設計された卓子で、キリの木の軽くて丈夫な特性を生かして製作。伝統的な漆技法で仕上げ、自然な光沢と耐久性を備えています。",
+        "image": "images/Furniture/furniture_3.jpg"
+      },
+      "furniture_4": {
+        "name": "四方卓子4",
+        "material": "キリの木 · 漆塗り",
+        "description": "室内用に設計された卓子で、キリの木の軽くて丈夫な特性を生かして製作。伝統的な漆技法で仕上げ、自然な光沢と耐久性を備えています。",
+        "image": "images/Furniture/furniture_4.jpg"
+      },
+      "furniture_5": {
+        "name": "四方卓子5",
+        "material": "キリの木 · 漆塗り",
+        "description": "室内用に設計された卓子で、キリの木の軽くて丈夫な特性を生かして製作。伝統的な漆技法で仕上げ、自然な光沢と耐久性を備えています。",
+        "image": "images/Furniture/furniture_5.jpg"
+      },
+      "furniture_6": {
+        "name": "四方卓子6",
+        "material": "キリの木 · 漆塗り",
+        "description": "室内用に設計された卓子で、キリの木の軽くて丈夫な特性を生かして製作。伝統的な漆技法で仕上げ、自然な光沢と耐久性を備えています。",
+        "image": "images/Furniture/furniture_6.jpg"
+      }
+    }
+  },
+  "hamstay_section": {
+    "header": {
+      "eyebrow": "ステイ韓屋",
+      "title": "朝鮮時代の伝統家具が息づく韓屋空間、HAMHanokStay",
+      "description": "HAMHanokStay"
+    },
+    "btn_show_all_images": "すべての写真を見る",
+    "address": "ソウル特別市 鍾路区 桂洞6キル 4-1",
+    "guest_capacity": "最大4名 · 寝室2室 · 浴室2室",
+    "btn_show_more": "もっと見る",
+    "btn_show_amenities": "{{amenities_num}}件の設備をすべて表示",
+    "subtitle_amenity": "宿泊施設の設備",
+    "subtitle_location": "位置",
+    "reserve_card": {
+      "title": "予約日を選択",
+      "label_date": "日付",
+      "label_num": "人数",
+      "placeholder_date": "年. 月. 日.",
+      "placeholder_num": "ゲスト1名",
+      "num_1": "ゲスト1名",
+      "num_2": "ゲスト2名",
+      "num_3": "ゲスト3名",
+      "num_4": "ゲ스트4名"
+    },
+    "description_popup": {
+      "title": "宿泊紹介",
+      "btn_exit": "閉じる"
+    },
+    "amenity_popup": {
+      "title": "宿泊施設の設備",
+      "btn_exit": "閉じる"
+    },
+    "rangepopup_calendar": {
+      "title": "旅行日を選択してください。",
+      "btn_exit": "閉じる",
+      "btn_clear_dates": "日付を消去",
+      "popup_date": "{{year}}年 {{month}}月",
+      "status_nights": "{{nights}} nights",
+      "weekdays_short": ["日","月","火","水","木","金","土"]
+    },
+    "features": [
+      { "icon": "FaLandmark", "label": "象徴的な都市" },
+      { "icon": "BsTrainFront", "label": "安国駅の近く" },
+      { "icon": "FaMedal", "label": "スーパーホスト" },
+      { "icon": "BsDoorOpen", "label": "セルフチェックイン" },
+      { "icon": "CiRollingSuitcase", "label": "荷物預かり可" }
+    ],
+    "hanok_description": "LEE SSI HAM｜韓国の朝鮮時代の伝統家具工芸を受け継ぐため、一身に精進した故・李成求（1927–2000）の職人精神を称え、その作品と共に滞在できるHAM Hanok Stayです。\n北村の本格韓屋と朝鮮木家具を同時に体験できる文化空間で、ぜひご滞在ください。\n\n宿泊施設\n北村に位置する一棟貸しの韓屋「HAM Hanok Stay」です。\n\n小さな中庭がある家族向けの韓屋で、大人3名、または大人2名＋子ども2名に適しています。サランバンに大人2名でお休みになる場合、個人差によりやや狭く感じられることがあります。\n\nオンドルの石は空とつながり、全面ガラス越しに見える石垣は趣があります。\n\n2名様基準：メインルームにクイーンサイズ寝具をご用意。\n（別々でお休み希望の際は事前にお知らせください）\n\n3〜4名様基準：メインルームとサランバンの両方にクイーンサイズ寝具をご用意。\n\n各部屋にトイレ／シャワーがあります。\n\nチェックイン前日、暗証番号を含むガイドをメッセージでお送りします。対面チェックインも可能です。\n\nゲスト利用可能スペース／設備\n📌空間\nトェンマルと小さな庭、キッチン、居間、メインルーム、浴室1、サランバン、浴室2\n\n📌設備\n【浴室】\nタオル／Dysonヘアドライヤー\n竹歯ブラシ／歯磨き粉／シャンプー・コンディショナー・ボディウォッシュ／ビデ（サランバンに設置）\n\n【メイン・サランバン】\nクイーンサイズ寝具\n\n【居間】\n座布団4枚、Wi-Fi、タオル収納かご\n\n【キッチン】\n製氷浄水器、冷蔵庫、電子レンジ、コーヒーマシン／カプセル、1口IH、食器類／基本調理器具、救急箱、Marshall Bluetoothスピーカー\n\n【小さな庭】\nキャンピングテーブル、キャンピングチェア2脚\n\n※5泊以上は無料ランドリーサービス可能\n※❌許可なく家具を移動しないでください。❌ 木製家具は繊細で破損の恐れがあり、当韓屋の大切な資産です。万一の損害には厳正に対応せざるを得ません。些細なことでもご質問ください。\n\nその他注意事項\n🔒展示作品は価値の高い文化財です。カバーのある作品は目で鑑賞のみお願いします。ご滞在中は丁寧にお取り扱いください。備品・設備の破損・持ち出し・紛失、寝具の洗濯不可な汚損には賠償費用が発生します。\n\n登録情報\n発給地域：ソウル特別市 鍾路区\n許可種別：韓屋体験業\n許可番号：2015-000004",
+    "amenities": {
+      "bathroom": "浴室",
+      "bedroom": "寝室",
+      "heatingCooling": "暖房／冷房",
+      "entertainment": "エンターテインメント",
+      "workspace": "インターネット・ワークスペース",
+      "safety": "安全設備",
+      "kitchen": "キッチン",
+      "yard": "屋外",
+      "service": "サービス",
+      "notAvailable": "備え付けなし",
+      "hairDryer": "ヘアドライヤー",
+      "shampoo": "シャンプー",
+      "conditioner": "コンディショナー",
+      "showerGel": "ボディウォッシュ",
+      "boiler": "温水",
+      "towel": "タオル",
+      "hanger": "ハンガー",
+      "airConditioning": "エアコン",
+      "speaker": "Bluetoothスピーカー",
+      "wifi": "Wi-Fi",
+      "cctv": "屋外防犯カメラ",
+      "smokeAlarm": "煙探知機",
+      "fireExtinguisher": "消火器",
+      "firstAidKit": "救急箱",
+      "refrigerator": "冷蔵庫",
+      "cooking": "基本調理器具",
+      "tableware": "食器類",
+      "microwaveMachine": "電子レンジ",
+      "coffeeMaker": "コーヒーメーカー",
+      "wineGlass": "ワイングラス",
+      "coffee": "コーヒー",
+      "carrier": "荷物預かり可",
+      "calendar": "長期滞在可",
+      "key": "セルフチェックイン可",
+      "smartDoorLock": "スマートドアロック",
+      "tv": "テレビ",
+      "washing_machine": "洗濯機",
+      "dryer": "乾燥機"
+    }
+  },
+  "reviews_section": {
+    "header": {
+      "eyebrow": "体験韓屋",
+      "title": "ゲストと共にするHAMHanokStay",
+      "description": "ゲストの多様な思い出を共有します。"
+    },
+    "card_date": "{{year}}年 {{month}}月",
+    "card_popup":{
+            "title": "レビュー詳細",
+            "btn_exit": "閉じる"
+        }
+  },
+  "reserve_section": {
+    "header": {
+      "eyebrow": "韓屋を楽しむ",
+      "title": "HAMHanokStayと共に朝鮮時代を体験しましょう。",
+      "description": "韓屋の美しい景観と温かな雰囲気の中で、心身にひとときの休息を。"
+    },
+    "subtitle_default": "チェックイン日を選択",
+    "subtitle_checkout": "チェックアウト日を選択",
+    "subtitle_range": "HAMHanokStayでの{{night}}泊",
+    "description_default": "旅行日を入力して正確な料金を確認してください。",
+    "description_range": "{{start_year}}年{{start_month}}月{{start_day}}日 - {{end_year}}年{{end_month}}月{{end_day}}日",
+    "calendar_part_title": "{{year}}年{{month}}月から{{period}}か月表示",
+    "calendar_title": "{{year}}年 {{month}}月",
+    "btn_preview": "前へ",
+    "btn_next": "次へ",
+    "btn_clear_dates": "日付を消去",
+    "btn_reserve": "予約する"
+  },
+  "footer": {
+     "title": "HAMHanokStay",
+     "contact": "お問い合わせ",
+     "kakao_id": "カカオトーク",
+     "whatsapp_id": "WhatsApp",
+     "instagram_id": "Instagram",
+     "email_id": "Email"
+   }
+}

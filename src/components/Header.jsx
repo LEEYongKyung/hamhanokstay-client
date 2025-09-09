@@ -5,6 +5,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useEffect, useState } from "react";
 import {FiMenu, FiX} from "react-icons/fi";
 import { header } from "framer-motion/client";
+import { useTranslation } from "react-i18next";
 
 
 const scrollTo = (id) => {
@@ -21,15 +22,17 @@ const scrollTo = (id) => {
 
   container.scrollTo({ top: targetY, behavior: "smooth" });
 };
+
 const NAV = [
-    { label: "HAM",   target: "artisan" },
-    { label: "ABOUT",   target: "hamstay" },
-    { label: "REVIEWS", target: "reviews" },
-    { label: "RESERVE", target: "reserve" },
+    { label: "menu.artisan_section",   target: "artisan" },
+    { label: "menu.hamstay_section",   target: "hamstay" },
+    { label: "menu.review_section", target: "reviews" },
+    { label: "menu.reserve_section", target: "reserve" },
 ];
 
 
 export default function Header() {
+    const {t, i18n} = useTranslation();
 
     const [open , setOpen] = useState(false);
     useEffect(() => {
@@ -53,8 +56,8 @@ export default function Header() {
                 {/* 실제 헤더 컨텐츠 (로고 좌측 / 메뉴 우측) */}
                 <div className="peer relative z-10 flex items-center justify-between px-6 lg:px-10 py-5">
                     {/* 로고: 좌측 , 투명 배경  */}
-                    <Link to="/" className="shrink-0">
-                        <img src={logoWhite} alt="HAMHanokStay" className="h-[100px] w-auto" />
+                    <Link to="/" className="shrink-0" aria-label={t("brand")}>
+                        <img src={logoWhite} alt={t("brand")} className="h-[100px] w-auto" />
                     </Link>
                 
                    {/* 데스크톱 메뉴 */}
@@ -66,7 +69,7 @@ export default function Header() {
                             className="text-sm font-medium hover:opacity-80 transition"
                             type="button"
                         >
-                            {item.label}
+                            {t(item.label)}
                         </button>
                         ))}
                     </nav>
@@ -125,7 +128,7 @@ export default function Header() {
                                     className="w-full text-left px-3 py-3 rounded-md hover:bg-neutral-100 font-medium"
                                     type="button"
                                 >
-                                    {item.label}
+                                    {t(item.label)}
                                 </button>
                             </li>
                             ))}

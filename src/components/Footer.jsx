@@ -7,6 +7,8 @@ import { SiKakaotalk, SiWhatsapp, SiInstagram } from "react-icons/si";
 import {MdEmail} from "react-icons/md";
 import {Link} from "react-router-dom";
 import logo from "../assets/logo.svg";
+import { useTranslation } from "react-i18next";
+
 
 const scrollTo = (id) => {
   const el = document.getElementById(id);
@@ -24,10 +26,10 @@ const scrollTo = (id) => {
 };
 
 const NAV = [
-    { label: "HAM",   target: "artisan" },
-    { label: "ABOUT",   target: "hamstay" },
-    { label: "REVIEWS", target: "reviews" },
-    { label: "RESERVE", target: "reserve" },
+  { labelKey: "menu.artisan_section", target: "artisan" },
+  { labelKey: "menu.hamstay_section", target: "hamstay" },
+  { labelKey: "menu.review_section", target: "reviews" },
+  { labelKey: "menu.reserve_section", target: "reserve" },
 ];
 
 // +----------------------------+------------------------+--------------------------+
@@ -39,6 +41,8 @@ const NAV = [
 
 
 export default function Footer() {
+    const { t } = useTranslation();
+    const year = new Date().getFullYear();
     return (
         <footer className="bg-white border-t border-gray-200 text-gray-700 text-sm">
             <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -50,6 +54,7 @@ export default function Footer() {
                             href="http://pf.kakao.com/_SYKxan/chat" 
                             target="_blank" 
                             rel="noreferrer"
+                            aria-label="KakaoTalk"
                         >
                             <SiKakaotalk className="hover:text-gray-500 cursor-pointer" />
                         </a>
@@ -58,6 +63,7 @@ export default function Footer() {
                             href="https://wa.me/821090441306" 
                             target="_blank" 
                             rel="noreferrer"
+                            aria-label="WhatsApp"
                         >
                             <SiWhatsapp className="hover:text-gray-500 cursor-pointer" />
                         </a>
@@ -65,11 +71,13 @@ export default function Footer() {
                             href="https://www.instagram.com/hamhanokstay?igsh=MWwyaTljcmhrOTl1eQ%3D%3D&utm_source=qr" 
                             target="_blank" 
                             rel="noreferrer"
+                            aria-label="Instagram"
                         >
                             <SiInstagram className="hover:text-gray-500 cursor-pointer" />
                         </a>
                         <a 
                             href="mailto:hamhanokstay@gmail.com"
+                            aria-label="Email"
                         >
                              <MdEmail className="hover:text-gray-500 cursor-pointer" />
                         </a>
@@ -77,16 +85,16 @@ export default function Footer() {
                 </div>
                 {/* 2. 중앙 : 사이트맵 */} 
                 <div>
-                    <h4 className="font-semibold mb-3">HAMHanokStay</h4>
+                    <h4 className="font-semibold mb-3">{t("footer.title")}</h4>
                     <div className="flex flex-col space-y-1">
                     {NAV.map((item) => (
                         <button
-                            key={Array.isArray(item.target) ? item.target[0] : item.target}
+                            key={item.target}
                             onClick={() => scrollTo(item.target)}
                             className="text-sm font-medium hover:opacity-80 transition text-left"
                             type="button"
                         >
-                            {item.label}
+                            {t(item.labelKey)}
                         </button>
                     ))}
                     </div>
@@ -99,17 +107,24 @@ export default function Footer() {
                             target="_blank" 
                             rel="noreferrer"
                         >
-                            <p className="mb-1"><strong>카카오ID: </strong> hamhanok</p>
+                            <p className="mb-1"><strong>{t("footer.kakao_id")}: </strong> hamhanok</p>
                     </a>
                     <a 
                             href="https://wa.me/821090441306" 
                             target="_blank" 
                             rel="noreferrer"
                         >
-                            <p className="mb-1"><strong>WhatsApp: </strong> +82 10-9044-1306</p>
+                            <p className="mb-1"><strong>{t("footer.whatsapp_id")}: </strong>wa.me/821090441306</p>
+                    </a>
+                     <a 
+                            href="https://www.instagram.com/hamhanokstay?igsh=MWwyaTljcmhrOTl1eQ%3D%3D&utm_source=qr" 
+                            target="_blank" 
+                            rel="noreferrer"
+                        >
+                            <p className="mb-1"><strong>{t("footer.instagram_id")}: </strong>hamhanokstay</p>
                     </a>
                    
-                    <p className="mb-3"><strong>Email: </strong> hamhanokstay@gmail.com</p>
+                    <p className="mb-3"><strong>{t("footer.email_id")}:: </strong> hamhanokstay@gmail.com</p>
                     <a 
                             href="mailto:hamhanokstay@gmail.com"
                         >
